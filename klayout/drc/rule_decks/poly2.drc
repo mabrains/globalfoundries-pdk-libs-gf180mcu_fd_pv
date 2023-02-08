@@ -49,12 +49,14 @@ if FEOL
   pl1a_l1 = poly2_mv.inside(plfuse).width(0.18.um, euclidian)
   pl1a_l1.output('PL.1a_MV', 'PL.1a_MV : Interconnect Width (inside PLFUSE). : 0.18µm')
   pl1a_l1.forget
+  poly2_mv.forget
 
   # Rule PL.2_LV: Gate Width (Channel Length). is 0.28µm
   logger.info('Executing rule PL.2_LV')
   pl2_l1 = tgate.interacting(poly2_lv).not(otp_mk).not(ymtp_mk).width(0.28.um, euclidian)
   pl2_l1.output('PL.2_LV', 'PL.2_LV : Gate Width (Channel Length). : 0.28µm')
   pl2_l1.forget
+  poly2_lv.forget
 
   # Rule PL.2_MV: Gate Width (Channel Length).
   logger.info('Executing rule PL.2_MV')
@@ -76,9 +78,11 @@ if FEOL
   pl3a_l1.output('PL.3a', 'PL.3a : Space on COMP/Field. : 0.24µm')
   pl3a_l1.forget
 
-  # rule PL.3b_LV is not a DRC check
+  # Rule PL.3b_LV is not a DRC check
+  ## Please refer to https://gf180mcu-pdk.readthedocs.io/en/latest/physical_verification/design_manual/drm_07_08.html
 
-  # rule PL.3b_MV is not a DRC check
+  # Rule PL.3b_MV is not a DRC check
+  ## Please refer to https://gf180mcu-pdk.readthedocs.io/en/latest/physical_verification/design_manual/drm_07_08.html
 
   # Rule PL.4_LV: Extension beyond COMP to form Poly2 end cap. is 0.22µm
   logger.info('Executing rule PL.4_LV')
@@ -161,7 +165,8 @@ if FEOL
                  are not allowed. They shall be done though metal lines only.')
   pl9_l1.forget
 
-  # rule PL.10 is not a DRC check
+  # Rule PL.10 is not a DRC check
+  ## Please refer to https://gf180mcu-pdk.readthedocs.io/en/latest/physical_verification/design_manual/drm_07_08.html
 
   # Rule PL.11: V5_Xtor must enclose 5V device.
   logger.info('Executing rule PL.11')
@@ -169,7 +174,8 @@ if FEOL
   pl11_l1.output('PL.11', 'PL.11 : V5_Xtor must enclose 5V device.')
   pl11_l1.forget
 
-  # rule PL.12_LV is not a DRC check
+  # Rule PL.12_LV is not a DRC check
+  ## Please refer to https://gf180mcu-pdk.readthedocs.io/en/latest/physical_verification/design_manual/drm_07_08.html
 
   # Rule PL.12: V5_Xtor enclose 5V Comp.
   logger.info('Executing rule PL.12')
