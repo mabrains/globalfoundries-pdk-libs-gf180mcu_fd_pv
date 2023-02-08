@@ -107,7 +107,7 @@ if FEOL
   nw2b_l1.forget # CONNECTIVITY_RULES
   nw_lv.forget
   nw_mv.forget
-  
+
   # Rule NW.3: Min. Nwell to DNWELL space. is 3.1µm
   logger.info('Executing rule NW.3')
   nw3_l1 = nwell.separation(dnwell, 3.1.um, euclidian).polygons(0.001)
