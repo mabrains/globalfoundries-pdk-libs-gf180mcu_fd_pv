@@ -54,9 +54,11 @@ if FEOL
   df1a_l1.output('DF.1a_MV', 'DF.1a_MV : Min. COMP Width. : 0.3µm')
   df1a_l1.forget
 
-  # rule DF.1b_LV is not a DRC check
+  # Rule DF.1b_LV is not a DRC check
+  ## Please refer to https://gf180mcu-pdk.readthedocs.io/en/latest/physical_verification/design_manual/drm_07_06.html
 
-  # rule DF.1b_MV is not a DRC check
+  # Rule DF.1b_MV is not a DRC check
+  ## Please refer to https://gf180mcu-pdk.readthedocs.io/en/latest/physical_verification/design_manual/drm_07_06.html
 
   # Rule DF.1c: Min. COMP Width for MOSCAP. is 1µm
   logger.info('Executing rule DF.1c')
@@ -357,13 +359,17 @@ if FEOL
   df14_poss_bad_active.forget
   df14_good_active.forget
 
-  # rule DF.15a_LV is not a DRC check
+  # Rule DF.15a_LV is not a DRC check
+  ## Please refer to https://gf180mcu-pdk.readthedocs.io/en/latest/physical_verification/design_manual/drm_07_06.html
 
-  # rule DF.15a_MV is not a DRC check
+  # Rule DF.15a_MV is not a DRC check
+  ## Please refer to https://gf180mcu-pdk.readthedocs.io/en/latest/physical_verification/design_manual/drm_07_06.html
 
-  # rule DF.15b_LV is not a DRC check
+  # Rule DF.15b_LV is not a DRC check
+  ## Please refer to https://gf180mcu-pdk.readthedocs.io/en/latest/physical_verification/design_manual/drm_07_06.html
 
-  # rule DF.15b_MV is not a DRC check
+  # Rule DF.15b_MV is not a DRC check
+  ## Please refer to https://gf180mcu-pdk.readthedocs.io/en/latest/physical_verification/design_manual/drm_07_06.html
 
   # Rule DF.16_LV: Min. space from (Nwell outside DNWELL) to (NCOMP outside Nwell and DNWELL). is 0.43µm
   logger.info('Executing rule DF.16_LV')
