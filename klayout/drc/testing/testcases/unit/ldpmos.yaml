@@ -1,0 +1,2 @@
+ldpmos:
+  --variant: "C --connectivity"
