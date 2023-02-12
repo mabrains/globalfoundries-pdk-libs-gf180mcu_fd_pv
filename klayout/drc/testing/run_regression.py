@@ -189,6 +189,7 @@ def run_test_case(
     drc_dir,
     layout_path,
     run_dir,
+    testcase_basename,
     table_name,
 ):
     """
@@ -202,6 +203,8 @@ def run_test_case(
         Path string to the layout of the test pattern we want to test.
     run_dir : stirng or Path object
         Path to the location where is the regression run is done.
+    testcase_basename : string
+        Testcase name that we are running on.
     table_name : string
         Table name that we are running on.
 
@@ -216,11 +219,11 @@ def run_test_case(
 
     # Get switches used for each run
     sw_file = os.path.join(
-        Path(layout_path.parent).absolute(), f"{table_name}.{SUPPORTED_SW_EXT}"
+        Path(layout_path.parent).absolute(), f"{testcase_basename}.{SUPPORTED_SW_EXT}"
     )
 
     if os.path.exists(sw_file):
-        switches = " ".join(get_switches(sw_file, table_name))
+        switches = " ".join(get_switches(sw_file, testcase_basename))
     else:
         switches = "--variant=C"  # default switch
 
@@ -342,6 +345,7 @@ def run_all_test_cases(tc_df, drc_dir, run_dir, num_workers):
                     drc_dir,
                     row["test_path"],
                     run_dir,
+                    row["testcase_basename"],
                     row["table_name"],
                 )
             ] = row["run_id"]
@@ -569,6 +573,11 @@ def draw_polygons(polygon_data, cell, lay_num, lay_dt, path_width):
             if dist < path_width:
                 points[1][0] = points[0][0] + 2 * path_width
             cell.add(gdstk.FlexPath(points, path_width, layer=lay_num, datatype=lay_dt))
+
+    elif "float" or "text" in tag :
+        # Known antenna values for antenna ratios
+        pass
+
     else:
         logging.error(f"## Unknown type: {tag} ignored")
 
@@ -781,7 +790,8 @@ def build_tests_dataframe(unit_test_cases_dir, target_table):
 
     # Get test cases df from test cases
     tc_df = pd.DataFrame({"test_path": all_unit_test_cases})
-    tc_df["table_name"] = tc_df["test_path"].apply(lambda x: x.name.replace(".gds", ""))
+    tc_df["testcase_basename"] = tc_df["test_path"].apply(lambda x: x.name.replace(".gds", ""))
+    tc_df["table_name"] = tc_df["testcase_basename"].apply(lambda x: x.split("-")[0])
 
     if target_table is not None:
         tc_df = tc_df[tc_df["table_name"] == target_table]

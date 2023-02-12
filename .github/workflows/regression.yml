@@ -34,9 +34,9 @@ jobs:
       - uses: actions/checkout@v3
       - id: set-matrix
         run: |
-          cd klayout/drc/testing
-          drc_table=`echo '[' ; find testcases/unit/ -iname '*.gds' | tr '\n' ','|sed -e 's/^/\"/'|sed -e 's/,$/\"]/'|sed -e 's/,/\", \"/g'`
-          drc_table="${drc_table//'testcases/unit/'/}"; drc_table="${drc_table//'"", '/}"; drc_table="${drc_table//'.gds'/}";
+          cd klayout/drc/rule_decks/
+          drc_table=`echo '[' ; find -iname '*.drc' -a ! -iname 'main.drc' -a ! -iname 'tail.drc' | tr '\n' ','|sed -e 's/^/\"/'| sed -e 's/,$/\"]/'|sed -e 's/,/\", \"/g'`
+          drc_table="${drc_table//'./'/}"; drc_table="${drc_table//'"", '/}"; drc_table="${drc_table//'.drc'/}";
           drc_table=`echo $drc_table | jq -c .`
           echo $drc_table
           echo "drc_table=$drc_table" >>$GITHUB_OUTPUT
