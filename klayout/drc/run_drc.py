@@ -22,11 +22,12 @@ Usage:
 Options:
     --help -h                           Print this help message.
     --path=<file_path>                  The input GDS file path.
-    --variant=<combined_options>        Select combined options of metal_top, mim_option, and metal_level. Allowed values (A, B, C, D).
+    --variant=<combined_options>        Select combined options of metal_top, mim_option, and metal_level. Allowed values (A, B, C, D, E).
                                         variant=A: Select  metal_top=30K  mim_option=A  metal_level=3LM
                                         variant=B: Select  metal_top=11K  mim_option=B  metal_level=4LM
                                         variant=C: Select  metal_top=9K   mim_option=B  metal_level=5LM
                                         variant=D: Select  metal_top=9K   mim_option=B  metal_level=6LM
+                                        variant=E: Select  metal_top=9K   mim_option=A  metal_level=6LM
     --topcell=<topcell_name>            Topcell name to use.
     --table=<table_name>                Table name to use to run the rule deck.
     --mp=<num_cores>                    Run the rule deck in parts in parallel to speed up the run. [default: 1]
@@ -281,8 +282,12 @@ def generate_klayout_switches(arguments, layout_path):
         switches["metal_top"] = "9K"
         switches["mim_option"] = "B"
         switches["metal_level"] = "6LM"
+    elif arguments["--variant"] == "E":
+        switches["metal_top"] = "9K"
+        switches["mim_option"] = "A"
+        switches["metal_level"] = "6LM"
     else:
-        logging.error("variant switch allowed values are (A , B, C) only")
+        logging.error("variant switch allowed values are (A , B, C, D, E) only")
         exit(1)
 
     if arguments["--verbose"]:

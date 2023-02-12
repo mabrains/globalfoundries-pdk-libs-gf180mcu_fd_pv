@@ -446,7 +446,6 @@ antenna_check(thick_gate, perimeter_only(metal2, 0.54.um), 400, [diode, 6000])
   .output('ANT.16_ii_ANT.3',
           'ANT.16_ii_ANT.3: Maximum ratio of Metal2 perimeter area to related gate oxide area: 400')
 
-
 if METAL_LEVEL == '3LM' || METAL_LEVEL == '4LM' || METAL_LEVEL == '5LM' || METAL_LEVEL == '6LM'
 
   #========================================
