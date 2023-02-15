@@ -184,7 +184,7 @@ def parse_results_db(results_database):
 
     return rule_counts
 
-
+# TODO: Add the new 2 input columns [test_type, test_criteria]
 def run_test_case(
     drc_dir,
     layout_path,
@@ -263,6 +263,8 @@ def run_test_case(
     # Checking if run is completed or failed
     pattern_results = glob.glob(os.path.join(output_loc, f"{pattern_clean}*.lyrdb"))
 
+    # TODO: Create a new function that process the splitted testcase
+    
     # Get list of rules covered in the test case
     rules_tested = get_unit_test_coverage(layout_path)
 
@@ -335,7 +337,7 @@ def run_all_test_cases(tc_df, drc_dir, run_dir, num_workers):
 
     results_df_list = []
     tc_df["run_status"] = "no status"
-
+    # TODO: Add the new 2 input columns [test_type, test_criteria]
     with concurrent.futures.ThreadPoolExecutor(max_workers=num_workers) as executor:
         future_to_run_id = dict()
         for i, row in tc_df.iterrows():
@@ -792,6 +794,8 @@ def build_tests_dataframe(unit_test_cases_dir, target_table):
     tc_df = pd.DataFrame({"test_path": all_unit_test_cases})
     tc_df["testcase_basename"] = tc_df["test_path"].apply(lambda x: x.name.replace(".gds", ""))
     tc_df["table_name"] = tc_df["testcase_basename"].apply(lambda x: x.split("-")[0])
+    tc_df["test_type"] = "grouped" # TODO: Detect if we have the fail/pass folder structure and the type will be splitted
+    tc_df["test_criteria"] = "dont_care" # TODO: Takes pass/fail/dont_care
 
     if target_table is not None:
         tc_df = tc_df[tc_df["table_name"] == target_table]
