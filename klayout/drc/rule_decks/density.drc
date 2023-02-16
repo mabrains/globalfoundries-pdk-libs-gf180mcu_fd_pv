@@ -367,7 +367,7 @@ if METAL_TOP == '30K'
   logger.info('Executing rule MT30.7')
   if (top_metal.area / CHIP.area) * 100 < 30
     top_metal.output('MT30.7',
-                    'MT30.7 : Thick MetalTop coverage over the entire die shall be >30%
+                     'MT30.7 : Thick MetalTop coverage over the entire die shall be >30%
                                 (Refer to section 13.0 for Dummy Metal-fill guidelines.
                                 Customer needs to ensure enough dummy metal to satisfy Metaln coverage). : 30%')
   end
@@ -378,7 +378,7 @@ else
   logger.info('Executing rule MT.3')
   if (top_metal.area / CHIP.area) * 100 < 30
     top_metal.output('MT.3',
-                    'MT.3 : MetalTop coverage over the entire die shall be >30%
+                     'MT.3 : MetalTop coverage over the entire die shall be >30%
                                 (Refer to section 10.3 for Dummy Metal-fill guidelines.
                                 Customer needs to ensure enough dummy metal to satisfy Metaln coverage) : 30%')
   end
