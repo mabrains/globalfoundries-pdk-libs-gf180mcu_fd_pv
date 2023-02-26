@@ -891,12 +891,8 @@ end
 #------------ PRE-DEFINED FUNCTIONS -------------
 #================================================
 
-def conn_space(layer, conn_val, not_conn_val, mode)
-  raise 'ERROR : Wrong connectivity implementation' if conn_val > not_conn_val
-
-  connected_output = layer.space(conn_val.um, mode).polygons(0.001)
+def conn_space_check(layer, not_conn_val, mode)
   unconnected_errors_unfiltered = layer.space(not_conn_val.um, mode)
-  singularity_errors = layer.space(0.001.um)
   # Filter out the errors arising from the same net
   unconnected_errors = DRC::DRCLayer.new(self, RBA::EdgePairs.new)
   unconnected_errors_unfiltered.data.each do |ep|
@@ -909,14 +905,28 @@ def conn_space(layer, conn_val, not_conn_val, mode)
       unconnected_errors.data.insert(ep)
     end
   end
-  unconnected_output = unconnected_errors.polygons.or(singularity_errors.polygons(0.001))
+  unconnected_errors
+end
+
+def conn_space(layer, conn_val, not_conn_val, mode)
+  if layer.respond_to?(:nets) # KLayout version (>=0.28.4) which supports "nets"
+    nets = layer.nets
+    connected_output   = nets.space(conn_val.um, mode, props_eq).polygons(0.001)
+    singularity_errors = nets.space(0.001.um, mode).polygons(0.001)
+    unconnected_output = nets.space(not_conn_val.um, mode, props_ne).polygons(0.001).join(singularity_errors)
+    nets.forget
+  else
+    raise 'ERROR : Wrong connectivity implementation' if conn_val > not_conn_val
+
+    connected_output = layer.space(conn_val.um, mode).polygons(0.001)
+    unconnected_errors = conn_space_check(layer, not_conn_val, mode)
+    singularity_errors = layer.space(0.001.um, mode).polygons(0.001)
+    unconnected_output = unconnected_errors.polygons.join(singularity_errors)
+  end
   [connected_output, unconnected_output]
 end
 
-def conn_separation(layer1, layer2, conn_val, not_conn_val, mode)
-  raise 'ERROR : Wrong connectivity implementation' if conn_val > not_conn_val
-
-  connected_output = layer1.separation(layer2, conn_val.um, mode).polygons(0.001)
+def conn_separation_check(_layer, not_conn_val, mode)
   unconnected_errors_unfiltered = layer1.separation(layer2, not_conn_val.um, mode)
   # Filter out the errors arising from the same net
   unconnected_errors = DRC::DRCLayer.new(self, RBA::EdgePairs.new)
@@ -930,7 +940,24 @@ def conn_separation(layer1, layer2, conn_val, not_conn_val, mode)
       unconnected_errors.data.insert(ep)
     end
   end
-  unconnected_output = unconnected_errors.polygons(0.001)
+  unconnected_errors
+end
+
+def conn_separation(layer1, layer2, conn_val, not_conn_val, mode)
+  if layer1.respond_to?(:nets) # KLayout version (>=0.28.4) which supports "nets"
+    nets1 = layer1.nets
+    nets2 = layer2.nets
+    connected_output   = nets1.separation(nets2, conn_val.um,     mode, props_eq).polygons(0.001)
+    unconnected_output = nets1.separation(nets2, not_conn_val.um, mode, props_ne).polygons(0.001)
+    nets1.forget
+    nets2.forget
+  else
+    raise 'ERROR : Wrong connectivity implementation' if conn_val > not_conn_val
+
+    connected_output = layer1.separation(layer2, conn_val.um, mode).polygons(0.001)
+    unconnected_errors = conn_separation_check(layer, not_conn_val, mode)
+    unconnected_output = unconnected_errors.polygons(0.001)
+  end
   [connected_output, unconnected_output]
 end
 
