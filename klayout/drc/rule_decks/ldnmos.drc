@@ -165,7 +165,6 @@ if FEOL
   mdn6a_l1 = ncomp_ld.enclosed(dualgate, 0.5.um, euclidian).polygons(0.001).join(ncomp_ld.not(dualgate))
   mdn6a_l1.output('MDN.6a', 'MDN.6a : Min Dualgate enclose NCOMP.')
   mdn6a_l1.forget
-  ncomp_ld.forget
 
   # Rule MDN.7: Each LDNMOS shall be covered by LDMOS_XTOR (GDS#226) mark layer.
   logger.info('Executing rule MDN.7')
@@ -381,7 +380,6 @@ if FEOL
   mdn_13d_butted_well.forget
   mdn_source.forget
   mdn_ldnmos.forget
-  mvsd_mdn.forget
 
   # Rule MDN.14: Min MVSD space to any DNWELL.
   logger.info('Executing rule MDN.14')
@@ -409,22 +407,24 @@ if FEOL
   ## Guideline to improve the latch up immunity.
   logger.info('Executing rule MDN.17')
   mdn_17_pcomp = pcomp_holes.and(ldmos_xtor.interacting(mvsd))
-  mdn_17_blockages_exclude = ncomp_mdn.join(poly_ld).interacting(mvsd)
-  mdn_17_blockages = mdn_17_pcomp.not(mdn_17_blockages_exclude).and(dualgate).covering(all_nwell)
-  mdn_17_mos_in_gr = ngate.not(mvsd).not_inside(mdn_17_pcomp)
-  mdn_17_gr_in_ldmos_mk = ldmos_xtor.interacting(mvsd).and(dualgate).not_covering(pcomp)
-  mdn17_l1 = mdn_17_blockages.join(mdn_17_mos_in_gr).join(mdn_17_gr_in_ldmos_mk)
-  mdn17_l1.output('MDN.17', "MDN.17 : It is recommended to surround the LDNMOS transistor with
+  mdn_17_ldnmos = ncomp_ld.join(poly_ld).join(mvsd_mdn)
+  mdn17_l1 = mdn_17_ldnmos.not_inside(mdn_17_pcomp)
+  mdn17_l2 = ldmos_xtor.and(dualgate).interacting(mvsd).not_covering(pcomp)
+  mdn17_l = mdn17_l1.join(mdn17_l2)
+  mdn17_l.output('MDN.17', "MDN.17 : It is recommended to surround the LDNMOS transistor with
                    non-broken Psub guard ring to improve the latch up immunity.
                    Guideline to improve the latch up immunity.")
+  mdn17_l.forget
   mdn17_l1.forget
-  mdn_17_blockages_exclude.forget
-  mdn_17_blockages.forget
-  mdn_17_mos_in_gr.forget
-  mdn_17_gr_in_ldmos_mk.forget
+  mdn17_l2.forget
+  mdn_17_ldnmos.forget
+  mdn_17_pcomp.forget
   ldnmos_gate_ends.forget
   ldnmos_edges.forget
   ldnmos.forget
   poly_mdn.forget
   pcomp_holes.forget
+  poly_ld.forget
+  ncomp_ld.forget
+  mvsd_mdn.forget
 end
