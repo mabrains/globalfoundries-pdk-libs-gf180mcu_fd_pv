@@ -17,12 +17,12 @@ Run GlobalFoundries 180nm MCU DRC Unit Regression.
 
 Usage:
     run_regression.py (--help| -h)
-    run_regression.py [--mp=<num>] [--run_name=<run_name>] [--table_name=<table_name>]
+    run_regression.py [--mp=<num>] [--run_dir=<run_dir_path>] [--table_name=<table_name>]
 
 Options:
     --help -h                           Print this help message.
     --mp=<num>                          The number of threads used in run.
-    --run_name=<run_name>               Select your run name.
+    --run_dir=<run_dir>                 Run directory to save all the results.
     --table_name=<table_name>           Target specific table.
 """
 
@@ -279,8 +279,8 @@ def run_test_case(
 
         # Generating final db file
         if os.path.exists(merged_output):
-            final_report = f'{merged_output.split(".")[0]}_final.lyrdb'
-            analysis_log = f'{merged_output.split(".")[0]}_analysis.log'
+            final_report = f'{merged_output.split(f".{SUPPORTED_TC_EXT}")[0]}_final.lyrdb'
+            analysis_log = f'{merged_output.split(f".{SUPPORTED_TC_EXT}")[0]}_analysis.log'
             call_str = f"klayout -b -r {runset_analysis} -rd input={merged_output} -rd report={final_report}  > {analysis_log} 2>&1"
 
             failed_analysis_step = False
@@ -438,6 +438,7 @@ def parse_existing_rules(rule_deck_path, output_path, target_table=None):
             rule_deck_path, "rule_decks", f"{target_table}.drc"
         )
         if not os.path.isfile(table_rule_file):
+            logging.error(f"Unknown {target_table} table name is selected, please recheck")
             raise FileNotFoundError(
                 errno.ENOENT, os.strerror(errno.ENOENT), table_rule_file
             )
@@ -966,7 +967,7 @@ def main(drc_dir: str, output_path: str, target_table: str):
     pd.set_option("display.width", 1000)
 
     # info logs for args
-    logging.info("## Run folder is: {}".format(run_name))
+    logging.info("## Run folder is: {}".format(run_dir))
     logging.info("## Target Table is: {}".format(target_table))
 
     # Start of execution time
@@ -999,18 +1000,19 @@ if __name__ == "__main__":
     args = docopt(__doc__, version="DRC Regression: 0.2")
 
     # arguments
-    run_name = args["--run_name"]
+    run_dir = args["--run_dir"]
     target_table = args["--table_name"]
 
-    if run_name is None:
+    if run_dir is None:
         # logs format
-        run_name = datetime.utcnow().strftime("unit_tests_%Y_%m_%d_%H_%M_%S")
+        run_dir = datetime.utcnow().strftime("unit_tests_%Y_%m_%d_%H_%M_%S")
 
     # Paths of regression dirs
     testing_dir = os.path.dirname(os.path.abspath(__file__))
     drc_dir = os.path.dirname(testing_dir)
     rules_dir = os.path.join(drc_dir, "rule_decks")
-    output_path = os.path.join(testing_dir, run_name)
+    output_path = os.path.join(testing_dir, run_dir)
+    run_name = os.path.basename(output_path)
 
     # Creating output dir
     os.makedirs(output_path, exist_ok=True)
