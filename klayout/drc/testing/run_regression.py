@@ -187,12 +187,102 @@ def parse_results_db(results_database):
     return rule_counts
 
 
+def parse_results_db_splitted(results_database):
+    """
+    This function will parse Klayout database for analysis.
+
+    Parameters
+    ----------
+    results_database : string or Path object
+        Path string to the results file
+    Returns
+    -------
+    set
+        A set that contains all rules in the database with violations
+    """
+
+    mytree = ET.parse(results_database)
+    myroot = mytree.getroot()
+
+    all_violating_rules = set()
+
+    for z in myroot[7]:  # myroot[7] : List rules with viloations
+        all_violating_rules.add(f"{z[1].text}".replace("'", ""))
+
+    return all_violating_rules
+
+
+def analyze_splitted_results(layout_path, pattern_results, test_criteria):
+    """
+    This function run a single test case using the correct DRC file.
+
+    Parameters
+    ----------
+    layout_path : stirng or Path object
+        Path string to the layout of the test pattern we want to test.
+    pattern_results : stirng or Path object
+        Path to the location where is the result db file of DRC run is generated.
+    test_criteria : string
+        Type of test that we are running on.
+
+    Returns
+    -------
+    dict
+        A dict with all rule counts
+    """
+
+    # Initial value for counters
+    rule_counts = defaultdict(int)
+
+    # Get test rule name
+    test_rule_path = Path(layout_path).parents[1]
+    test_rule = os.path.basename(test_rule_path)
+
+    # Get pass/fail patterns counts
+    pass_patterns = os.path.join(test_rule_path, "pass", "*.gds")
+    fail_patterns = os.path.join(test_rule_path, "fail", "*.gds")
+    pass_count = len(glob.glob(str(pass_patterns)))
+    fail_count = len(glob.glob(str(fail_patterns)))
+
+    if len(pattern_results) > 0:
+        violated_rules = set()
+        for p in pattern_results:
+            rules_with_violations = parse_results_db_splitted(p)
+            violated_rules.update(rules_with_violations)
+
+        if test_criteria == "pass":
+            if test_rule in violated_rules:
+                # false positive
+                return {f'{test_rule}{RULE_STR_SEP}{ANALYSIS_RULES[0]}': pass_count, f'{test_rule}{RULE_STR_SEP}{ANALYSIS_RULES[1]}': fail_count,
+                        f'{test_rule}{RULE_STR_SEP}{ANALYSIS_RULES[3]}': 1, f'{test_rule}{RULE_STR_SEP}{ANALYSIS_RULES[2]}': 0,
+                        f'{test_rule}{RULE_STR_SEP}{ANALYSIS_RULES[4]}': 0}
+            else:
+                # true positive
+                return {f'{test_rule}{RULE_STR_SEP}{ANALYSIS_RULES[0]}': pass_count, f'{test_rule}{RULE_STR_SEP}{ANALYSIS_RULES[1]}': fail_count,
+                        f'{test_rule}{RULE_STR_SEP}{ANALYSIS_RULES[3]}': 0, f'{test_rule}{RULE_STR_SEP}{ANALYSIS_RULES[2]}': 0,
+                        f'{test_rule}{RULE_STR_SEP}{ANALYSIS_RULES[4]}': 0}
+        else:
+            if test_rule in violated_rules:
+                # true negative
+                return {f'{test_rule}{RULE_STR_SEP}{ANALYSIS_RULES[0]}': pass_count, f'{test_rule}{RULE_STR_SEP}{ANALYSIS_RULES[1]}': fail_count,
+                        f'{test_rule}{RULE_STR_SEP}{ANALYSIS_RULES[3]}': 0, f'{test_rule}{RULE_STR_SEP}{ANALYSIS_RULES[2]}': 0,
+                        f'{test_rule}{RULE_STR_SEP}{ANALYSIS_RULES[4]}': 0}
+            else:
+                # false negative
+                return {f'{test_rule}{RULE_STR_SEP}{ANALYSIS_RULES[0]}': pass_count, f'{test_rule}{RULE_STR_SEP}{ANALYSIS_RULES[1]}': fail_count,
+                        f'{test_rule}{RULE_STR_SEP}{ANALYSIS_RULES[3]}': 0, f'{test_rule}{RULE_STR_SEP}{ANALYSIS_RULES[2]}': 1,
+                        f'{test_rule}{RULE_STR_SEP}{ANALYSIS_RULES[4]}': 0}
+    else:
+        return rule_counts
+
+
 def run_test_case(
     drc_dir,
     layout_path,
     run_dir,
     testcase_basename,
     table_name,
+    test_criteria,
 ):
     """
     This function run a single test case using the correct DRC file.
@@ -209,6 +299,8 @@ def run_test_case(
         Testcase name that we are running on.
     table_name : string
         Table name that we are running on.
+    test_criteria : string
+        Type of test that we are running on.
 
     Returns
     -------
@@ -265,53 +357,60 @@ def run_test_case(
     # Checking if run is completed or failed
     pattern_results = glob.glob(os.path.join(output_loc, f"{pattern_clean}*.lyrdb"))
 
-    # Get list of rules covered in the test case
-    rules_tested = get_unit_test_coverage(layout_path)
-
-    if len(pattern_results) > 0:
-        # db to gds conversion
-        marker_output, runset_analysis = convert_results_db_to_gds(
-            pattern_results[0], rules_tested
+    # Analysis of splitted testcases into patterns
+    if test_criteria in ['pass' , 'fail']:
+        return analyze_splitted_results(
+            layout_path, pattern_results, test_criteria
         )
 
-        # Generating merged testcase for violated rules
-        merged_output = generate_merged_testcase(layout_path, marker_output)
+    else:
+        # Get list of rules covered in the test case
+        rules_tested = get_unit_test_coverage(layout_path)
 
-        # Generating final db file
-        if os.path.exists(merged_output):
-            final_report = f'{merged_output.split(f".{SUPPORTED_TC_EXT}")[0]}_final.lyrdb'
-            analysis_log = f'{merged_output.split(f".{SUPPORTED_TC_EXT}")[0]}_analysis.log'
-            call_str = f"klayout -b -r {runset_analysis} -rd input={merged_output} -rd report={final_report}  > {analysis_log} 2>&1"
+        if len(pattern_results) > 0:
+            # db to gds conversion
+            marker_output, runset_analysis = convert_results_db_to_gds(
+                pattern_results[0], rules_tested
+            )
 
-            failed_analysis_step = False
+            # Generating merged testcase for violated rules
+            merged_output = generate_merged_testcase(layout_path, marker_output)
 
-            try:
-                check_call(call_str, shell=True)
-            except Exception as e:
-                failed_analysis_step = True
-                logging.error("%s generated an exception: %s" % (pattern_clean, e))
-                traceback.print_exc()
+            # Generating final db file
+            if os.path.exists(merged_output):
+                final_report = f'{merged_output.split(f".{SUPPORTED_TC_EXT}")[0]}_final.lyrdb'
+                analysis_log = f'{merged_output.split(f".{SUPPORTED_TC_EXT}")[0]}_analysis.log'
+                call_str = f"klayout -b -r {runset_analysis} -rd input={merged_output} -rd report={final_report}  > {analysis_log} 2>&1"
 
-            # dumping log into output to make CI have the log
-            if os.path.isfile(analysis_log):
-                logging.info("# Dumping analysis run output log:")
-                with open(analysis_log, "r") as f:
-                    for line in f:
-                        line = line.strip()
-                        logging.info(f"{line}")
+                failed_analysis_step = False
 
-            if failed_analysis_step:
-                raise Exception("Failed DRC analysis run.")
+                try:
+                    check_call(call_str, shell=True)
+                except Exception as e:
+                    failed_analysis_step = True
+                    logging.error("%s generated an exception: %s" % (pattern_clean, e))
+                    traceback.print_exc()
 
-            if os.path.exists(final_report):
-                rule_counts = parse_results_db(final_report)
-                return rule_counts
+                # dumping log into output to make CI have the log
+                if os.path.isfile(analysis_log):
+                    logging.info("# Dumping analysis run output log:")
+                    with open(analysis_log, "r") as f:
+                        for line in f:
+                            line = line.strip()
+                            logging.info(f"{line}")
+
+                if failed_analysis_step:
+                    raise Exception("Failed DRC analysis run.")
+
+                if os.path.exists(final_report):
+                    rule_counts = parse_results_db(final_report)
+                    return rule_counts
+                else:
+                    return rule_counts
             else:
                 return rule_counts
         else:
             return rule_counts
-    else:
-        return rule_counts
 
 
 def run_all_test_cases(tc_df, drc_dir, run_dir, num_workers):
@@ -349,6 +448,7 @@ def run_all_test_cases(tc_df, drc_dir, run_dir, num_workers):
                     run_dir,
                     row["testcase_basename"],
                     row["table_name"],
+                    row["test_criteria"],
                 )
             ] = row["run_id"]
 
@@ -795,6 +895,7 @@ def build_tests_dataframe(unit_test_cases_dir, target_table):
     tc_df = pd.DataFrame({"test_path": all_unit_test_cases})
     tc_df["testcase_basename"] = tc_df["test_path"].apply(lambda x: x.name.replace(".gds", ""))
     tc_df["table_name"] = tc_df["testcase_basename"].apply(lambda x: x.split("-")[0])
+    tc_df["test_criteria"] = tc_df["test_path"].apply(lambda x: x.parent.name)
 
     if target_table is not None:
         tc_df = tc_df[tc_df["table_name"] == target_table]
