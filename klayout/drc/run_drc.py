@@ -336,23 +336,21 @@ def check_klayout_version():
     klayout_v_list = []
 
     if klayout_v_ == "":
-        logging.error(
-            f"Klayout is not found. Please make sure klayout is installed. Current version: {klayout_v_}"
-        )
+        logging.error("Klayout is not found. Please make sure klayout is installed.")
         exit(1)
     else:
         klayout_v_list = [int(v) for v in klayout_v_.split(" ")[-1].split(".")]
 
+    logging.info(f"Your Klayout version is: {klayout_v_}")
+
     if len(klayout_v_list) < 1 or len(klayout_v_list) > 3:
-        logging.error(
-            f"Was not able to get klayout version properly. Current version: {klayout_v_}"
-        )
+        logging.error("Was not able to get klayout version properly.")
         exit(1)
-    elif len(klayout_v_list) >= 2 and len(klayout_v_list) <= 3:
-        if klayout_v_list[1] < 28:
-            logging.error("Prerequisites at a minimum: KLayout 0.28.0")
+    elif len(klayout_v_list) >= 2 or len(klayout_v_list) <= 3:
+        if klayout_v_list[1] < 28 or (klayout_v_list[1] == 28 and klayout_v_list[2] <= 3):
+            logging.error("Prerequisites at a minimum: KLayout 0.28.4")
             logging.error(
-                "Using this klayout version has not been assesed in this development. Limits are unknown"
+                "Using this klayout version is not supported in this development."
             )
             exit(1)
 
