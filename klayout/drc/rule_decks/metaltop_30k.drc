@@ -59,7 +59,7 @@ if BEOL && (METAL_TOP == '30K')
   # Rule MT30.5: Minimum thick MetalTop enclose underlying via
   ## (for example: via5 for 6LM case) [Outside Not Allowed] is 0.12um.
   logger.info('Executing rule MT30.5')
-  mt305_l1 = top_via.enclosed(top_metal, 0.12.um, euclidian).polygons(0.001)
+  mt305_l1 = top_via.enclosed(top_metal, 0.12.um, euclidian).polygons(0.001.um)
   mt305_l2 = top_via.not_inside(top_metal)
   mt305_l = mt305_l1.join(mt305_l2)
   mt305_l.output('MT30.5', "MT30.5 : Minimum thick MetalTop enclose underlying via

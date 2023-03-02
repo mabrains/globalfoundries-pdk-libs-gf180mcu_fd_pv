@@ -44,13 +44,13 @@ if FEOL
 
   # Rule DF.1a_LV: Min. COMP Width. is 0.22µm
   logger.info('Executing rule DF.1a_LV')
-  df1a_l1 = comp_3p3v.width(0.22.um, euclidian).polygons(0.001)
+  df1a_l1 = comp_3p3v.width(0.22.um, euclidian)
   df1a_l1.output('DF.1a_LV', 'DF.1a_LV : Min. COMP Width. : 0.22µm')
   df1a_l1.forget
 
   # Rule DF.1a_MV: Min. COMP Width. is 0.3µm
   logger.info('Executing rule DF.1a_MV')
-  df1a_l1 = comp_56v.not(mvsd.or(mvpsd)).width(0.3.um, euclidian).polygons(0.001)
+  df1a_l1 = comp_56v.not(mvsd.or(mvpsd)).width(0.3.um, euclidian)
   df1a_l1.output('DF.1a_MV', 'DF.1a_MV : Min. COMP Width. : 0.3µm')
   df1a_l1.forget
 
@@ -62,14 +62,14 @@ if FEOL
 
   # Rule DF.1c: Min. COMP Width for MOSCAP. is 1µm
   logger.info('Executing rule DF.1c')
-  df1c_l1 = comp.and(mos_cap_mk).width(1.um, euclidian).polygons(0.001)
+  df1c_l1 = comp.and(mos_cap_mk).width(1.um, euclidian)
   df1c_l1.output('DF.1c', 'DF.1c : Min. COMP Width for MOSCAP. : 1µm')
   df1c_l1.forget
 
   # Rule DF.2a_LV: Min Channel Width. is 0.22µm
   logger.info('Executing rule DF.2a_LV')
   df_2a_3p3v = comp_3p3v.not(poly2).edges.and(tgate.edges)
-  df2a_l1 = df_2a_3p3v.with_length(nil, 0.22.um).extended(0, 0, 0.001, 0.001)
+  df2a_l1 = df_2a_3p3v.with_length(nil, 0.22.um)
   df2a_l1.output('DF.2a_LV', 'DF.2a_LV : Min Channel Width. : 0.22µm')
   df2a_l1.forget
   df_2a_3p3v.forget
@@ -77,7 +77,7 @@ if FEOL
   # Rule DF.2a_MV: Min Channel Width. is nil,0.3µm
   logger.info('Executing rule DF.2a_MV')
   df_2a_56v = comp_56v.not(poly2).edges.and(tgate.edges)
-  df2a_l1 = df_2a_56v.with_length(nil, 0.3.um).extended(0, 0, 0.001, 0.001)
+  df2a_l1 = df_2a_56v.with_length(nil, 0.3.um)
   df2a_l1.output('DF.2a_MV', 'DF.2a_MV : Min Channel Width. : nil,0.3µm')
   df2a_l1.forget
   df_2a_56v.forget
@@ -94,7 +94,7 @@ if FEOL
   # Rule DF.3a_LV:  Min. COMP Space : 0.28µm. [P-substrate tap (PCOMP outside NWELL and DNWELL)
   ## can be butted for different voltage devices as the potential is same]
   logger.info('Executing rule DF.3a_LV')
-  df3a_l1 = comp_3p3v.not(otp_mk).space(0.28.um, euclidian).polygons(0.001)
+  df3a_l1 = comp_3p3v.not(otp_mk).space(0.28.um, euclidian)
   df3a_l1.output('DF.3a_LV',
                  'DF.3a_LV : Min. COMP Space is : 0.28µm. [P-substrate tap (PCOMP outside NWELL and DNWELL)
                   can be butted for different voltage devices as the potential is same]')
@@ -103,7 +103,7 @@ if FEOL
   # Rule DF.3a_MV:  Min. COMP Space is : 0.36µm. [P-substrate tap (PCOMP outside NWELL and DNWELL)
   ## can be butted for different voltage devices as the potential is same]
   logger.info('Executing rule DF.3a_MV')
-  df3a_l1 = comp_56v.not(otp_mk).space(0.36.um, euclidian).polygons(0.001)
+  df3a_l1 = comp_56v.not(otp_mk).space(0.36.um, euclidian)
   df3a_l1.output('DF.3a_MV',
                  'DF.3a_MV :  Min. COMP Space is : 0.36µm. [P-substrate tap (PCOMP outside NWELL and DNWELL)
                   can be butted for different voltage devices as the potential is same]')
@@ -122,7 +122,7 @@ if FEOL
 
   # Rule DF.3c_LV: Min. COMP Space in BJT area (area marked by DRC_BJT layer). is 0.32µm
   logger.info('Executing rule DF.3c_LV')
-  df3c_l1 = comp_3p3v.and(drc_bjt).space(0.32.um, euclidian).polygons(0.001)
+  df3c_l1 = comp_3p3v.and(drc_bjt).space(0.32.um, euclidian)
   df3c_l1.output('DF.3c_LV', 'DF.3c_LV : Min. COMP Space in BJT area (area marked by DRC_BJT layer). : 0.32µm')
   df3c_l1.forget
 
@@ -135,26 +135,26 @@ if FEOL
 
   # Rule DF.4a_LV: Min. (LVPWELL Space to NCOMP well tap) inside DNWELL. is 0.12µm
   logger.info('Executing rule DF.4a_LV')
-  df4a_l1 = ntap_dn3p3V.separation(lvpwell_dn3p3v, 0.12.um, euclidian).polygons(0.001)
+  df4a_l1 = ntap_dn3p3V.separation(lvpwell_dn3p3v, 0.12.um, euclidian)
   df4a_l1.output('DF.4a_LV', 'DF.4a_LV : Min. (LVPWELL Space to NCOMP well tap) inside DNWELL. : 0.12µm')
   df4a_l1.forget
 
   # Rule DF.4a_MV: Min. (LVPWELL Space to NCOMP well tap) inside DNWELL. is 0.16µm
   logger.info('Executing rule DF.4a_MV')
-  df4a_l1 = ntap_dn56v.separation(lvpwell_dn56v, 0.16.um, euclidian).polygons(0.001)
+  df4a_l1 = ntap_dn56v.separation(lvpwell_dn56v, 0.16.um, euclidian)
   df4a_l1.output('DF.4a_MV', 'DF.4a_MV : Min. (LVPWELL Space to NCOMP well tap) inside DNWELL. : 0.16µm')
   df4a_l1.forget
 
   # Rule DF.4b_LV: Min. DNWELL overlap of NCOMP well tap. is 0.62µm
   logger.info('Executing rule DF.4b_LV')
-  df4b_l1 = ntap_dn3p3V.enclosed(dnwell_3p3v, 0.62.um, euclidian).polygons(0.001)
+  df4b_l1 = ntap_dn3p3V.enclosed(dnwell_3p3v, 0.62.um, euclidian)
   df4b_l1.output('DF.4b_LV', 'DF.4b_LV : Min. DNWELL overlap of NCOMP well tap. : 0.62µm')
   df4b_l1.forget
   ntap_dn3p3V.forget
 
   # Rule DF.4b_MV: Min. DNWELL overlap of NCOMP well tap. is 0.66µm
   logger.info('Executing rule DF.4b_MV')
-  df4b_l1 = ntap_dn56v.enclosed(dnwell_56v, 0.66.um, euclidian).polygons(0.001)
+  df4b_l1 = ntap_dn56v.enclosed(dnwell_56v, 0.66.um, euclidian)
   df4b_l1.output('DF.4b_MV', 'DF.4b_MV : Min. DNWELL overlap of NCOMP well tap. : 0.66µm')
   df4b_l1.forget
   ntap_dn56v.forget
@@ -164,7 +164,7 @@ if FEOL
   nw_n_dn_n_srm = nwell_n_dn.not(sramcore)
   nw_n_dn_n_srm3p3v = nw_n_dn_n_srm.not_interacting(v5_xtor).not_interacting(dualgate)
   df4c_pcomp3p3v = pcomp.and(nw_n_dn_n_srm3p3v)
-  df4c_l1 = df4c_pcomp3p3v.enclosed(nw_n_dn_n_srm3p3v, 0.43.um, euclidian).polygons(0.001)
+  df4c_l1 = df4c_pcomp3p3v.enclosed(nw_n_dn_n_srm3p3v, 0.43.um, euclidian)
   df4c_l1.output('DF.4c_LV', 'DF.4c_LV : Min. (Nwell overlap of PCOMP) outside DNWELL. : 0.43µm')
   df4c_l1.forget
   nw_n_dn_n_srm3p3v.forget
@@ -174,7 +174,7 @@ if FEOL
   logger.info('Executing rule DF.4c_MV')
   nw_n_dn_n_srm56v = nw_n_dn_n_srm.overlapping(dualgate)
   df4c_pcomp56v = pcomp.and(nw_n_dn_n_srm56v)
-  df4c_l1 = df4c_pcomp56v.enclosed(nw_n_dn_n_srm, 0.6.um, euclidian).polygons(0.001)
+  df4c_l1 = df4c_pcomp56v.enclosed(nw_n_dn_n_srm, 0.6.um, euclidian)
   df4c_l1.output('DF.4c_MV', 'DF.4c_MV : Min. (Nwell overlap of PCOMP) outside DNWELL. : 0.6µm')
   df4c_l1.forget
   nw_n_dn_n_srm56v.forget
@@ -185,7 +185,7 @@ if FEOL
   logger.info('Executing rule DF.4d_LV')
   df_4d_nwell = nwell_n_dn.not(ymtp_mk).not(neo_ee_mk)
   df_4d_ncomp3p3v = ncomp_3p3v.and(df_4d_nwell)
-  df4d_l1 = df_4d_ncomp3p3v.enclosed(df_4d_nwell, 0.12.um, euclidian).polygons(0.001)
+  df4d_l1 = df_4d_ncomp3p3v.enclosed(df_4d_nwell, 0.12.um, euclidian)
   df4d_l1.output('DF.4d_LV', 'DF.4d_LV : Min. (Nwell overlap of NCOMP) outside DNWELL. : 0.12µm')
   df4d_l1.forget
   df_4d_ncomp3p3v.forget
@@ -193,32 +193,32 @@ if FEOL
   # Rule DF.4d_MV: Min. (Nwell overlap of NCOMP) outside DNWELL. is 0.16µm
   logger.info('Executing rule DF.4d_MV')
   df_4d_ncomp56v = ncomp_56v.and(df_4d_nwell)
-  df4d_l1 = df_4d_ncomp56v.enclosed(df_4d_nwell, 0.16.um, euclidian).polygons(0.001)
+  df4d_l1 = df_4d_ncomp56v.enclosed(df_4d_nwell, 0.16.um, euclidian)
   df4d_l1.output('DF.4d_MV', 'DF.4d_MV : Min. (Nwell overlap of NCOMP) outside DNWELL. : 0.16µm')
   df4d_l1.forget
   df_4d_ncomp56v.forget
 
   # Rule DF.4e_LV: Min. DNWELL overlap of PCOMP. is 0.93µm
   logger.info('Executing rule DF.4e_LV')
-  df4e_l1 = pcomp_dn3p3v.enclosed(dnwell_3p3v, 0.93.um, euclidian).polygons(0.001)
+  df4e_l1 = pcomp_dn3p3v.enclosed(dnwell_3p3v, 0.93.um, euclidian)
   df4e_l1.output('DF.4e_LV', 'DF.4e_LV : Min. DNWELL overlap of PCOMP. : 0.93µm')
   df4e_l1.forget
 
   # Rule DF.4e_MV: Min. DNWELL overlap of PCOMP. is 1.1µm
   logger.info('Executing rule DF.4e_MV')
-  df4e_l1 = pcomp_dn56v.enclosed(dnwell_56v, 1.1.um, euclidian).polygons(0.001)
+  df4e_l1 = pcomp_dn56v.enclosed(dnwell_56v, 1.1.um, euclidian)
   df4e_l1.output('DF.4e_MV', 'DF.4e_MV : Min. DNWELL overlap of PCOMP. : 1.1µm')
   df4e_l1.forget
 
   # Rule DF.5_LV: Min. (LVPWELL overlap of PCOMP well tap) inside DNWELL. is 0.12µm
   logger.info('Executing rule DF.5_LV')
-  df5_l1 = ptap.and(lvpwell_dn3p3v).enclosed(lvpwell_dn3p3v, 0.12.um, euclidian).polygons(0.001)
+  df5_l1 = ptap.and(lvpwell_dn3p3v).enclosed(lvpwell_dn3p3v, 0.12.um, euclidian)
   df5_l1.output('DF.5_LV', 'DF.5_LV : Min. (LVPWELL overlap of PCOMP well tap) inside DNWELL. : 0.12µm')
   df5_l1.forget
 
   # Rule DF.5_MV: Min. (LVPWELL overlap of PCOMP well tap) inside DNWELL. is 0.16µm
   logger.info('Executing rule DF.5_MV')
-  df5_l1 = ptap.and(lvpwell_dn56v).enclosed(lvpwell_dn56v, 0.16.um, euclidian).polygons(0.001)
+  df5_l1 = ptap.and(lvpwell_dn56v).enclosed(lvpwell_dn56v, 0.16.um, euclidian)
   df5_l1.output('DF.5_MV', 'DF.5_MV : Min. (LVPWELL overlap of PCOMP well tap) inside DNWELL. : 0.16µm')
   df5_l1.forget
 
@@ -227,13 +227,13 @@ if FEOL
   df6_exclude = otp_mk.or(ymtp_mk).or(sramcore).or(mvsd).or(mvpsd)
   df6_comp = comp.interacting(tgate).not(df6_exclude)
   df6_poly = poly2.not(df6_exclude)
-  df6_l1 = df6_poly.enclosed(comp_3p3v.and(df6_comp), 0.24.um, euclidian).polygons(0.001)
+  df6_l1 = df6_poly.enclosed(comp_3p3v.and(df6_comp), 0.24.um, euclidian)
   df6_l1.output('DF.6_LV', 'DF.6_LV : Min. COMP extend beyond gate (it also means source/drain overhang). : 0.24µm')
   df6_l1.forget
 
   # Rule DF.6_MV: Min. COMP extend beyond gate (it also means source/drain overhang). is 0.4µm
   logger.info('Executing rule DF.6_MV')
-  df6_l1 = df6_poly.enclosed(comp_56v.and(df6_comp), 0.4.um, euclidian).polygons(0.001)
+  df6_l1 = df6_poly.enclosed(comp_56v.and(df6_comp), 0.4.um, euclidian)
   df6_l1.output('DF.6_MV', 'DF.6_MV : Min. COMP extend beyond gate (it also means source/drain overhang). : 0.4µm')
   df6_l1.forget
   df6_exclude.forget
@@ -242,14 +242,14 @@ if FEOL
 
   # Rule DF.7_LV: Min. (LVPWELL Spacer to PCOMP) inside DNWELL. is 0.43µm
   logger.info('Executing rule DF.7_LV')
-  df7_l1 = pcomp_dn3p3v.separation(lvpwell_dn3p3v, 0.43.um, euclidian).polygons(0.001)
+  df7_l1 = pcomp_dn3p3v.separation(lvpwell_dn3p3v, 0.43.um, euclidian)
   df7_l1.output('DF.7_LV', 'DF.7_LV : Min. (LVPWELL Spacer to PCOMP) inside DNWELL. : 0.43µm')
   df7_l1.forget
   pcomp_dn3p3v.forget
 
   # Rule DF.7_MV: Min. (LVPWELL Spacer to PCOMP) inside DNWELL. is 0.6µm
   logger.info('Executing rule DF.7_MV')
-  df7_l1 = pcomp_dn56v.not(sramcore).separation(lvpwell_dn56v, 0.6.um, euclidian).polygons(0.001)
+  df7_l1 = pcomp_dn56v.not(sramcore).separation(lvpwell_dn56v, 0.6.um, euclidian)
   df7_l1.output('DF.7_MV', 'DF.7_MV : Min. (LVPWELL Spacer to PCOMP) inside DNWELL. : 0.6µm')
   df7_l1.forget
   pcomp_dn56v.forget
@@ -257,7 +257,7 @@ if FEOL
   # Rule DF.8_LV: Min. (LVPWELL overlap of NCOMP) Inside DNWELL. is 0.43µm
   logger.info('Executing rule DF.8_LV')
   ncomp_dn3p3v = ncomp.and(dnwell_3p3v)
-  df8_l1 = ncomp_dn3p3v.and(lvpwell_dn3p3v).enclosed(lvpwell_dn3p3v, 0.43.um, euclidian).polygons(0.001)
+  df8_l1 = ncomp_dn3p3v.and(lvpwell_dn3p3v).enclosed(lvpwell_dn3p3v, 0.43.um, euclidian)
   df8_l1.output('DF.8_LV', 'DF.8_LV : Min. (LVPWELL overlap of NCOMP) Inside DNWELL. : 0.43µm')
   df8_l1.forget
   ncomp_dn3p3v.forget
@@ -265,7 +265,7 @@ if FEOL
   # Rule DF.8_MV: Min. (LVPWELL overlap of NCOMP) Inside DNWELL. is 0.6µm
   logger.info('Executing rule DF.8_MV')
   ncomp_dn56v = ncomp.and(dnwell_56v)
-  df8_l1 = ncomp_dn56v.and(lvpwell_dn56v).not(sramcore).enclosed(lvpwell_dn56v, 0.6.um, euclidian).polygons(0.001)
+  df8_l1 = ncomp_dn56v.and(lvpwell_dn56v).not(sramcore).enclosed(lvpwell_dn56v, 0.6.um, euclidian)
   df8_l1.output('DF.8_MV', 'DF.8_MV : Min. (LVPWELL overlap of NCOMP) Inside DNWELL. : 0.6µm')
   df8_l1.forget
   ncomp_dn56v.forget
@@ -375,7 +375,7 @@ if FEOL
   logger.info('Executing rule DF.16_LV')
   df16_l1 = ncomp_out_nw_dn.interacting(ncomp_3p3v).not(ymtp_mk.or(sramcore)).separation(
     nwell_n_dn3p3v.not(ymtp_mk), 0.43.um, euclidian
-  ).polygons(0.001)
+  )
   df16_l1.output('DF.16_LV',
                  'DF.16_LV : Min. space from (Nwell outside DNWELL) to (NCOMP outside Nwell and DNWELL). : 0.43µm')
   df16_l1.forget
@@ -384,7 +384,7 @@ if FEOL
   logger.info('Executing rule DF.16_MV')
   df16_l1 = ncomp_out_nw_dn.interacting(ncomp_56v).not_inside(ymtp_mk.or(sramcore)).separation(
     nwell_n_dn56v.not(ymtp_mk), 0.6.um, euclidian
-  ).polygons(0.001)
+  )
   df16_l1.output('DF.16_MV',
                  'DF.16_MV : Min. space from (Nwell outside DNWELL) to (NCOMP outside Nwell and DNWELL). : 0.6µm')
   df16_l1.forget
@@ -392,7 +392,7 @@ if FEOL
   # Rule DF.17_LV: Min. space from (Nwell Outside DNWELL) to (PCOMP outside Nwell and DNWELL) is 0.12µm.
   logger.info('Executing rule DF.17_LV')
   pcomp_3p3v = pplus.and(comp_3p3v)
-  df17_l1 = pcomp_3p3v.and(pcomp_out_nw_dn).separation(nwell_n_dn3p3v, 0.12.um, euclidian).polygons(0.001)
+  df17_l1 = pcomp_3p3v.and(pcomp_out_nw_dn).separation(nwell_n_dn3p3v, 0.12.um, euclidian)
   df17_l1.output('DF.17_LV',
                  'DF.17_LV : Min. space from (Nwell Outside DNWELL) to (PCOMP outside Nwell and DNWELL). : 0.12µm')
   df17_l1.forget
@@ -402,7 +402,7 @@ if FEOL
   # Rule DF.17_MV: Min. space from (Nwell Outside DNWELL) to (PCOMP outside Nwell and DNWELL) is 0.16µm.
   logger.info('Executing rule DF.17_MV')
   pcomp_56v = pplus.and(comp_56v)
-  df17_l1 = pcomp_56v.and(pcomp_out_nw_dn).separation(nwell_n_dn56v, 0.16.um, euclidian).polygons(0.001)
+  df17_l1 = pcomp_56v.and(pcomp_out_nw_dn).separation(nwell_n_dn56v, 0.16.um, euclidian)
   df17_l1.output('DF.17_MV',
                  'DF.17_MV : Min. space from (Nwell Outside DNWELL) to (PCOMP outside Nwell and DNWELL). : 0.16µm')
   df17_l1.forget
@@ -411,21 +411,21 @@ if FEOL
 
   # Rule DF.18: Min. DNWELL space to (PCOMP outside Nwell and DNWELL) is 2.5µm.
   logger.info('Executing rule DF.18')
-  df18_l1 = pcomp_out_nw_dn.separation(dnwell, 2.5.um, euclidian).polygons(0.001)
+  df18_l1 = pcomp_out_nw_dn.separation(dnwell, 2.5.um, euclidian)
   df18_l1.output('DF.18', 'DF.18 : Min. DNWELL space to (PCOMP outside Nwell and DNWELL). : 2.5µm')
   df18_l1.forget
   pcomp_out_nw_dn.forget
 
   # Rule DF.19_LV: Min. DNWELL space to (NCOMP outside Nwell and DNWELL) is 3.2µm.
   logger.info('Executing rule DF.19_LV')
-  df19_l1 = ncomp_out_nw_dn.interacting(ncomp_3p3v).separation(dnwell, 3.2.um, euclidian).polygons(0.001)
+  df19_l1 = ncomp_out_nw_dn.interacting(ncomp_3p3v).separation(dnwell, 3.2.um, euclidian)
   df19_l1.output('DF.19_LV', 'DF.19_LV : Min. DNWELL space to (NCOMP outside Nwell and DNWELL). : 3.2µm')
   df19_l1.forget
   ncomp_3p3v.forget
 
   # Rule DF.19_MV: Min. DNWELL space to (NCOMP outside Nwell and DNWELL) is 3.28µm.
   logger.info('Executing rule DF.19_MV')
-  df19_l1 = ncomp_out_nw_dn.interacting(ncomp_56v).separation(dnwell, 3.28.um, euclidian).polygons(0.001)
+  df19_l1 = ncomp_out_nw_dn.interacting(ncomp_56v).separation(dnwell, 3.28.um, euclidian)
   df19_l1.output('DF.19_MV', 'DF.19_MV : Min. DNWELL space to (NCOMP outside Nwell and DNWELL). : 3.28µm')
   df19_l1.forget
   ncomp_out_nw_dn.forget

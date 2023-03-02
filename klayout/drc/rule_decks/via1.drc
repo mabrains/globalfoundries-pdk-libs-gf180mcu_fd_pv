@@ -21,7 +21,7 @@ if BEOL
 
   # Rule V1.1: Min/max Via1 size . is 0.26µm
   logger.info('Executing rule V1.1')
-  v11_l1 = via1.edges.without_length(0.26.um).extended(0, 0, 0.001, 0.001)
+  v11_l1 = via1.edges.without_length(0.26.um)
   v11_l1.output('V1.1', 'V1.1 : Min/max Via1 size . : 0.26µm')
   v11_l1.forget
 
@@ -100,7 +100,7 @@ if BEOL
 
   # Rule V1.4a: metal2 overlap of via1.
   logger.info('Executing rule V1.4a')
-  via1_4a_l1 = via1.enclosed(metal2, 0.01.um, euclidian).polygons(0.001)
+  via1_4a_l1 = via1.enclosed(metal2, 0.01.um, euclidian).polygons(0.001.um)
   via1_4a_l2 = via1.not(metal2)
   via1_4a_l = via1_4a_l1.or(via1_4a_l2)
   via1_4a_l.output('V1.4a', 'V1.4a : metal2 overlap of via1 >= 0.01 um')

@@ -91,7 +91,7 @@ if FEOL
   ## minimum spacing of un-related poly from the NAT layer is 0.3um
   logger.info('Executing rule NAT.9')
   nat9_a = poly2.and(nat).not(ncomp).interacting(ngate.and(nat), 2)
-  nat9_b = poly2.not(nat).separation(nat, 0.3.um, euclidian).polygons(0.001)
+  nat9_b = poly2.not(nat).separation(nat, 0.3.um, euclidian).polygons(0.001.um)
   nat9_l1 = nat9_a.join(nat9_b)
   nat9_l1.output('NAT.9', "NAT.9 : Poly interconnect under NAT layer is not allowed,
                     minimum spacing of un-related poly from the NAT layer: 0.3um")
