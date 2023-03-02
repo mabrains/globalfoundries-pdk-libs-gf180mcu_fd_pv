@@ -22,7 +22,7 @@ if BEOL && (METAL_LEVEL == '4LM' || METAL_LEVEL == '5LM' || METAL_LEVEL == '6LM'
 
   # Rule V3.1: Min/max Via1 size . is 0.26µm
   logger.info('Executing rule V3.1')
-  v31_l1 = via3.edges.without_length(0.26.um).extended(0, 0, 0.001, 0.001)
+  v31_l1 = via3.edges.without_length(0.26.um)
   v31_l1.output('V3.1', 'V3.1 : Min/max Via1 size . : 0.26µm')
   v31_l1.forget
 
@@ -56,7 +56,7 @@ if BEOL && (METAL_LEVEL == '4LM' || METAL_LEVEL == '5LM' || METAL_LEVEL == '6LM'
   # Rule V3.3b: metal3 overlap of via3.
   logger.info('Executing rule V3.3b')
   v33b_l1 = via3.not(metal3)
-  v33b_l2 = via3.enclosed(metal3, 0.01.um, euclidian).polygons(0.001)
+  v33b_l2 = via3.enclosed(metal3, 0.01.um, euclidian).polygons(0.001.um)
   v33b_l = v33b_l1.or(v33b_l2)
   v33b_l.output('V3.3b', 'V3.3b : metal3 overlap of via3 >= 0.01')
   v33b_l1.forget
@@ -106,7 +106,7 @@ if BEOL && (METAL_LEVEL == '4LM' || METAL_LEVEL == '5LM' || METAL_LEVEL == '6LM'
 
   # Rule V3.4a: metal4 overlap of via3.
   logger.info('Executing rule V3.4a')
-  via3_4a_l1 = via3.enclosed(metal4, 0.01.um, euclidian).polygons(0.001)
+  via3_4a_l1 = via3.enclosed(metal4, 0.01.um, euclidian).polygons(0.001.um)
   via3_4a_l2 = via3.not(metal4)
   via3_4a_l = via3_4a_l1.or(via3_4a_l2)
   via3_4a_l.output('V3.4a', 'V3.4a : metal4 overlap of via3 >= 0.01 um')

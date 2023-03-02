@@ -116,7 +116,7 @@ if FEOL
   ## to the direction of Poly2.
   np_4b_poly = poly2.edges.interacting(pgate.edges.not(pcomp_edges)).centers(0, 0.99).and(pgate.sized(0.32.um))
   logger.info('Executing rule NP.4b')
-  np4b_l1 = nplus.interacting(nplus_edges.separation(np_4b_poly, 0.22.um, projection).polygons(0.001))
+  np4b_l1 = nplus.interacting(nplus_edges.separation(np_4b_poly, 0.22.um, projection).polygons(0.001.um))
   np4b_l1.output('NP.4b', 'NP.4b : Within 0.32um of channel, space to P-channel gate extension perpendicular
                   to the direction of Poly2.')
   np4b_l1.forget
@@ -124,7 +124,7 @@ if FEOL
 
   # Rule NP.5a: Overlap of N-channel gate. is 0.23µm
   logger.info('Executing rule NP.5a')
-  np5a_l1 = ngate.enclosed(nplus, 0.23.um, euclidian).polygons(0.001)
+  np5a_l1 = ngate.enclosed(nplus, 0.23.um, euclidian).polygons(0.001.um)
   np5a_l2 = ngate.not_outside(nplus).not(nplus)
   np5a_l  = np5a_l1.or(np5a_l2)
   np5a_l.output('NP.5a', 'NP.5a : Overlap of N-channel gate. : 0.23µm')
@@ -149,7 +149,7 @@ if FEOL
   logger.info('Executing rule NP.5ci')
   np_5ci_background = nplus.not_inside(lvpwell).inside(dnwell).edges
   np_5ci_foreground = ncomp.not_inside(lvpwell).inside(dnwell).edges.not(pplus.edges).and(lvpwell_dn_sized_out)
-  np5ci_l1 = np_5ci_background.enclosing(np_5ci_foreground, 0.16.um, projection).polygons(0.001)
+  np5ci_l1 = np_5ci_background.enclosing(np_5ci_foreground, 0.16.um, projection)
   np5ci_l1.output('NP.5ci', 'NP.5ci : Extension beyond COMP: For Inside DNWELL: (i)For Nplus < 0.43um
                    from LVPWELL edge for Nwell or DNWELL tap inside DNWELL. : 0.16µm')
   np5ci_l1.forget
@@ -161,7 +161,7 @@ if FEOL
   logger.info('Executing rule NP.5cii')
   np_5cii_background = nplus.not_inside(lvpwell).inside(dnwell).edges
   np_5cii_foreground = ncomp.not_inside(lvpwell).inside(dnwell).edges.not(pplus.edges).not(lvpwell_dn_sized_out)
-  np5cii_l1 = np_5cii_background.enclosing(np_5cii_foreground, 0.02.um, projection).polygons(0.001)
+  np5cii_l1 = np_5cii_background.enclosing(np_5cii_foreground, 0.02.um, projection)
   np5cii_l1.output('NP.5cii', 'NP.5cii : Extension beyond COMP: For Inside DNWELL: (ii) For Nplus >= 0.43um
                     from LVPWELL edge for Nwell or DNWELL tap inside DNWELL. : 0.02µm')
   np5cii_l1.forget
@@ -223,7 +223,7 @@ if FEOL
 
   # Rule NP.9: Overlap of unsalicided Poly2. is 0.18µm
   logger.info('Executing rule NP.9')
-  np9_l1 = nplus.enclosing(poly2.and(sab), 0.18.um, euclidian).polygons(0.001)
+  np9_l1 = nplus.enclosing(poly2.and(sab), 0.18.um, euclidian).polygons(0.001.um)
   np9_l2 = poly2.and(sab).not_outside(nplus).not(nplus)
   np9_l  = np9_l1.or(np9_l2)
   np9_l.output('NP.9', 'NP.9 : Overlap of unsalicided Poly2. : 0.18µm')
@@ -261,7 +261,7 @@ if FEOL
   ## within 0.32um of P-channel gate.
   logger.info('Executing rule NP.12')
   np12_l1 = nplus.interacting(nplus_edges.separation(pgate.edges.and(pcomp_edges), 0.32.um,
-                                                     euclidian).polygons(0.001))
+                                                     euclidian).polygons(0.001.um))
   np12_l1.output('NP.12', 'NP.12 : Overlap with P-channel poly2 gate extension is forbidden
                   within 0.32um of P-channel gate.')
   np12_l1.forget

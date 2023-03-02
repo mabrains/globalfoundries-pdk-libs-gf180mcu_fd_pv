@@ -22,7 +22,7 @@ if BEOL && (METAL_LEVEL == '6LM')
 
   # Rule V5.1: Min/max Via1 size . is 0.26µm
   logger.info('Executing rule V5.1')
-  v51_l1 = via5.edges.without_length(0.26.um).extended(0, 0, 0.001, 0.001)
+  v51_l1 = via5.edges.without_length(0.26.um)
   v51_l1.output('V5.1', 'V5.1 : Min/max Via1 size . : 0.26µm')
   v51_l1.forget
 
@@ -56,7 +56,7 @@ if BEOL && (METAL_LEVEL == '6LM')
   # Rule V5.3b: metal5  overlap of via5.
   logger.info('Executing rule V5.3b')
   v53b_l1 = via5.not(metal5)
-  v53b_l2 = via5.enclosed(metal5, 0.01.um, euclidian).polygons(0.001)
+  v53b_l2 = via5.enclosed(metal5, 0.01.um, euclidian).polygons(0.001.um)
   v53b_l = v53b_l1.or(v53b_l2)
   v53b_l.output('V5.3b', 'V5.3b : metal5 overlap of via5 >= 0.01')
   v53b_l1.forget
@@ -102,7 +102,7 @@ if BEOL && (METAL_LEVEL == '6LM')
 
   # Rule V5.4a: metaltop overlap of via5.
   logger.info('Executing rule V5.4a')
-  via5_4a_l1 = via5.enclosed(metaltop, 0.01.um, euclidian).polygons(0.001)
+  via5_4a_l1 = via5.enclosed(metaltop, 0.01.um, euclidian).polygons(0.001.um)
   via5_4a_l2 = via5.not(metaltop)
   via5_4a_l = via5_4a_l1.or(via5_4a_l2)
   via5_4a_l.output('V5.4a', 'V5.4a : metaltop overlap of via5 >= 0.01 um')

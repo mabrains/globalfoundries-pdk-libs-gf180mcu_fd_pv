@@ -101,7 +101,7 @@ if FEOL
   logger.info('Executing rule MDN.5ai')
   pcomp_mdn5ai = pcomp_mdn.not_interacting(ncomp)
   mdn5ai_l1 = mvsd.and(pcomp_mdn5ai)
-  mdn5ai_l2 = pcomp_mdn5ai.separation(mvsd, 1.um, euclidian).polygons(0.001)
+  mdn5ai_l2 = pcomp_mdn5ai.separation(mvsd, 1.um, euclidian).polygons(0.001.um)
   mdn5ai_l = mdn5ai_l1.join(mdn5ai_l2)
   mdn5ai_l.output('MDN.5ai', "MDN.5ai : Min PCOMP (Pplus AND COMP) space to LDNMOS Drain MVSD
                     (source and body tap non-butted): 1um. PCOMP (Pplus AND COMP)
@@ -117,7 +117,7 @@ if FEOL
   logger.info('Executing rule MDN.5aii')
   pcomp_mdn5aii = pcomp_mdn.interacting(ncomp)
   mdn5aii_l1  = mvsd.and(pcomp_mdn5aii)
-  mdn5aii_l2  = pcomp_mdn5aii.separation(mvsd, 0.92.um, euclidian).polygons(0.001)
+  mdn5aii_l2  = pcomp_mdn5aii.separation(mvsd, 0.92.um, euclidian).polygons(0.001.um)
   mdn5aii_l = mdn5aii_l1.join(mdn5aii_l2)
   mdn5aii_l.output('MDN.5aii', "MDN.5aii : Min PCOMP (Pplus AND COMP) space to LDNMOS Drain MVSD
                      (source and body tap butted): 0.92um. PCOMP (Pplus AND COMP)
@@ -144,7 +144,7 @@ if FEOL
   # Rule MDN.5c: Maximum distance of the nearest edge of the substrate tab from NCOMP edge is 15µm.
   logger.info('Executing rule MDN.5c')
   mdn_5c_ncompsd = ncomp_mdn.interacting(mvsd).sized(0.36.um).sized(-0.36.um).extents
-  mdn_5c_error_exclude = mdn_5c_ncompsd.drc(separation(pcomp, euclidian) <= 15.um).polygons(0.001)
+  mdn_5c_error_exclude = mdn_5c_ncompsd.drc(separation(pcomp, euclidian) <= 15.um).polygons(0.001.um)
   mdn_5c_error = mdn_5c_ncompsd.edges.centers(0, 0.99).not_interacting(mdn_5c_error_exclude)
   mdn5c_l1 = mdn_5c_error.and(ncomp).and(pcomp_holes)
   mdn5c_l1.output('MDN.5c',
@@ -162,7 +162,7 @@ if FEOL
 
   # Rule MDN.6a: Min Dualgate enclose NCOMP.
   logger.info('Executing rule MDN.6a')
-  mdn6a_l1 = ncomp_ld.enclosed(dualgate, 0.5.um, euclidian).polygons(0.001).join(ncomp_ld.not(dualgate))
+  mdn6a_l1 = ncomp_ld.enclosed(dualgate, 0.5.um, euclidian).polygons(0.001.um).join(ncomp_ld.not(dualgate))
   mdn6a_l1.output('MDN.6a', 'MDN.6a : Min Dualgate enclose NCOMP.')
   mdn6a_l1.forget
 
@@ -201,7 +201,7 @@ if FEOL
     logger.info('CONNECTIVITY_RULES disabled section')
     # Rule MDN.8b: Min LDNMOS drain MVSD space to any other different potential Nwell space.
     logger.info('Executing rule MDN.8b')
-    mdn8b_l1 = mvsd.separation(nwell, 2.um, euclidian).polygons(0.001).join(mvsd.not_outside(nwell))
+    mdn8b_l1 = mvsd.separation(nwell, 2.um, euclidian).polygons(0.001.um).join(mvsd.not_outside(nwell))
 
   end
   mdn8b_l1.output('MDN.8b', 'MDN.8b : Min LDNMOS drain MVSD space to any other different potential Nwell space.')
@@ -252,7 +252,7 @@ if FEOL
   mdn_10d_not_max = ncomp_mdn.inside(mvsd).drc(separation(mdn_10d_field) <= 0.16.um)
   mdn_10d_ext     = ncomp.sized(0.36.um).sized(-0.36.um).extents
   mdn_10d_max     = mdn_10d_ext.not(mdn_10d_not_max.polygons).not(ncomp).not(poly2).inside(mvsd)
-  mdn_10d_min     = ncomp_mdn.inside(mvsd).separation(mdn_10d_field, 0.16.um).polygons(0.001)
+  mdn_10d_min     = ncomp_mdn.inside(mvsd).separation(mdn_10d_field, 0.16.um).polygons(0.001.um)
   mdn_10d_overlap = ncomp_mdn.inside(mvsd).and(poly2)
   mdn10d_l1 = mdn_10d_max.join(mdn_10d_min).join(mdn_10d_overlap)
   mdn10d_l1.output('MDN.10d', 'MDN.10d : Min/Max POLY2 on field space to LDNMOS drain COMP.')
@@ -266,7 +266,7 @@ if FEOL
 
   # Rule MDN.10ei: Min POLY2 space to Psub tap (source and body tap non-butted).
   logger.info('Executing rule MDN.10ei')
-  mdn10ei_l1 = poly_mdn10.separation(pcomp.not_interacting(ncomp), 0.4.um).polygons(0.001)
+  mdn10ei_l1 = poly_mdn10.separation(pcomp.not_interacting(ncomp), 0.4.um).polygons(0.001.um)
   mdn10ei_l2 = poly_mdn10.and(pcomp.not_interacting(ncomp))
   mdn10ei_l = mdn10ei_l1.join(mdn10ei_l2)
   mdn10ei_l.output('MDN.10ei', 'MDN.10ei : Min POLY2 space to Psub tap (source and body tap non-butted).')
@@ -297,7 +297,7 @@ if FEOL
   logger.info('Executing rule MDN.11')
   mdn_11_layer      = ldmos_xtor.and(mvsd).and(comp).and(poly2).and(nplus)
   mdn_11_max        = mdn_11_layer.not(mdn_11_layer.drc(width <= 0.4.um).polygons)
-  mdn_11_min        = mdn_11_layer.width(0.4.um).polygons(0.001).not_interacting(mdn_11_max)
+  mdn_11_min        = mdn_11_layer.width(0.4.um).polygons(0.001.um).not_interacting(mdn_11_max)
   mdn_11_no_channel_l1 = mvsd.covering(ncomp).outside(tgate).and(dualgate).and(ldmos_xtor)
   mdn_11_no_channel_l2 = mvsd.not_covering(ncomp.not_interacting(poly2)).and(dualgate).and(ldmos_xtor)
   mdn_11_no_channel = mdn_11_no_channel_l1.join(mdn_11_no_channel_l2)
@@ -316,7 +316,7 @@ if FEOL
   ## and in the direction along the transistor width.
   logger.info('Executing rule MDN.12')
   mdn12_a1 = mvsd_mdn.covering(ncomp_mdn.not_interacting(poly2))
-  mdn12_a = ncomp_mdn.enclosed(mdn12_a1, 0.5.um, transparent).polygons(0.001).outside(poly2)
+  mdn12_a = ncomp_mdn.enclosed(mdn12_a1, 0.5.um, transparent).polygons(0.001.um).outside(poly2)
   mdn12_b = mvsd_mdn.not_covering(ncomp.not_interacting(poly2))
   mdn12_l1 = mdn12_a.join(mdn12_b)
   mdn12_l1.output('MDN.12', 'MDN.12 : Min MVSD enclose NCOMP in the LDNMOS drain
@@ -383,7 +383,7 @@ if FEOL
 
   # Rule MDN.14: Min MVSD space to any DNWELL.
   logger.info('Executing rule MDN.14')
-  mdn14_l1 = mvsd.separation(dnwell, 6.0.um).polygons(0.001).join(mvsd.not_outside(dnwell))
+  mdn14_l1 = mvsd.separation(dnwell, 6.0.um).polygons(0.001.um).join(mvsd.not_outside(dnwell))
   mdn14_l1.output('MDN.14', 'MDN.14 : Min MVSD space to any DNWELL.')
   mdn14_l1.forget
 
