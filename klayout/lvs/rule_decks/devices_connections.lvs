@@ -219,7 +219,7 @@ connect(sc_diode_terminal_n, contact)
 connect(sc_diode_terminal_p, schottky_diode)
 
 #================================
-# ---- RESISTOR DERIVATIONS -----
+# ---- RESISTOR CONNECTIONS -----
 #================================
 
 logger.info('Starting LVS RESISTOR CONNECTIONS')
