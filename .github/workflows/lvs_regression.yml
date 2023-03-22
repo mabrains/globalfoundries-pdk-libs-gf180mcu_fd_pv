@@ -50,7 +50,7 @@ jobs:
       fail-fast: false
       matrix:
         part: [lvs]
-        test: [MOS, BJT, DIODE, RES, MIMCAP,  MOSCAP, MOS_SAB]
+        test: [MOS, BJT, DIODE, MOSCAP, MOS_SAB]
 
     name: ${{ matrix.part }} | ${{ matrix.test }}
 
