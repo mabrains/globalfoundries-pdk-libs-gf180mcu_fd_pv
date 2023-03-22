@@ -299,7 +299,7 @@ logger.info('Starting deriving base layers.')
 # ---- MOS-SAB DERIVATIONS ------
 #================================
 
-# %include rule_decks/mos_sab_derivations.lvs
+# %include rule_decks/mos-sab_derivations.lvs
 
 #================================
 # ----- EFUSE DERIVATIONS -------
@@ -347,7 +347,7 @@ logger.info('Starting GF180 LVS DEVICES EXTRACTION')
 # ----- MOS-SAB EXTRACTION ------
 #================================
 
-# %include rule_decks/mos_sab_extraction.lvs
+# %include rule_decks/mos-sab_extraction.lvs
 
 #================================
 # ------ EFUSE EXTRACTIONS ------
