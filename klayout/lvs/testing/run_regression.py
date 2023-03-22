@@ -523,7 +523,7 @@ if __name__ == "__main__":
     ## selected device
     allowed_devices = ["MOS", "BJT", "DIODE", "RES", "MIMCAP", "MOSCAP", "MOS_SAB", "EFUSE"]
     target_device_group = args["--device_name"]
-    
+
     if target_device_group and target_device_group not in allowed_devices:
         logging.error("Allowed devices are (MOS, BJT, DIODE, RES, MIMCAP, MOSCAP, MOS_SAB, EFUSE) only")
         exit(1)
