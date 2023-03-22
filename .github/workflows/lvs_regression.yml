@@ -44,13 +44,28 @@ jobs:
         run: |
           make test-"$(python -c 'print("${{ matrix.part }}".upper())')"-${{ matrix.test }}
 
+  build_lvs-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      lvs_table: ${{ steps.set-matrix.outputs.lvs_table }}
+    steps:
+      - uses: actions/checkout@v3
+      - id: set-matrix
+        run: |
+          cd klayout/lvs/rule_decks/
+          lvs_table=`echo '[' ; find -iname '*_extraction.lvs' | awk -F_ '{print $1}' | awk -F/ '{print $2}' | tr '[:lower:]' '[:upper:]' | tr '\n' ','|sed -e 's/^/\"/'| sed -e 's/,$/\"]/'|sed -e 's/,/\", \"/g'`;
+          lvs_table=`echo $lvs_table | jq -c .`
+          echo $lvs_table
+          echo "lvs_table=$lvs_table" >>$GITHUB_OUTPUT
+
   lvs_regression:
+    needs: build_lvs-matrix
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         part: [lvs]
-        test: [MOS, BJT, DIODE, RES, MIMCAP, MOSCAP, MOS_SAB]
+        test: ${{ fromJson(needs.build_lvs-matrix.outputs.lvs_table) }}
 
     name: ${{ matrix.part }} | ${{ matrix.test }}
 
