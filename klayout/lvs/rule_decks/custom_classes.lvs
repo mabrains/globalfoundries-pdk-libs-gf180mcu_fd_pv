@@ -21,16 +21,20 @@
 #=========== CUSTOM READER ===========
 class SubcircuitModelsReader < RBA::NetlistSpiceReaderDelegate
   def parse_element(sup, element)
-    case element
-    when 'C'
-      super("#{sup} C=2e-16", element)
-    when 'R'
-      super("#{sup} R=0", element)
-    else
+    begin
       super
+    rescue
+      case element
+      when 'C'
+        super("#{sup} C=2e-16", element)
+      when 'R'
+        super("#{sup} R=0", element)
+      else
+        super
+      end
     end
   end
-
+  
   # implements the delegate interface:
   # take and translate the element
   def element(circuit, ele, name, model, value, nets, params)

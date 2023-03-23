@@ -42,18 +42,18 @@ connect(nsd, contact)
 connect(poly2_con, contact)
 connect(contact, metal1_con)
 connect(metal1_con, via1)
-connect(via1, metal2_con)
+connect(via1, metal2_ncap)
 if METAL_LEVEL != '2LM'
-  connect(metal2_con, via2)
-  connect(via2, metal3_con)
+  connect(metal2_ncap, via2)
+  connect(via2, metal3_ncap)
   if METAL_LEVEL != '3LM'
-    connect(metal3_con, via3)
-    connect(via3, metal4)
+    connect(metal3_ncap, via3)
+    connect(via3, metal4_ncap)
     if METAL_LEVEL != '4LM'
-      connect(metal4, via4)
-      connect(via4, metal5)
+      connect(metal4_ncap, via4)
+      connect(via4, metal5_ncap)
       if METAL_LEVEL != '5LM'
-        connect(metal5, via5)
+        connect(metal5_ncap, via5)
         connect(via5, metaltop_con)
       end
     end
@@ -66,13 +66,13 @@ logger.info('Starting GF180 LVS connectivity setup (Attaching labels)')
 connect(comp, comp_label)
 connect(poly2_con, poly2_label)
 connect(metal1_con, metal1_label)
-connect(metal2_con, metal2_label)
+connect(metal2_ncap, metal2_label)
 if METAL_LEVEL != '2LM'
-  connect(metal3_con, metal3_label)
+  connect(metal3_ncap, metal3_label)
   if METAL_LEVEL != '3LM'
-    connect(metal4, metal4_label)
+    connect(metal4_ncap, metal4_label)
     if METAL_LEVEL != '4LM'
-      connect(metal5, metal5_label)
+      connect(metal5_ncap, metal5_label)
       connect(metaltop_con, metaltop_label) if METAL_LEVEL != '5LM'
     end
   end
@@ -217,6 +217,37 @@ connect(diode_dw2ps_06v0_terminal_p, ptap)
 # sc_diode diode
 connect(sc_diode_terminal_n, contact)
 connect(sc_diode_terminal_p, schottky_diode)
+
+#================================
+# ---- RESISTOR CONNECTIONS -----
+#================================
+
+logger.info('Starting LVS RESISTOR CONNECTIONS')
+
+connect(nplus_cont, contact)
+connect(pplus_cont, contact)
+connect(pplus_dw_cont, contact)
+
+#==================================
+# ------ MIMCAP CONNECTIONS -------
+#==================================
+
+logger.info('Starting LVS MIMCAP CONNECTIONS')
+
+case MIM_OPTION
+when 'A'
+
+  # mim option A
+  connect(metal2, mim_virtual)
+  connect(fuse_cap, via2)
+
+when 'B'
+
+  # mim_option B
+  connect(topmin1_metal, mimtm_virtual)
+  connect(fuse_cap, top_via)
+
+end
 
 #================================
 # ------ EFUSE CONNECTIONS ------

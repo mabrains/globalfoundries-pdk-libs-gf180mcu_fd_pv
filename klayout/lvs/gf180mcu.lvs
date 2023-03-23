@@ -197,32 +197,6 @@ MIM_CAP = $mim_cap || '2'
 logger.info("MIM CAP selected: #{MIM_CAP}")
 
 #================================================
-#------------- METAL LEVEL SWITCHES -------------
-#================================================
-
-case MIM_OPTION
-when 'A'
-  cap_mim1f0 = 'cap_mim_1f0_m2m3_noshield'
-  cap_mim1f5 = 'cap_mim_1f5_m2m3_noshield'
-  cap_mim2f0 = 'cap_mim_2f0_m2m3_noshield'
-when 'B'
-  case METAL_LEVEL
-  when '6LM'
-    cap_mim1f0 = 'cap_mim_1f0_m5m6_noshield'
-    cap_mim1f5 = 'cap_mim_1f5_m5m6_noshield'
-    cap_mim2f0 = 'cap_mim_2f0_m5m6_noshield'
-  when '5LM'
-    cap_mim1f0 = 'cap_mim_1f0_m4m5_noshield'
-    cap_mim1f5 = 'cap_mim_1f5_m4m5_noshield'
-    cap_mim2f0 = 'cap_mim_2f0_m4m5_noshield'
-  when '4LM'
-    cap_mim1f0 = 'cap_mim_1f0_m3m4_noshield'
-    cap_mim1f5 = 'cap_mim_1f5_m3m4_noshield'
-    cap_mim2f0 = 'cap_mim_2f0_m3m4_noshield'
-  end
-end
-
-#================================================
 # --------------- CUSTOM CLASSES ----------------
 #================================================
 
@@ -289,6 +263,18 @@ logger.info('Starting deriving base layers.')
 
 # %include rule_decks/diode_derivations.lvs
 
+#================================
+# ---- RESISTOR DERIVATIONS -----
+#================================
+
+# %include rule_decks/res_derivations.lvs
+
+#==================================
+# ------ MIMCAP DERIVATIONS -------
+#==================================
+
+# %include rule_decks/mimcap_derivations.lvs
+
 #==================================
 # ------ MOSCAP DERIVATIONS -------
 #==================================
@@ -336,6 +322,18 @@ logger.info('Starting GF180 LVS DEVICES EXTRACTION')
 #================================
 
 # %include rule_decks/diode_extraction.lvs
+
+#================================
+# ---- RESISTOR EXTRACTIONS -----
+#================================
+
+# %include rule_decks/res_extraction.lvs
+
+#==================================
+# ------- MIMCAP EXTRACTION -------
+#==================================
+
+# %include rule_decks/mimcap_extraction.lvs
 
 #==================================
 # ------- MOSCAP EXTRACTION -------
