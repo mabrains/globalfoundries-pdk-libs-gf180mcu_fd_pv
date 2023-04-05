@@ -27,14 +27,14 @@ nsd             = ncomp.outside(nwell).interacting(ngate).not(ngate).not(res_mk)
 ptap            = pcomp.outside(nwell).outside(dnwell).not(res_mk)
 
 pgate           = pplus.and(tgate)
-psd             = pcomp.inside(nwell).interacting(pgate).not(pgate).not(res_mk)
-ntap            = ncomp.inside(nwell).not(res_mk)
+psd             = pcomp.and(nwell).interacting(pgate).not(pgate).not(res_mk)
+ntap            = ncomp.and(nwell).not(res_mk)
 
 ngate_dw        = ngate.and(lvpwell).and(dnwell)
-ptap_dw         = pcomp.inside(lvpwell).inside(dnwell).outside(well_diode_mk).not(res_mk)
+ptap_dw         = pcomp.and(lvpwell).and(dnwell).outside(well_diode_mk).not(res_mk)
 
-pgate_dw        = pgate.inside(dnwell).outside(lvpwell)
-ntap_dw         = ncomp.outside(lvpwell).inside(dnwell).not(res_mk)
+pgate_dw        = pgate.and(dnwell).not(lvpwell)
+ntap_dw         = ncomp.not(lvpwell).and(dnwell).not(res_mk)
 
 psd_dw          = pcomp.not(lvpwell).and(dnwell).interacting(pgate).not(pgate).not(res_mk)
 nwell_con       = nwell.not(res_mk)
