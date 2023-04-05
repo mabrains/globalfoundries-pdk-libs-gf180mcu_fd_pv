@@ -25,10 +25,21 @@ logger.info('Starting BJT DERIVATIONS')
 # ==============
 logger.info('Starting vnpn layers DERIVATIONS')
 
+bjt_exclude = dualgate.join(poly2).join(resistor)
+              .join(esd).join(sab).join(fusetop)
+              .join(fusewindow_d).join(polyfuse).join(res_mk)
+              .join(v5_xtor).join(diode_mk).join(nat)
+              .join(mos_cap_mk).join(esd_mk).join(lvs_source)
+              .join(well_diode_mk).join(efuse_mk).join(plfuse)
+              .join(mvsd).join(mvpsd).join(ldmos_xtor).join(schottky_diode)
+
+npn_exclude = nwell.join(bjt_exclude)
+pnp_exclude = dnwell.join(lvpwell).join(bjt_exclude)
+
 # vnpn general nodes DERIVATIONS
-vnpn_e = ncomp.interacting(lvs_bjt).inside(dnwell)
-vnpn_b = pcomp.and(lvpwell).inside(dnwell).inside(drc_bjt)
-vnpn_c = ncomp.inside(dnwell).outside(lvs_bjt).inside(drc_bjt)
+vnpn_e = ncomp.and(lvs_bjt).and(dnwell).and(drc_bjt).not(npn_exclude)
+vnpn_b = pcomp.and(lvpwell).and(dnwell).and(drc_bjt).not(npn_exclude)
+vnpn_c = ncomp.and(dnwell).not(lvs_bjt).and(drc_bjt).not(npn_exclude)
 
 # npn_10p00x10p00 nodes DERIVATIONS
 npn_10p00x10p00_e = vnpn_e.with_area(99.5.um, 100.5.um).interacting(vnpn_e.edges.with_length(9.8.um, 10.2.um))
@@ -66,9 +77,9 @@ npn_00p54x02p00_c = vnpn_c.interacting(vnpn_c.extents.interacting(npn_00p54x02p0
 logger.info('Starting vpnp layers DERIVATIONS')
 
 # vpnp general nodes DERIVATIONS
-vpnp_e = pcomp.inside(nwell).interacting(lvs_bjt)
-vpnp_b = ncomp.and(nwell).inside(drc_bjt)
-vpnp_c = ptap.outside(lvs_bjt).inside(drc_bjt)
+vpnp_e = pcomp.and(nwell).and(lvs_bjt).not(pnp_exclude)
+vpnp_b = ncomp.and(nwell).and(drc_bjt).not(pnp_exclude)
+vpnp_c = ptap.not(lvs_bjt).and(drc_bjt).not(pnp_exclude)
 
 # pnp_10p00x10p00 nodes DERIVATIONS
 pnp_10p00x10p00_e = vpnp_e.with_area(99.5.um, 100.5.um).interacting(vpnp_e.edges.with_length(9.8.um, 10.2.um))

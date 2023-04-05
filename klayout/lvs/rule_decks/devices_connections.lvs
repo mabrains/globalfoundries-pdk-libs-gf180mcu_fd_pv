@@ -184,15 +184,19 @@ connect(diode_nd2ps_06v0_dn_terminal_n, contact)
 
 # diode_pd2nw_03v3 diode
 connect(diode_pd2nw_03v3_terminal_p, contact)
+connect(diode_pd2nw_03v3_terminal_n, ntap)
 
 # diode_pd2nw_03v3_dn diode
 connect(diode_pd2nw_03v3_dn_terminal_p, contact)
+connect(diode_pd2nw_03v3_dn_terminal_n, ntap)
 
 # diode_pd2nw_06v0 diode
 connect(diode_pd2nw_06v0_terminal_p, contact)
+connect(diode_pd2nw_06v0_terminal_n, ntap)
 
 # diode_pd2nw_06v0_dn diode
 connect(diode_pd2nw_06v0_dn_terminal_p, contact)
+connect(diode_pd2nw_06v0_dn_terminal_n, ntap)
 
 # diode_nw2ps_03v3 diode
 connect(diode_nw2ps_03v3_terminal_p, contact)
