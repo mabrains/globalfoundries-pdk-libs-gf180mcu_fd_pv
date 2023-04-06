@@ -1,0 +1,62 @@
+#================================
+# ------ BJT CONNECTIONS --------
+#================================
+logger.info('Starting LVS BJT CONNECTIONS')
+
+# ==============
+# ---- vnpn ----
+# ==============
+
+# npn_10p00x10p00 nodes connections
+connect(npn_10p00x10p00_e, contact)
+connect(npn_10p00x10p00_b, contact)
+connect(npn_10p00x10p00_c, contact)
+
+# npn_05p00x05p00 nodes connections
+connect(npn_05p00x05p00_e, contact)
+connect(npn_05p00x05p00_b, contact)
+connect(npn_05p00x05p00_c, contact)
+
+# npn_00p54x16p00 nodes connections
+connect(npn_00p54x16p00_e, contact)
+connect(npn_00p54x16p00_b, contact)
+connect(npn_00p54x16p00_c, contact)
+
+# npn_00p54x08p00 nodes connections
+connect(npn_00p54x08p00_e, contact)
+connect(npn_00p54x08p00_b, contact)
+connect(npn_00p54x08p00_c, contact)
+
+# npn_00p54x04p00 nodes connections
+connect(npn_00p54x04p00_e, contact)
+connect(npn_00p54x04p00_b, contact)
+connect(npn_00p54x04p00_c, contact)
+
+# npn_00p54x02p00 nodes connections
+connect(npn_00p54x02p00_e, contact)
+connect(npn_00p54x02p00_b, contact)
+connect(npn_00p54x02p00_c, contact)
+
+# ==============
+# ---- vpnp ----
+# ==============
+
+# pnp_10p00x10p00 nodes connections
+connect(pnp_10p00x10p00_e, contact)
+connect(pnp_10p00x10p00_b, contact)
+connect(pnp_10p00x10p00_c, contact)
+
+# pnp_05p00x05p00 nodes connections
+connect(pnp_05p00x05p00_e, contact)
+connect(pnp_05p00x05p00_b, contact)
+connect(pnp_05p00x05p00_c, contact)
+
+# pnp_10p00x00p42 nodes connections
+connect(pnp_10p00x00p42_e, contact)
+connect(pnp_10p00x00p42_b, contact)
+connect(pnp_10p00x00p42_c, contact)
+
+# pnp_05p00x00p42 nodes connections
+connect(pnp_05p00x00p42_e, contact)
+connect(pnp_05p00x00p42_b, contact)
+connect(pnp_05p00x00p42_c, contact)

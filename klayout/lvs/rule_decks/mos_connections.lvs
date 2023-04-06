@@ -1,0 +1,12 @@
+#================================
+# ----- MOSFET CONNECTIONS ------
+#================================
+logger.info('Starting LVS MOSFET CONNECTIONS')
+
+connect(psd_dw, contact)
+
+connect(nd_ldmos, contact)
+connect(ns_ldmos, contact)
+
+connect(pd_ldmos, contact)
+connect(ps_ldmos, contact)

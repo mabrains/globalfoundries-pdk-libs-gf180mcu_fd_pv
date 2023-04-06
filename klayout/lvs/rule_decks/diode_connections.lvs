@@ -1,0 +1,57 @@
+#================================
+# ----- DIODE CONNECTIONS -------
+#================================
+
+logger.info('Starting LVS DIODE CONNECTIONS')
+
+# diode_nd2ps_03v3 diode
+connect(diode_nd2ps_03v3_terminal_n, contact)
+
+# diode_nd2ps_03v3_dn diode
+connect(diode_nd2ps_03v3_dn_terminal_n, contact)
+
+# diode_nd2ps_06v0 diode
+connect(diode_nd2ps_06v0_terminal_n, contact)
+
+# diode_nd2ps_06v0_dn diode
+connect(diode_nd2ps_06v0_dn_terminal_n, contact)
+
+# diode_pd2nw_03v3 diode
+connect(diode_pd2nw_03v3_terminal_p, contact)
+connect(diode_pd2nw_03v3_terminal_n, ntap)
+
+# diode_pd2nw_03v3_dn diode
+connect(diode_pd2nw_03v3_dn_terminal_p, contact)
+connect(diode_pd2nw_03v3_dn_terminal_n, ntap)
+
+# diode_pd2nw_06v0 diode
+connect(diode_pd2nw_06v0_terminal_p, contact)
+connect(diode_pd2nw_06v0_terminal_n, ntap)
+
+# diode_pd2nw_06v0_dn diode
+connect(diode_pd2nw_06v0_dn_terminal_p, contact)
+connect(diode_pd2nw_06v0_dn_terminal_n, ntap)
+
+# diode_nw2ps_03v3 diode
+connect(diode_nw2ps_03v3_terminal_p, contact)
+connect(diode_nw2ps_03v3_terminal_n, nwell)
+
+# diode_nw2ps_06v0 diode
+connect(diode_nw2ps_06v0_terminal_p, contact)
+connect(diode_nw2ps_06v0_terminal_n, nwell)
+
+# diode_pw2dw_03v3 diode
+connect(diode_pw2dw_03v3_terminal_p, contact)
+
+# diode_pw2dw_06v0 diode
+connect(diode_pw2dw_06v0_terminal_p, contact)
+
+# diode_dw2ps_03v3 diode
+connect(diode_dw2ps_03v3_terminal_p, ptap)
+
+# diode_dw2ps_06v0 diode
+connect(diode_dw2ps_06v0_terminal_p, ptap)
+
+# sc_diode diode
+connect(sc_diode_terminal_n, contact)
+connect(sc_diode_terminal_p, schottky_diode)

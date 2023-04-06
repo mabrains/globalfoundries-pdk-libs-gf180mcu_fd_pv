@@ -67,19 +67,53 @@ ngate_6v_dw_base = ngate_6v_base.and(ngate_dw)
 
 metal1_con      = metal1.not(metal1_res)
 metal2_con      = metal2.not(metal2_res)
-metal3_con      = metal3.not(metal3_res) if METAL_LEVEL != '2LM'
+
+case METAL_LEVEL
+when '3LM', '4LM', '5LM', '6LM'
+  metal3_con = metal3.not(metal3_res)
+  via2_n_cap = via2.not(fusetop)
+  via2_cap = via2.and(fusetop)
+end
+case METAL_LEVEL
+when '4LM', '5LM', '6LM'
+  metal4_con = metal3.not(metal4_res)
+  via3_n_cap = via3.not(fusetop)
+  via3_cap = via3.and(fusetop)
+end
+case METAL_LEVEL
+when '5LM', '6LM'
+  metal5_con = metal5.not(metal5_res)
+  via4_n_cap = via4.not(fusetop)
+  via4_cap = via4.and(fusetop)
+end
+case METAL_LEVEL
+when '6LM'
+  metaltop_con = metaltop.not(metal6_res)
+  via5_n_cap = via5.not(fusetop)
+  via5_cap = via5.and(fusetop)
+end
 
 case METAL_LEVEL
 when '2LM'
   top_metal_con = metal2_con
+  top_via_n_cap = via1.not(fusetop)
+  top_via_cap = via1.and(fusetop)
 when '3LM'
   top_metal_con = metal3_con
+  top_via_n_cap = via2.not(fusetop)
+  top_via_cap = via2.and(fusetop)
 when '4LM'
   top_metal_con = metal4.not(metal4_res)
+  top_via_n_cap = via3.not(fusetop)
+  top_via_cap = via3.and(fusetop)
 when '5LM'
   top_metal_con = metal5.not(metal5_res)
+  top_via_n_cap = via4.not(fusetop)
+  top_via_cap = via4.and(fusetop)
 when '6LM'
   top_metal_con = metaltop.not(metal6_res)
+  top_via_n_cap = via5.not(fusetop)
+  top_via_cap = via5.and(fusetop)
 else
   logger.error("Unknown metal stack #{METAL_LEVEL}")
   raise

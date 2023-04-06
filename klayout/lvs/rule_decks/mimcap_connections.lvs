@@ -1,0 +1,20 @@
+#==================================
+# ------ MIMCAP CONNECTIONS -------
+#==================================
+
+logger.info('Starting LVS MIMCAP CONNECTIONS')
+
+case MIM_OPTION
+when 'A'
+
+  # mim option A
+  connect(metal2, mim_virtual)
+  connect(fuse_cap, via2_cap)
+
+when 'B'
+
+  # mim_option B
+  connect(topmin1_metal, mimtm_virtual)
+  connect(fuse_cap, top_via_cap)
+
+end
