@@ -47,3 +47,28 @@ metal2_con      = metal2.not(metal2_res)
 metal3_con      = metal3.not(metal3_res) if METAL_LEVEL != '2LM'
 
 metaltop_con = metaltop.not(metal6_res) if METAL_LEVEL == '6LM'
+
+pgate_lv_base = pgate.not(v5_xtor).not(dualgate)
+pgate_5v_base = pgate.and(v5_xtor).and(dualgate)
+pgate_6v_base = pgate.not(v5_xtor).and(dualgate)
+
+pgate_lv_n_dw = pgate_lv_base.not(dnwell)
+pgate_5v_n_dw = pgate_5v_base.not(dnwell)
+pgate_6v_n_dw = pgate_6v_base.not(dnwell)
+
+pgate_lv_dw_base = pgate_lv_base.and(pgate_dw)
+pgate_5v_dw_base = pgate_5v_base.and(pgate_dw)
+pgate_6v_dw_base = pgate_6v_base.and(pgate_dw)
+
+ngate_lv_base = ngate.not(v5_xtor).not(dualgate)
+ngate_5v_base = ngate.and(v5_xtor).and(dualgate)
+ngate_6v_base = ngate.not(v5_xtor).and(dualgate)
+
+ngate_lv_n_dw = ngate_lv_base.not(dnwell)
+ngate_5v_n_dw = ngate_5v_base.not(dnwell)
+ngate_6v_n_dw = ngate_6v_base.not(dnwell)
+
+ngate_lv_dw_base = ngate_lv_base.and(ngate_dw)
+ngate_5v_dw_base = ngate_5v_base.and(ngate_dw)
+ngate_6v_dw_base = ngate_6v_base.and(ngate_dw)
+
