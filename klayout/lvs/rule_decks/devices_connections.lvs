@@ -27,7 +27,7 @@ logger.info('Starting GF180 LVS connectivity setup')
 logger.info('Starting GF180 LVS connectivity setup (Inter-layer)')
 
 # Inter-layer
-connect(sub,          ptap)
+connect(sub, ptap)
 connect(lvpwell_con, ptap)
 connect(lvpwell_con, ptap_dw)
 connect(dnwell, ntap_dw)
@@ -43,22 +43,27 @@ connect(poly2_con, contact)
 connect(contact, metal1_con)
 connect(metal1_con, via1)
 connect(via1, metal2_ncap)
-if METAL_LEVEL != '2LM'
-  connect(metal2_ncap, via2)
-  connect(via2, metal3_ncap)
-  if METAL_LEVEL != '3LM'
-    connect(metal3_ncap, via3)
-    connect(via3, metal4_ncap)
-    if METAL_LEVEL != '4LM'
-      connect(metal4_ncap, via4)
-      connect(via4, metal5_ncap)
-      if METAL_LEVEL != '5LM'
-        connect(metal5_ncap, via5)
-        connect(via5, metaltop_con)
-      end
-    end
-  end
+case METAL_LEVEL
+when '3LM', '4LM', '5LM', '6LM'
+  connect(metal2_ncap,  via2)
+  connect(via2,    metal3_ncap)
 end
+case METAL_LEVEL
+when '4LM', '5LM', '6LM'
+  connect(metal3_ncap,  via3)
+  connect(via3,    metal4_ncap)
+end
+case METAL_LEVEL
+when '5LM', '6LM'
+  connect(metal4_ncap,  via4)
+  connect(via4,    metal5_ncap)
+end
+case METAL_LEVEL
+when '6LM'
+  connect(metal5_ncap,  via5)
+  connect(via5,    metaltop_ncap)
+end
+connect(top_via, top_metal_con)
 
 logger.info('Starting GF180 LVS connectivity setup (Attaching labels)')
 
@@ -73,7 +78,7 @@ if METAL_LEVEL != '2LM'
     connect(metal4_ncap, metal4_label)
     if METAL_LEVEL != '4LM'
       connect(metal5_ncap, metal5_label)
-      connect(metaltop_con, metaltop_label) if METAL_LEVEL != '5LM'
+      connect(metaltop_ncap, metaltop_label) if METAL_LEVEL != '5LM'
     end
   end
 end

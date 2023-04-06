@@ -30,12 +30,21 @@ fuse_cap    = fusetop.interacting(cap_mk).interacting(mim_l_mk)
               .not(mimcap_exclude)
 
 # mim_option B
-mimtm_virtual   = fusetop.sized(1.06.um).and(topmin1_metal.interacting(fusetop))
+mimtm_virtual = fusetop.sized(1.06.um).and(topmin1_metal.interacting(fusetop))
 
-if METAL_LEVEL != '2LM'
-  metal3_ncap     = metal3_con.not(mimtm_virtual)
-  if METAL_LEVEL != '3LM'
-    metal4_ncap     = metal4.not(mimtm_virtual)
-    metal5_ncap     = metal5.not(mimtm_virtual) if METAL_LEVEL != '4LM'
-  end
+case METAL_LEVEL
+when '3LM', '4LM', '5LM', '6LM'
+  metal3_ncap = metal3_con.not(mimtm_virtual)
+end
+case METAL_LEVEL
+when '4LM', '5LM', '6LM'
+  metal4_ncap = metal4.not(mimtm_virtual)
+end
+case METAL_LEVEL
+when '5LM', '6LM'
+  metal5_ncap = metal5.not(mimtm_virtual)
+end
+case METAL_LEVEL
+when '6LM'
+  metaltop_ncap = metal5.not(mimtm_virtual)
 end

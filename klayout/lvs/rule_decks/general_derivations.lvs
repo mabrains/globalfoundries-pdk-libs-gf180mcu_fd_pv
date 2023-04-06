@@ -41,13 +41,6 @@ nwell_con       = nwell.not(res_mk)
 lvpwell_con     = lvpwell.not(res_mk)
 poly2_con       = poly2.not(res_mk).not(plfuse)
 
-metal1_con      = metal1.not(metal1_res)
-metal2_con      = metal2.not(metal2_res)
-
-metal3_con      = metal3.not(metal3_res) if METAL_LEVEL != '2LM'
-
-metaltop_con = metaltop.not(metal6_res) if METAL_LEVEL == '6LM'
-
 pgate_lv_base = pgate.not(v5_xtor).not(dualgate)
 pgate_5v_base = pgate.and(v5_xtor).and(dualgate)
 pgate_6v_base = pgate.not(v5_xtor).and(dualgate)
@@ -72,3 +65,22 @@ ngate_lv_dw_base = ngate_lv_base.and(ngate_dw)
 ngate_5v_dw_base = ngate_5v_base.and(ngate_dw)
 ngate_6v_dw_base = ngate_6v_base.and(ngate_dw)
 
+metal1_con      = metal1.not(metal1_res)
+metal2_con      = metal2.not(metal2_res)
+metal3_con      = metal3.not(metal3_res) if METAL_LEVEL != '2LM'
+
+case METAL_LEVEL
+when '2LM'
+  top_metal_con = metal2_con
+when '3LM'
+  top_metal_con = metal3_con
+when '4LM'
+  top_metal_con = metal4.not(metal4_res)
+when '5LM'
+  top_metal_con = metal5.not(metal5_res)
+when '6LM'
+  top_metal_con = metaltop.not(metal6_res)
+else
+  logger.error("Unknown metal stack #{METAL_LEVEL}")
+  raise
+end

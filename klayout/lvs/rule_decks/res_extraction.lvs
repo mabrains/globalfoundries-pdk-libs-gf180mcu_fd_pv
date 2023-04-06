@@ -203,17 +203,17 @@ case METAL_TOP
 when '6K'
   # TM6K
   logger.info('Extracting TM6K device')
-  extract_devices(resistor('tm6k', 0.06, NResistor), { 'R' => tm_res, 'C' => metaltop_con })
+  extract_devices(resistor('tm6k', 0.06, NResistor), { 'R' => tm_res, 'C' => top_metal_con })
 when '9K'
   # TM9K
   logger.info('Extracting TM9K device')
-  extract_devices(resistor('tm9k', 0.04, NResistor), { 'R' => tm_res, 'C' => metaltop_con })
+  extract_devices(resistor('tm9k', 0.04, NResistor), { 'R' => tm_res, 'C' => top_metal_con })
 when '11K'
   # TM11K
   logger.info('Extracting TM11K device')
-  extract_devices(resistor('tm11k', 0.04, NResistor), { 'R' => tm_res, 'C' => metaltop_con })
+  extract_devices(resistor('tm11k', 0.04, NResistor), { 'R' => tm_res, 'C' => top_metal_con })
 when '30K'
   # TM30K
   logger.info('Extracting TM30K device')
-  extract_devices(resistor('tm30k', 0.0095, NResistor), { 'R' => tm_res, 'C' => metaltop_con })
+  extract_devices(resistor('tm30k', 0.0095, NResistor), { 'R' => tm_res, 'C' => top_metal_con })
 end
