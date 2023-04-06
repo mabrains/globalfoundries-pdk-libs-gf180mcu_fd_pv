@@ -54,7 +54,7 @@ if FEOL
   ## tied to the P-substrate potential.
   logger.info('Executing rule DN.3')
   dn3_l1 = dnwell.not_inside(pcomp.holes.not(pcomp).interacting(dnwell, 1..1).extents)
-  dn3_l2 = dnwell.inside((pcomp.holes.not(pcomp).covering(nat.or(ncomp).or(nwell).not_interacting(dnwell))))
+  dn3_l2 = dnwell.inside(pcomp.holes.not(pcomp).covering(nat.or(ncomp).or(nwell).not_interacting(dnwell)))
   dn3_l = dn3_l1.or(dn3_l2)
   dn3_l.output('DN.3',
                'DN.3 : Each DNWELL shall be directly surrounded by PCOMP guard ring

@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 
 klayout/drc/testing/unit_tests_*
+klayout/lvs/testing/unit_tests_*
 
 # C extensions
 *.so

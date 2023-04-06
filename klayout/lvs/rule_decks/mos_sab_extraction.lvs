@@ -95,4 +95,3 @@ logger.info('Extracting 6V ESD NMOS transistor inside DNWELL device')
 extract_devices(mos4('nfet_06v0_dn_dss'),
                 { 'SD' => nsd, 'G' => ngate_dw_sab_6v, 'tS' => nsd, 'tD' => nsd, 'tG' => poly2_con,
                   'W' => lvpwell_con })
-

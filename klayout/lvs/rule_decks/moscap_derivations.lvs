@@ -20,38 +20,45 @@
 
 logger.info('Starting MOSCAP DERIVATIONS')
 
+moscap_exclude = resistor.join(esd).join(sab)
+                         .join(fusewindow_d).join(polyfuse).join(res_mk)
+                         .join(diode_mk).join(drc_bjt).join(nat)
+                         .join(esd_mk).join(lvs_source).join(efuse_mk)
+                         .join(plfuse).join(mvsd).join(mvpsd)
+                         .join(ldmos_xtor).join(schottky_diode)
+
 # cap_nmos_03v3 capacitor
-nmos_gate_3p3 = ngate.not(v5_xtor).not(dualgate).outside(dnwell).interacting(mos_cap_mk)
+nmos_gate_3p3 = ngate_lv_n_dw.interacting(mos_cap_mk).not(moscap_exclude)
 
 # cap_nmos_03v3_dn capacitor
-nmos_gate_3p3_dw = ngate.not(v5_xtor).not(dualgate).inside(dnwell).interacting(mos_cap_mk)
+nmos_gate_3p3_dw = ngate_lv_dw_base.interacting(mos_cap_mk).not(moscap_exclude)
 
 # cap_pmos_03v3 capacitor
-pmos_gate_3p3 = pgate.not(v5_xtor).not(dualgate).outside(dnwell).interacting(mos_cap_mk)
+pmos_gate_3p3 = pgate_lv_n_dw.interacting(mos_cap_mk).not(moscap_exclude)
 
 # cap_pmos_03v3_dn capacitor
-pmos_gate_3p3_dw = pgate.not(v5_xtor).not(dualgate).inside(dnwell).interacting(mos_cap_mk)
+pmos_gate_3p3_dw = pgate_lv_dw_base.interacting(mos_cap_mk).not(moscap_exclude)
 
 # cap_nmos_06v0 capacitor
-nmos_gate_6p0 = ngate.and(dualgate).outside(dnwell).interacting(mos_cap_mk)
+nmos_gate_6p0 = ngate_6v_n_dw.interacting(mos_cap_mk).not(moscap_exclude)
 
 # cap_nmos_06v0_dn capacitor
-nmos_gate_6p0_dw = ngate.and(dualgate).inside(dnwell).interacting(mos_cap_mk)
+nmos_gate_6p0_dw = ngate_6v_dw_base.interacting(mos_cap_mk).not(moscap_exclude)
 
 # cap_pmos_06v0 capacitor
-pmos_gate_6p0 = pgate.and(dualgate).outside(dnwell).interacting(mos_cap_mk)
+pmos_gate_6p0 = pgate_6v_n_dw.interacting(mos_cap_mk).not(moscap_exclude)
 
 # cap_pmos_06v0_dn capacitor
-pmos_gate_6p0_dw = pgate.and(dualgate).inside(dnwell).interacting(mos_cap_mk)
+pmos_gate_6p0_dw = pgate_6v_dw_base.interacting(mos_cap_mk).not(moscap_exclude)
 
 # cap_nmos_03v3_b capacitor
-cap_nmos_03v3_b = ngate.not(v5_xtor).not(dualgate).inside(nwell).interacting(mos_cap_mk)
+cap_nmos_03v3_b = ngate_lv_base.and(nwell).interacting(mos_cap_mk).not(moscap_exclude)
 
 # cap_pmos_03v3_b capacitor
-cap_pmos_03v3_b = pgate.not(v5_xtor).not(dualgate).inside(ptap).interacting(mos_cap_mk)
+cap_pmos_03v3_b = pgate_lv_base.and(ptap).interacting(mos_cap_mk).not(moscap_exclude)
 
 # cap_nmos_06v0_b capacitor
-cap_nmos_06v0_b = ngate.and(dualgate).inside(nwell).interacting(mos_cap_mk)
+cap_nmos_06v0_b = ngate_6v_base.and(nwell).interacting(mos_cap_mk).not(moscap_exclude)
 
 # cap_pmos_06v0_b capacitor
-cap_pmos_06v0_b = pgate.and(dualgate).inside(ptap).interacting(mos_cap_mk)
+cap_pmos_06v0_b = pgate_6v_base.and(ptap).interacting(mos_cap_mk).not(moscap_exclude)

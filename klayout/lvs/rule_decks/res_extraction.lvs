@@ -120,66 +120,66 @@ when '1k'
   # PPOLYF_U_1K
   logger.info('Extracting PPOLYF_U_1K device')
   extract_devices(resistor_with_bulk('ppolyf_u_1k', 1000, BResistor),
-                  { 'R' => ppolyf_u_1k_layer, 'C' => poly2_con, 'W' => sub })
+                  { 'R' => ppolyf_u_h, 'C' => poly2_con, 'W' => sub })
 
   # PPOLYF_U_DW_1
   logger.info('Extracting PPOLYF_U_DW_1 device')
   extract_devices(resistor_with_bulk('ppolyf_u_1k_dw', 1000, BResistor),
-                  { 'R' => ppolyf_u_1k_dw_layer, 'C' => poly2_con, 'W' => dnwell })
+                  { 'R' => ppolyf_u_dw_h, 'C' => poly2_con, 'W' => dnwell })
 
   # PPOLYF_U_1K_6p0
   logger.info('Extracting PPOLYF_U_1K_6p0 device')
   extract_devices(resistor_with_bulk('ppolyf_u_1k_6p0', 1000, BResistor),
-                  { 'R' => ppolyf_u_1k_6p0_layer, 'C' => poly2_con, 'W' => sub })
+                  { 'R' => ppolyf_u_6p0_h, 'C' => poly2_con, 'W' => sub })
 
   # PPOLYF_U_DW_1K_6p0
   logger.info('Extracting PPOLYF_U_DW_1K_6p0 device')
   extract_devices(resistor_with_bulk('ppolyf_u_1k_6p0_dw', 1000, BResistor),
-                  { 'R' => ppolyf_u_1k_6p0_dw_layer, 'C' => poly2_con, 'W' => dnwell })
+                  { 'R' => ppolyf_u_6p0_dw_h, 'C' => poly2_con, 'W' => dnwell })
 
 when '2k'
 
   # PPOLYF_U_2K
   logger.info('Extracting PPOLYF_U_2K device')
   extract_devices(resistor_with_bulk('ppolyf_u_2k', 2000, BResistor),
-                  { 'R' => ppolyf_u_2k_layer, 'C' => poly2_con, 'W' => sub })
+                  { 'R' => ppolyf_u_h, 'C' => poly2_con, 'W' => sub })
 
   # PPOLYF_U_DW_2K
   logger.info('Extracting PPOLYF_U_DW_2K device')
   extract_devices(resistor_with_bulk('ppolyf_u_2k_dw', 2000, BResistor),
-                  { 'R' => ppolyf_u_2k_dw_layer, 'C' => poly2_con, 'W' => dnwell })
+                  { 'R' => ppolyf_u_dw_h, 'C' => poly2_con, 'W' => dnwell })
 
   # PPOLYF_U_2K_6p0
   logger.info('Extracting PPOLYF_U_2K_6p0 device')
   extract_devices(resistor_with_bulk('ppolyf_u_2k_6p0', 2000, BResistor),
-                  { 'R' => ppolyf_u_2k_6p0_layer, 'C' => poly2_con, 'W' => sub })
+                  { 'R' => ppolyf_u_6p0_h, 'C' => poly2_con, 'W' => sub })
 
   # PPOLYF_U_DW_2K_6p0
   logger.info('Extracting PPOLYF_U_DW_2K_6p0 device')
   extract_devices(resistor_with_bulk('ppolyf_u_2k_6p0_dw', 2000, BResistor),
-                  { 'R' => ppolyf_u_2k_6p0_dw_layer, 'C' => poly2_con, 'W' => dnwell })
+                  { 'R' => ppolyf_u_6p0_dw_h, 'C' => poly2_con, 'W' => dnwell })
 
 when '3k'
 
   # PPOLYF_U_3K
   logger.info('Extracting PPOLYF_U_3K device')
   extract_devices(resistor_with_bulk('ppolyf_u_3k', 3000, BResistor),
-                  { 'R' => ppolyf_u_3k_layer, 'C' => poly2_con, 'W' => sub })
+                  { 'R' => ppolyf_u_h, 'C' => poly2_con, 'W' => sub })
 
   # PPOLYF_U_DW_3K
-  logger.info('Extracting PPOLYF_U_DW_3K device')  
+  logger.info('Extracting PPOLYF_U_DW_3K device')
   extract_devices(resistor_with_bulk('ppolyf_u_3k_dw', 3000, BResistor),
-                  { 'R' => ppolyf_u_3k_dw_layer, 'C' => poly2_con, 'W' => dnwell })
+                  { 'R' => ppolyf_u_dw_h, 'C' => poly2_con, 'W' => dnwell })
 
   # PPOLYF_U_3K_6p0
   logger.info('Extracting PPOLYF_U_3K_6p0 device')
   extract_devices(resistor_with_bulk('ppolyf_u_3k_6p0', 3000, BResistor),
-                  { 'R' => ppolyf_u_3k_6p0_layer, 'C' => poly2_con, 'W' => sub })
+                  { 'R' => ppolyf_u_6p0_h, 'C' => poly2_con, 'W' => sub })
 
   # PPOLYF_U_DW_3K_6p0
   logger.info('Extracting PPOLYF_U_DW_3K_6p0 device')
   extract_devices(resistor_with_bulk('ppolyf_u_3k_6p0_dw', 3000, BResistor),
-                  { 'R' => ppolyf_u_3k_6p0_dw_layer, 'C' => poly2_con, 'W' => dnwell })
+                  { 'R' => ppolyf_u_6p0_dw_h, 'C' => poly2_con, 'W' => dnwell })
 
 end
 
@@ -199,31 +199,21 @@ extract_devices(resistor('rm2', 0.09, NResistor), { 'R' => rm2_res, 'C' => metal
 logger.info('Extracting RM3 device')
 extract_devices(resistor('rm3', 0.09, NResistor), { 'R' => rm3_res, 'C' => metal3_ncap })
 
-if METAL_LEVEL == '6LM'
-  case METAL_TOP
-  when '6K'
-
-    # TM6K
-    logger.info('Extracting TM6K device')
-    extract_devices(resistor('tm6k', 0.06, NResistor), { 'R' => tm_res, 'C' => metaltop_con })
-
-  when '9K'
-
-    # TM9K
-    logger.info('Extracting TM9K device')
-    extract_devices(resistor('tm9k', 0.04, NResistor), { 'R' => tm_res, 'C' => metaltop_con })
-
-  when '11K'
-
-    # TM11K
-    logger.info('Extracting TM11K device')
-    extract_devices(resistor('tm11k', 0.04, NResistor), { 'R' => tm_res, 'C' => metaltop_con })
-
-  when '30K'
-
-    # TM30K
-    logger.info('Extracting TM30K device')
-    extract_devices(resistor('tm30k', 0.0095, NResistor), { 'R' => tm_res, 'C' => metaltop_con })
-
-  end
+case METAL_TOP
+when '6K'
+  # TM6K
+  logger.info('Extracting TM6K device')
+  extract_devices(resistor('tm6k', 0.06, NResistor), { 'R' => tm_res, 'C' => top_metal_con })
+when '9K'
+  # TM9K
+  logger.info('Extracting TM9K device')
+  extract_devices(resistor('tm9k', 0.04, NResistor), { 'R' => tm_res, 'C' => top_metal_con })
+when '11K'
+  # TM11K
+  logger.info('Extracting TM11K device')
+  extract_devices(resistor('tm11k', 0.04, NResistor), { 'R' => tm_res, 'C' => top_metal_con })
+when '30K'
+  # TM30K
+  logger.info('Extracting TM30K device')
+  extract_devices(resistor('tm30k', 0.0095, NResistor), { 'R' => tm_res, 'C' => top_metal_con })
 end
