@@ -45,23 +45,23 @@ connect(metal1_con, via1)
 connect(via1, metal2_ncap)
 case METAL_LEVEL
 when '3LM', '4LM', '5LM', '6LM'
-  connect(metal2_ncap,  via2)
-  connect(via2,    metal3_ncap)
+  connect(metal2_ncap, via2)
+  connect(via2, metal3_ncap)
 end
 case METAL_LEVEL
 when '4LM', '5LM', '6LM'
-  connect(metal3_ncap,  via3)
-  connect(via3,    metal4_ncap)
+  connect(metal3_ncap, via3)
+  connect(via3, metal4_ncap)
 end
 case METAL_LEVEL
 when '5LM', '6LM'
-  connect(metal4_ncap,  via4)
-  connect(via4,    metal5_ncap)
+  connect(metal4_ncap, via4)
+  connect(via4, metal5_ncap)
 end
 case METAL_LEVEL
 when '6LM'
-  connect(metal5_ncap,  via5)
-  connect(via5,    metaltop_ncap)
+  connect(metal5_ncap, via5)
+  connect(via5, metaltop_ncap)
 end
 connect(top_via, top_metal_con)
 

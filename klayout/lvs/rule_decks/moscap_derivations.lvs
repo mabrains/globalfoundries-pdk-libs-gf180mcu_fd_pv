@@ -21,11 +21,11 @@
 logger.info('Starting MOSCAP DERIVATIONS')
 
 moscap_exclude = resistor.join(esd).join(sab)
-                .join(fusewindow_d).join(polyfuse).join(res_mk)
-                .join(diode_mk).join(drc_bjt).join(nat)
-                .join(esd_mk).join(lvs_source).join(efuse_mk)
-                .join(plfuse).join(mvsd).join(mvpsd)
-                .join(ldmos_xtor).join(schottky_diode)                
+                         .join(fusewindow_d).join(polyfuse).join(res_mk)
+                         .join(diode_mk).join(drc_bjt).join(nat)
+                         .join(esd_mk).join(lvs_source).join(efuse_mk)
+                         .join(plfuse).join(mvsd).join(mvpsd)
+                         .join(ldmos_xtor).join(schottky_diode)
 
 # cap_nmos_03v3 capacitor
 nmos_gate_3p3 = ngate_lv_n_dw.interacting(mos_cap_mk).not(moscap_exclude)

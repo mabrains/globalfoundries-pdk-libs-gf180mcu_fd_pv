@@ -427,7 +427,7 @@ when '3LM', '4LM', '5LM', '6LM'
   metal3_res = get_polygons(110, 13)
   count = metal3_res.count
   logger.info("metal3_res has #{count} polygons")
-  polygons_count += count  
+  polygons_count += count
 end
 
 case METAL_LEVEL
@@ -467,7 +467,7 @@ when '4LM', '5LM', '6LM'
   metal4_res = get_polygons(110, 14)
   count = metal4_res.count
   logger.info("metal4_res has #{count} polygons")
-  polygons_count += count  
+  polygons_count += count
 end
 
 case METAL_LEVEL
@@ -507,7 +507,7 @@ when '5LM', '6LM'
   metal5_res = get_polygons(110, 15)
   count = metal5_res.count
   logger.info("metal5_res has #{count} polygons")
-  polygons_count += count  
+  polygons_count += count
 end
 
 case METAL_LEVEL
@@ -547,7 +547,7 @@ when '6LM'
   metal6_res = get_polygons(110, 16)
   count = metal6_res.count
   logger.info("metal6_res has #{count} polygons")
-  polygons_count += count  
+  polygons_count += count
 end
 
 case METAL_LEVEL

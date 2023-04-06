@@ -21,22 +21,22 @@
 logger.info('Starting MOSFET DERIVATIONS')
 
 mos_exclude = resistor.join(esd).join(sab)
-             .join(fusewindow_d).join(polyfuse).join(res_mk)
-             .join(drc_bjt).join(mos_cap_mk).join(esd_mk)
-             .join(lvs_source).join(efuse_mk).join(plfuse)
-             .join(schottky_diode)
-             
+                      .join(fusewindow_d).join(polyfuse).join(res_mk)
+                      .join(drc_bjt).join(mos_cap_mk).join(esd_mk)
+                      .join(lvs_source).join(efuse_mk).join(plfuse)
+                      .join(schottky_diode)
+
 # ==============
 # ---- PMOS ----
 # ==============
 logger.info('Starting PMOS layers DERIVATIONS')
 
 pmos_exclude = lvpwell.join(diode_mk).join(nat)
-              .join(mvsd).join(mvpsd).join(ldmos_xtor)
-              .join(mos_exclude)
+                      .join(mvsd).join(mvpsd).join(ldmos_xtor)
+                      .join(mos_exclude)
 
 # 3.3V PMOS transistor outside DNWELL
-pgate_3p3v =pgate_lv_n_dw.not(pmos_exclude)
+pgate_3p3v = pgate_lv_n_dw.not(pmos_exclude)
 
 # 5V PMOS transistor outside DNWELL
 pgate_5v = pgate_5v_n_dw.not(pmos_exclude)
@@ -57,7 +57,7 @@ pgate_6v_dw = pgate_6v_dw_base.not(pmos_exclude)
 # ---- LDPMOS ----
 # ================
 ldpmos_exclude = nwell.join(lvpwell).join(diode_mk)
-                .join(nat).join(mvsd).join(mos_exclude)
+                      .join(nat).join(mvsd).join(mos_exclude)
 
 pgate_ldmos = pgate_6v_dw_base.interacting(mvpsd).and(ldmos_xtor).not(mvpsd).not(ldpmos_exclude)
 pd_sd_ldmos = psd_dw.not(v5_xtor).and(dualgate).and(ldmos_xtor).and(dnwell)
@@ -72,7 +72,7 @@ psd_ldmos   = pcomp.not(v5_xtor).and(dualgate).and(ldmos_xtor).and(dnwell)
 logger.info('Starting NMOS layers DERIVATIONS')
 
 nmos_exclude_ = nwell.join(diode_mk).join(mvsd)
-                .join(mvpsd).join(ldmos_xtor).join(mos_exclude)
+                     .join(mvpsd).join(ldmos_xtor).join(mos_exclude)
 
 nmos_exclude = nmos_exclude_.join(nat)
 
@@ -92,7 +92,7 @@ ngate_3p3v_dw = ngate_lv_dw_base.not(nmos_exclude)
 ngate_5v_dw = ngate_5v_dw_base.not(nmos_exclude)
 
 # 6V NMOS transistor inside DNWELL
-ngate_6v_dw =ngate_6v_dw_base.not(nmos_exclude)
+ngate_6v_dw = ngate_6v_dw_base.not(nmos_exclude)
 
 # Native Vt NMOS transistor
 # ngate_nat = ngate_6v.and(nat).not(nmos_exclude_)
@@ -102,7 +102,7 @@ ngate_nat = ngate_6v_n_dw.and(nat).not(nmos_exclude_)
 # ---- LDNMOS ----
 # ================
 ldnmos_exclude = nwell.join(lvpwell).join(diode_mk)
-                .join(nat).join(mvpsd).join(mos_exclude)
+                      .join(nat).join(mvpsd).join(mos_exclude)
 
 ngate_ldmos = ngate_6v_n_dw.interacting(mvsd).and(ldmos_xtor).not(mvsd).not(ldnmos_exclude)
 nd_ldmos    = ncomp.not(ngate).not(v5_xtor).and(dualgate).and(ldmos_xtor).not(dnwell).and(mvsd)

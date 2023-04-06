@@ -167,7 +167,7 @@ when '3k'
                   { 'R' => ppolyf_u_h, 'C' => poly2_con, 'W' => sub })
 
   # PPOLYF_U_DW_3K
-  logger.info('Extracting PPOLYF_U_DW_3K device')  
+  logger.info('Extracting PPOLYF_U_DW_3K device')
   extract_devices(resistor_with_bulk('ppolyf_u_3k_dw', 3000, BResistor),
                   { 'R' => ppolyf_u_dw_h, 'C' => poly2_con, 'W' => dnwell })
 

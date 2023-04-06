@@ -78,4 +78,3 @@ extract_devices(capacitor('cap_nmos_06v0_b', 2.3e-15, MosCap),
 logger.info('Extracting cap_pmos_06v0_b device')
 extract_devices(capacitor('cap_pmos_06v0_b', 2.3e-15, MosCap),
                 { 'P1' => cap_pmos_06v0_b, 'P2' => ptap, 'tA' => poly2_con, 'tB' => ptap })
-

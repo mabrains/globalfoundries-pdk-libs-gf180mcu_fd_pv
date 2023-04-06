@@ -20,7 +20,7 @@ Usage:
 
 Options:
     --help -h                      Print this help message.
-    --device_name=<device_name>    Name of device that we want to run regression for, Allowed values (MOS, BJT, DIODE, RES, MIMCAP, MOSCAP, MOS-SAB, EFUSE).
+    --device_name=<device_name>    Name of device that we want to run regression for, Allowed values (MOS, BJT, DIODE, RES, MIMCAP, MOSCAP, MOS_SAB, EFUSE).
     --mp=<num>                     The number of threads used in run.
     --run_name=<run_name>          Select your run name.
 """
@@ -519,11 +519,11 @@ if __name__ == "__main__":
     )
 
     ## selected device
-    allowed_devices = ["MOS", "BJT", "DIODE", "RES", "MIMCAP", "MOSCAP", "MOS-SAB", "EFUSE"]
+    allowed_devices = ["MOS", "BJT", "DIODE", "RES", "MIMCAP", "MOSCAP", "MOS_SAB", "EFUSE"]
     target_device_group = args["--device_name"]
 
     if target_device_group and target_device_group not in allowed_devices:
-        logging.error("Allowed devices are (MOS, BJT, DIODE, RES, MIMCAP, MOSCAP, MOS-SAB, EFUSE) only")
+        logging.error("Allowed devices are (MOS, BJT, DIODE, RES, MIMCAP, MOSCAP, MOS_SAB, EFUSE) only")
         exit(1)
 
     # Calling main function
