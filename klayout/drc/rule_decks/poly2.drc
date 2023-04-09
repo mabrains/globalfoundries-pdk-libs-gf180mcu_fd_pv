@@ -26,35 +26,37 @@ if FEOL
   poly_pl_lv = poly2_lv.not(otp_mk).not(ymtp_mk).not(mvsd).not(mvpsd)
   poly_pl_mv = poly2_mv.not(otp_mk).not(ymtp_mk).not(mvsd).not(mvpsd)
 
-  # Rule PL.1_LV: Interconnect Width (outside PLFUSE). is 0.18µm
+  # Rule PL.1_LV: Interconnect Width (outside PLFUSE) is 0.18µm.
   logger.info('Executing rule PL.1_LV')
   pl1_l1 = poly2_lv.outside(plfuse).not(ymtp_mk).width(0.18.um, euclidian)
   pl1_l1.output('PL.1_LV', 'PL.1_LV : Interconnect Width (outside PLFUSE). : 0.18µm')
   pl1_l1.forget
 
-  # Rule PL.1_MV: Interconnect Width (outside PLFUSE). is 0.2µm
+  # Rule PL.1_MV: Interconnect Width (outside PLFUSE) is 0.2µm.
   logger.info('Executing rule PL.1_MV')
   pl1_l1 = poly2_mv.outside(plfuse).not(ymtp_mk).width(0.2.um, euclidian)
   pl1_l1.output('PL.1_MV', 'PL.1_MV : Interconnect Width (outside PLFUSE). : 0.2µm')
   pl1_l1.forget
 
-  # Rule PL.1a_LV: Interconnect Width (inside PLFUSE). is 0.18µm
+  # Rule PL.1a_LV: Interconnect Width (inside PLFUSE) is 0.18µm.
   logger.info('Executing rule PL.1a_LV')
   pl1a_l1 = poly2_lv.inside(plfuse).width(0.18.um, euclidian)
   pl1a_l1.output('PL.1a_LV', 'PL.1a_LV : Interconnect Width (inside PLFUSE). : 0.18µm')
   pl1a_l1.forget
 
-  # Rule PL.1a_MV: Interconnect Width (inside PLFUSE). is 0.18µm
+  # Rule PL.1a_MV: Interconnect Width (inside PLFUSE) is 0.18µm.
   logger.info('Executing rule PL.1a_MV')
   pl1a_l1 = poly2_mv.inside(plfuse).width(0.18.um, euclidian)
   pl1a_l1.output('PL.1a_MV', 'PL.1a_MV : Interconnect Width (inside PLFUSE). : 0.18µm')
   pl1a_l1.forget
   poly2_mv.forget
 
-  # Rule PL.2_LV: Gate Width (Channel Length). is 0.28µm
+  # Rule PL.2_LV: Gate Width (Channel Length) is 0.28µm.
   logger.info('Executing rule PL.2_LV')
-  pl2_l1 = tgate.interacting(poly2_lv).not(otp_mk).not(ymtp_mk).width(0.28.um, euclidian)
-  pl2_l1.output('PL.2_LV', 'PL.2_LV : Gate Width (Channel Length). : 0.28µm')
+  pl2_l1 = tgate.interacting(poly2_lv).not(otp_mk).not(ymtp_mk)
+  pl2_l = pl2_l1.edges.inside_part(comp).width(0.28.um, euclidian)
+  pl2_l.output('PL.2_LV', 'PL.2_LV : Gate Width (Channel Length). : 0.28µm')
+  pl2_l.forget
   pl2_l1.forget
   poly2_lv.forget
 
@@ -72,10 +74,10 @@ if FEOL
   pl_2_6v_n.forget
   pl_2_6v_p.forget
 
-  # Rule PL.3a: Space on COMP/Field. is 0.24µm
+  # Rule PL.3a: Space on COMP/Field is 0.24µm.
   logger.info('Executing rule PL.3a')
   pl3a_l1 = tgate.or(poly2.not(comp)).not(otp_mk).space(0.24.um, euclidian)
-  pl3a_l1.output('PL.3a', 'PL.3a : Space on COMP/Field. : 0.24µm')
+  pl3a_l1.output('PL.3a', 'PL.3a : Space on COMP/Field: 0.24µm')
   pl3a_l1.forget
 
   # Rule PL.3b_LV is not a DRC check
@@ -144,13 +146,13 @@ if FEOL
   nom_e2.forget
   pl7_edges_nom.forget
 
-  # Rule PL.7_MV: 45 degree bent gate width is 0.7µm
+  # Rule PL.7_MV: 45 degree bent gate width is 0.7µm.
   logger.info('Executing rule PL.7_MV')
   thick_e1 = thick_gate.edges.inside_part(comp).with_angle(25, 65)
   thick_e2 = thick_gate.edges.inside_part(comp).with_angle(-65, -25)
   pl7_edges_thick = thick_e1.or(thick_e2)
   pl7_l2 = pl7_edges_thick.width(0.7.um, euclidian)
-  pl7_l2.output('PL.7_MV', 'PL.7_MV : 45 degree bent gate width : 0.7µm')
+  pl7_l2.output('PL.7_MV', 'PL.7_MV : 45 degree bent gate width: 0.7µm')
   pl7_l2.forget
   thick_e1.forget
   thick_e2.forget
