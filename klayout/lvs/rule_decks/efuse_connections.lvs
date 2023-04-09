@@ -1,0 +1,8 @@
+#================================
+# ------ EFUSE CONNECTIONS ------
+#================================
+
+logger.info('Starting LVS EFUSE CONNECTIONS')
+
+connect(cathode, contact)
+connect(anode, contact)

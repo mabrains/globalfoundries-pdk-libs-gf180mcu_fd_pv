@@ -193,11 +193,11 @@ extract_devices(resistor('rm1', 0.09, NResistor), { 'R' => rm1_res, 'C' => metal
 
 # RM2
 logger.info('Extracting RM2 device')
-extract_devices(resistor('rm2', 0.09, NResistor), { 'R' => rm2_res, 'C' => metal2_ncap })
+extract_devices(resistor('rm2', 0.09, NResistor), { 'R' => rm2_res, 'C' => metal2_con })
 
 # RM3
 logger.info('Extracting RM3 device')
-extract_devices(resistor('rm3', 0.09, NResistor), { 'R' => rm3_res, 'C' => metal3_ncap })
+extract_devices(resistor('rm3', 0.09, NResistor), { 'R' => rm3_res, 'C' => metal3_con })
 
 case METAL_TOP
 when '6K'

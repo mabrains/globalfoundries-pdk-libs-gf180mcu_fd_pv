@@ -557,30 +557,35 @@ when '2LM'
   top_metal     = metal2
   topmin1_metal = metal1
   top_metal_res = metal2_res
+  top_metal_label = metal2_label
 when '3LM'
   top_via       = via2
   topmin1_via   = via1
   top_metal     = metal3
   topmin1_metal = metal2
   top_metal_res = metal3_res
+  top_metal_label = metal3_label
 when '4LM'
   top_via       = via3
   topmin1_via   = via2
   top_metal     = metal4
   topmin1_metal = metal3
   top_metal_res = metal4_res
+  top_metal_label = metal4_label
 when '5LM'
   top_via       = via4
   topmin1_via   = via3
   top_metal     = metal5
   topmin1_metal = metal4
   top_metal_res = metal5_res
+  top_metal_label = metal5_label
 when '6LM'
   top_via       = via5
   topmin1_via   = via4
   top_metal     = metaltop
   topmin1_metal = metal5
   top_metal_res = metal6_res
+  top_metal_label = metaltop_label
 else
   logger.error("Unknown metal stack #{METAL_LEVEL}")
   raise

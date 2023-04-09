@@ -1,0 +1,9 @@
+#================================
+# ---- RESISTOR CONNECTIONS -----
+#================================
+
+logger.info('Starting LVS RESISTOR CONNECTIONS')
+
+connect(nplus_cont, contact)
+connect(pplus_cont, contact)
+connect(pplus_dw_cont, contact)
