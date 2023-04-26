@@ -73,11 +73,10 @@ test-LVS-main: | $(CONDA_ENV_PYTHON)
 
 .ONESHELL:
 test-LVS-% : | $(CONDA_ENV_PYTHON)
-	@which python3
 	@$(IN_CONDA_ENV) cd $(KLAYOUT_LVS_TESTS) && make test-LVS-$*
 
 #=================================
 # -------- test-LVS-switch -------
 #=================================
 test-LVS-switch: | $(CONDA_ENV_PYTHON)
-	@$(IN_CONDA_ENV) klayout -v
+	@$(IN_CONDA_ENV) cd $(KLAYOUT_LVS_TESTS) && make test-LVS-switch
