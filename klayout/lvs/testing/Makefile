@@ -1,4 +1,4 @@
-# Copyright 2022 GlobalFoundries PDK Authors
+# Copyright 2023 GlobalFoundries PDK Authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,13 +17,12 @@
 #=========================================================================
 
 SHELL        := /bin/bash
-Testing_DIR  ?= $(shell pwd)
 
 .DEFAULT_GOAL := all
 
 all: test-LVS
 
-test-LVS: Add_run-dir  test-LVS-switch  test-LVS-main
+test-LVS: test-LVS-switch  test-LVS-main
 
 #=================================
 # ----- test-LVS_regression ------
@@ -34,6 +33,7 @@ test-LVS-main: test-LVS-MOS  test-LVS-BJT  test-LVS-DIODE  test-LVS-RES  test-LV
 
 .ONESHELL:
 test-LVS-%:
+	@echo "========== LVS-$* testing =========="
 	@ python3 run_regression.py --device_name=$*
 
 #=================================
@@ -42,9 +42,7 @@ test-LVS-%:
 
 .ONESHELL:
 test-LVS-switch:
-	@cd $(Testing_DIR)
-	@cd ..
 	@echo "========== LVS-Switch testing =========="
-	@python3 run_lvs.py --design=testing/extraction_checking/sample_nfet_03v3.gds --net=sample_nfet_03v3.spice --gf180mcu=A 
-	@python3 run_lvs.py --design=testing/extraction_checking/sample_nfet_03v3.gds --net=sample_nfet_03v3.spice --gf180mcu=B
-	@python3 run_lvs.py --design=testing/extraction_checking/sample_nfet_03v3.gds --net=sample_nfet_03v3.spice --gf180mcu=C
+	@python3 ../run_lvs.py --layout=testcases/extraction_checking/sample_nfet_03v3.gds --netlist=testcases/extraction_checking/sample_nfet_03v3.spice --variant=A 
+	@python3 ../run_lvs.py --layout=testcases/extraction_checking/sample_nfet_03v3.gds --netlist=testcases/extraction_checking/sample_nfet_03v3.spice --variant=B
+	@python3 ../run_lvs.py --layout=testcases/extraction_checking/sample_nfet_03v3.gds --netlist=testcases/extraction_checking/sample_nfet_03v3.spice --variant=C

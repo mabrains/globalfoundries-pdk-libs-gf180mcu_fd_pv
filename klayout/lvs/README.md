@@ -5,75 +5,91 @@ Explains how to use the runset.
 ## Folder Structure
 
 ```text
-📁 runset
- ┣ 📁testing
- ┣ 📜README.md
- ┣ 📜gf_018mcu.lvs
- ┗ 📜run_lvs.py
+📁 lvs
+ ┣ 📁testing                        Testing environment directory for GF180MCU LVS. 
+ ┣ 📁rule_decks                     All LVS rule decks used in GF180MCU.
+ ┣ 📜gf_018mcu.lvs                  Main LVS rule deck that call all runsets.
+ ┣ 📜README.md                      This file to document the LVS run for GF180MCU.
+ ┗ 📜run_lvs.py                     Main python script used for GF180MCU LVS.
  ```
 
-## Rule Deck Usage
+## **Prerequisites**
+You need the following set of tools installed to be able to run GF180MCU LVS:
+- Python 3.6+
+- KLayout 0.28.4+
 
-The `run_lvs.py` script takes a gds file and a netlist to run LVS rule deck of GF180 technology with switches to select subsets of all checks.
+## **Usage**
 
-### **Switches**
-
-1. **GF180MCU**=A   : combined options of metal_level=3, mim_option=A, metal_top=30K, poly_res=1K, and mim_cap=2
-2. **GF180MCU**=B   : combined options of metal_level=4, mim_option=B, metal_top=11K, poly_res=1K, and mim_cap=2
-3. **GF180MCU**=C   : combined options of metal_level=5, mim_option=B, metal_top=9K,  poly_res=1K, and mim_cap=2
-
-### Usage
+The `run_lvs.py` script takes your input gds and netlist files to run LVS rule deck of GF180 technology on it with switches to select subsets of all checks. 
 
 ```bash
     run_lvs.py (--help| -h)
-    run_lvs.py (--design=<layout_path>) (--net=<netlist_path>) (--gf180mcu=<combined_options>) [--thr=<thr>] [--run_mode=<run_mode>] [--metal_top=<metal_top>] [--mim_option=<mim_option>] [--metal_level=<metal_level>] [--poly_res_val=<res_val>] [--mim_cap_val=<cap_val>] [--no_net_names] [--set_spice_comments] [--set_scale] [--set_verbose] [--set_schematic_simplify] [--set_net_only] [--set_top_lvl_pins] [--set_combine] [--set_purge] [--set_purge_nets]
+    run_lvs.py (--layout=<layout_path>) (--netlist=<netlist_path>) (--variant=<combined_options>) [--thr=<thr>] [--run_dir=<run_dir_path>] [--topcell=<topcell_name>] [--run_mode=<run_mode>] [--verbose] [--lvs_sub=<sub_name>] [--no_net_names] [--spice_comments] [--scale] [--schematic_simplify] [--net_only] [--top_lvl_pins] [--combine] [--purge] [--purge_nets]
 ```
 
 Example:
 ```bash
-    python3 run_lvs.py --design=testing/extraction_checking/sample_nfet_03v3.gds --net=sample_nfet_03v3.spice --thr=16 --gf180mcu=B --set_verbose --set_spice_comments
+    python3 run_lvs.py --layout=testing/testcases/extraction_checking/sample_nfet_03v3.gds --netlist=testing/testcases/extraction_checking/sample_nfet_03v3.spice --variant=C --run_mode=deep --run_dir=lvs_switch_checking
 ```
 
 ### Options
 
-`--help -h`                         Print this help message.
+- `--help -h`                           Print this help message.
 
-`--design=<layout_path>`            The input GDS file path.
+- `--layout=<layout_path>`              The input GDS file path.
 
-`--net=<netlist_path>`              The input netlist file path.
+- `--netlist=<netlist_path>`            The input netlist file path.
 
-`--thr=<thr>`                       The number of threads used in run.
+- `--variant=<combined_options>`        Select combined options of metal_top, mim_option, and metal_level. Allowed values (A, B, C).
+  - gf180mcu=A: Select  metal_top=30K  mim_option=A  metal_level=3LM  poly_res=1K, and mim_cap=2
+  - gf180mcu=B: Select  metal_top=11K  mim_option=B  metal_level=4LM  poly_res=1K, and mim_cap=2
+  - gf180mcu=C: Select  metal_top=9K   mim_option=B  metal_level=5LM  poly_res=1K, and mim_cap=2
 
-`run_mode=<run_mode>`               Select klayout mode Allowed modes (flat , deep, tiling). [default: flat]
+- `--thr=<thr>`                         The number of threads used in run.
 
-`--gf180mcu=<combined_options>`     Select combined options of metal_top, mim_option, and metal_level. Allowed values (A, B, C).
+- `--run_dir=<run_dir_path>`            Run directory to save all the results [default: pwd]
 
-`--no_net_names`                    Discard net names in extracted netlist.
+- `--topcell=<topcell_name>`            Topcell name to use.
 
-`--set_spice_comments`              Set netlist comments in extracted netlist.
+- `--run_mode=<run_mode>`               Select klayout mode Allowed modes (flat , deep, tiling). [default: deep]
 
-`--set_scale`                       Set scale of 1e6 in extracted netlist.
+- `--lvs_sub=<sub_name>`                Substrate name used in your design.
 
-`--set_verbose`                     Set verbose mode.
+- `--verbose`                           Detailed rule execution log for debugging.
 
-`--set_schematic_simplify`          Set schematic simplification in input netlist.
+- `--no_net_names`                      Discard net names in extracted netlist.
 
-`--set_net_only`                    Set netlist object creation only in extracted netlist.
+- `--spice_comments`                    Enable netlist comments in extracted netlist.
 
-`--set_top_lvl_pins`                Set top level pins only in extracted netlist.
+- `--scale`                             Enable scale of 1e6 in extracted netlist.
 
-`--set_combine`                     Set netlist combine only in extracted netlist.
+- `--schematic_simplify`                Enable schematic simplification in input netlist.
 
-`--set_purge`                       Set netlist purge all only in extracted netlist.
+- `--net_only`                          Enable netlist object creation only in extracted netlist.
 
-`--set_purge_nets`                  Set netlist purge nets only in extracted netlist.
+- `--top_lvl_pins`                      Enable top level pins only in extracted netlist.
 
-### **LVS Outputs**
+- `--combine`                           Enable netlist combine only in extracted netlist.
 
-Final results will appear at the end of the run logs.
+- `--purge`                             Enable netlist purge all only in extracted netlist.
 
-The output files are :
+- `--purge_nets`                        Enable netlist purge nets only in extracted netlist.
 
-1. An extracted netlist (`<your_design_name>.cir`).
 
-2. Database file (`<your_design_name>..lvdb`) for comparison results. you could view it on your file using klayout.
+## **LVS Outputs**
+
+You could find the run results at your run directory if you previously specified it through `--run_dir=<run_dir_path>`. Default path of run directory is `lvs_run_<date>_<time>` in current directory.
+
+### Folder Structure of run results
+
+```text
+📁 lvs_run_<date>_<time>
+ ┣ 📜 lvs_run_<date>_<time>.log
+ ┗ 📜 <your_design_name>.cir
+ ┗ 📜 <your_design_name>.lvsdb
+ ```
+
+The result is a database file (`<your_design_name>.lvsdb`) contains LVS extractions and comparison results. 
+You could view it on your file using: `klayout <input_gds_file> -m <resut_db_file> `, or you could view it on your gds file via netlist browser option in tools menu using klayout GUI.
+
+You could also find the extracted netlist generated from your design at (`<your_design_name>.cir`) in your run directory.
