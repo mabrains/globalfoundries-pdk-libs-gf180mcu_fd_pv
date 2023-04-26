@@ -248,8 +248,8 @@ def run_test_case(
 
     # Creating run folder structure and copy testcases in it
     pattern_clean = ".".join(os.path.basename(layout_path).split(".")[:-1])
-    output_loc = f"{run_dir}/{device_name}"
-    pattern_log = f"{output_loc}/{pattern_clean}_lvs.log"
+    output_loc = os.path.join(run_dir, device_name)
+    pattern_log = os.path.join(output_loc, f"{pattern_clean}_lvs.log")
     os.makedirs(output_loc, exist_ok=True)
     layout_path_run = os.path.join(run_dir, device_name, f"{device_name}.gds")
     netlist_path_run = os.path.join(run_dir, device_name, f"{device_name}.cdl")
