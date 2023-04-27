@@ -1,5 +1,5 @@
 ################################################################################################
-# Copyright 2022 GlobalFoundries PDK Authors
+# Copyright 2023 GlobalFoundries PDK Authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -76,7 +76,7 @@ when '3LM', '4LM', '5LM', '6LM'
 end
 case METAL_LEVEL
 when '4LM', '5LM', '6LM'
-  metal4_con = metal3.not(metal4_res)
+  metal4_con = metal4.not(metal4_res)
   via3_n_cap = via3.not(fusetop)
   via3_cap = via3.and(fusetop)
 end
