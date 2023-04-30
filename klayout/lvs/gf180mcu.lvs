@@ -138,7 +138,7 @@ PURGE_NETS = bool_check?($purge_nets)
 logger.info("Selected PURGE_NETS option: #{PURGE_NETS}")
 
 # SIMPLIFY
-SIMPLIFY = if $net_only || $top_lvl_pins || $combine || $purge || $purge_nets
+SIMPLIFY = if NET_ONLY || TOP_LVL_PINS || COMBINE || PURGE || PURGE_NETS
              false
            else
              true
