@@ -112,11 +112,6 @@ NET_ONLY = bool_check?($net_only)
 
 logger.info("Selected NET_ONLY option: #{NET_ONLY}")
 
-# NET_ONLY
-NET_ONLY = bool_check?($net_only)
-
-logger.info("Selected NET_ONLY option: #{NET_ONLY}")
-
 # TOP_LVL_PINS
 TOP_LVL_PINS = bool_check?($top_lvl_pins)
 
