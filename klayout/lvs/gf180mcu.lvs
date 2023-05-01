@@ -1,5 +1,5 @@
 ################################################################################################
-# Copyright 2022 GlobalFoundries PDK Authors
+# Copyright 2023 GlobalFoundries PDK Authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -112,11 +112,6 @@ NET_ONLY = bool_check?($net_only)
 
 logger.info("Selected NET_ONLY option: #{NET_ONLY}")
 
-# NET_ONLY
-NET_ONLY = bool_check?($net_only)
-
-logger.info("Selected NET_ONLY option: #{NET_ONLY}")
-
 # TOP_LVL_PINS
 TOP_LVL_PINS = bool_check?($top_lvl_pins)
 
@@ -138,7 +133,7 @@ PURGE_NETS = bool_check?($purge_nets)
 logger.info("Selected PURGE_NETS option: #{PURGE_NETS}")
 
 # SIMPLIFY
-SIMPLIFY = if $net_only || $top_lvl_pins || $combine || $purge || $purge_nets
+SIMPLIFY = if NET_ONLY || TOP_LVL_PINS || COMBINE || PURGE || PURGE_NETS
              false
            else
              true
@@ -222,7 +217,7 @@ else
 end
 
 #================================================
-#------------- LAYERS DERIVATIONS ---------------
+#------------- LAYERS DEFINITIONS ---------------
 #================================================
 
 # %include rule_decks/layers_definitions.lvs
@@ -231,13 +226,13 @@ end
 #------------------------- MAIN RUNSET --------------------------
 #================================================================
 
-logger.info('GF180 LVS rules started')
+logger.info('Starting GF180MCU LVS runset')
 
 #================================================
 #------------- LAYERS DERIVATIONS ---------------
 #================================================
 
-logger.info('Starting deriving base layers.')
+logger.info('Starting base layers derivations')
 
 #==================================
 # ------ GENERAL DERIVATIONS ------

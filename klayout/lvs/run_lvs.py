@@ -1,16 +1,18 @@
+################################################################################################
 # Copyright 2023 GlobalFoundries PDK Authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#      http://www.apache.org/licenses/LICENSE-2.0
+#     https://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+################################################################################################
 
 """Run GlobalFoundries 180nm MCU LVS.
 
@@ -23,9 +25,9 @@ Options:
     --layout=<layout_path>              The input GDS file path.
     --netlist=<netlist_path>            The input netlist file path.
     --variant=<combined_options>        Select combined options of metal_top, mim_option, and metal_level. Allowed values (A, B, C).
-                                        gf180mcu=A: Select  metal_top=30K  mim_option=A  metal_level=3LM  poly_res=1K, and mim_cap=2
-                                        gf180mcu=B: Select  metal_top=11K  mim_option=B  metal_level=4LM  poly_res=1K, and mim_cap=2
-                                        gf180mcu=C: Select  metal_top=9K   mim_option=B  metal_level=5LM  poly_res=1K, and mim_cap=2
+                                        variant=A: Select  metal_top=30K  mim_option=A  metal_level=3LM  poly_res=1K, and mim_cap=2
+                                        variant=B: Select  metal_top=11K  mim_option=B  metal_level=4LM  poly_res=1K, and mim_cap=2
+                                        variant=C: Select  metal_top=9K   mim_option=B  metal_level=5LM  poly_res=1K, and mim_cap=2
     --thr=<thr>                         The number of threads used in run.
     --run_dir=<run_dir_path>            Run directory to save all the results [default: pwd]
     --topcell=<topcell_name>            Topcell name to use.
