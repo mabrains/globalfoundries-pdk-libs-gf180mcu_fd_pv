@@ -6,7 +6,7 @@ Explains how to use the runset.
 
 ```text
 📁 lvs
- ┣ 📁testing                        Testing environment directory for GF180MCU LVS. 
+ ┣ 📁testing                        Testing environment directory for GF180MCU LVS.
  ┣ 📁rule_decks                     All LVS rule decks used in GF180MCU.
  ┣ 📜gf_018mcu.lvs                  Main LVS rule deck that call all runsets.
  ┣ 📜README.md                      This file to document the LVS run for GF180MCU.
@@ -20,7 +20,7 @@ You need the following set of tools installed to be able to run GF180MCU LVS:
 
 ## **Usage**
 
-The `run_lvs.py` script takes your input gds and netlist files to run LVS rule deck of GF180 technology on it with switches to select subsets of all checks. 
+The `run_lvs.py` script takes your input gds and netlist files to run LVS rule deck of GF180 technology on it with switches to select subsets of all checks.
 
 ```bash
     run_lvs.py (--help| -h)
@@ -89,7 +89,7 @@ You could find the run results at your run directory if you previously specified
  ┗ 📜 <your_design_name>.lvsdb
  ```
 
-The result is a database file (`<your_design_name>.lvsdb`) contains LVS extractions and comparison results. 
-You could view it on your file using: `klayout <input_gds_file> -m <resut_db_file> `, or you could view it on your gds file via netlist browser option in tools menu using klayout GUI.
+The result is a database file (`<your_design_name>.lvsdb`) contains LVS extractions and comparison results.
+You could view it on your file using: `klayout <input_gds_file> -mn <resut_db_file> `, or you could view it on your gds file via netlist browser option in tools menu using klayout GUI.
 
 You could also find the extracted netlist generated from your design at (`<your_design_name>.cir`) in your run directory.
