@@ -296,7 +296,7 @@ if FEOL
                  'DF.12 : COMP not covered by Nplus or Pplus is forbidden (except those COMP under marking).')
   df12_l1.forget
 
-  # Preparations for rule DF.13_LV and DF.13_MV: 
+  # Preparations for rule DF.13_LV and DF.13_MV:
   # Size ntap by 15 and 20um, staying inside nwell always.
   # Use octagon_limit to approximate a circle.
   # Use steps of 0.5, which is compatible with min space of nwell (0.6)
