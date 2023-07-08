@@ -304,36 +304,36 @@ if FEOL
   logger.info('Preparations for rule DF.13_LV and DF.13_MV')
   df13_ntap_sized = ntap
   sz = 0.0
-  while sz < 15.0  do
+  while sz < 15.0
     df13_ntap_sized = df13_ntap_sized.sized(0.5.um, octagon_limit).and(nwell)
     sz += 0.5
   end
-  df13_ntap_sized_by_15 = df13_ntap_sized
-  while sz < 20.0  do
+  df13_ntap_sized_by15 = df13_ntap_sized
+  while sz < 20.0
     df13_ntap_sized = df13_ntap_sized.sized(0.5.um, octagon_limit).and(nwell)
     sz += 0.5
   end
-  df13_ntap_sized_by_20 = df13_ntap_sized
+  df13_ntap_sized_by20 = df13_ntap_sized
 
   # Rule DF.13_LV: Max distance of Nwell tap (NCOMP inside Nwell) from (PCOMP inside Nwell) is 20um.
   logger.info('Executing rule DF.13_LV')
   pactive_3p3v = pactive.not_interacting(v5_xtor).not_interacting(dualgate)
-  df13_l1 = pactive_3p3v.not_interacting(df13_ntap_sized_by_20)
+  df13_l1 = pactive_3p3v.not_interacting(df13_ntap_sized_by20)
   df13_l1.output('DF.13_LV',
                  'DF.13_LV : Max distance of Nwell tap (NCOMP inside Nwell) from (PCOMP inside Nwell): 20um')
   df13_l1.forget
   pactive_3p3v.forget
-  df13_ntap_sized_by_20.forget
+  df13_ntap_sized_by20.forget
 
   # Rule DF.13_MV: Max distance of Nwell tap (NCOMP inside Nwell) from (PCOMP inside Nwell) is 15um.
   logger.info('Executing rule DF.13_MV')
   pactive_56v = pactive.overlapping(dualgate)
-  df13_l1 = pactive_56v.not_interacting(df13_ntap_sized_by_15)
+  df13_l1 = pactive_56v.not_interacting(df13_ntap_sized_by15)
   df13_l1.output('DF.13_MV',
                  'DF.13_MV : Max distance of Nwell tap (NCOMP inside Nwell) from (PCOMP inside Nwell): 15um')
   df13_l1.forget
   pactive_56v.forget
-  df13_ntap_sized_by_15.forget
+  df13_ntap_sized_by15.forget
 
   # Rule DF.14_LV: Max distance of substrate tap (PCOMP outside Nwell) from (NCOMP outside Nwell) is 20um.
   logger.info('Executing rule DF.14_LV')
