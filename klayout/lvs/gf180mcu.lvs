@@ -61,10 +61,9 @@ if $target_netlist
   target_netlist($target_netlist)
 else
   layout_dir = Pathname.new(RBA::CellView.active.filename).parent.realpath
-  netlist_path = layout_dir.join("#{source.cell_name}_extracted.cir").to_s
+  netlist_path = layout_dir.join("#{source.cell_name}_extracted.cir")
   logger.info("GF180MCU Klayout LVS extracted netlist file at: #{source.cell_name}_extracted.cir")
-  target_netlist($netlist_path,
-                 write_spice(spice_with_net_names, spice_with_comments), 'Extracted by KLayout with GF180 LVS runset')
+  target_netlist("#{netlist_path}")
 end
 
 #================================================
