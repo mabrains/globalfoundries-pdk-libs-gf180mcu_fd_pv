@@ -96,24 +96,8 @@ if FEOL
   lpw3_l2.forget
   lpw3_l.forget
 
-  # Rule LPW.4: If LVPWELL is used as resistor, it must be covered by RES_MK (for LVS
-  ## purpose). Width of the resistor determined by LVPWELL. Length by COMP-
-  ## to-COMP space. RES_MK length shall be coinciding with resistor length
-  ## (Touching COMP each side) and width covering the width of LVPWELL.
-  logger.info('Executing rule LPW.4')
-  res_lpw = lvpwell_dn.and(res_mk)
-  res_lpw_cont = lvpwell_dn.not(res_mk)
-  lpw4_l1 = res_lpw.not_interacting(pcomp, 2..2)
-  lpw4_l2 = res_lpw.interacting(poly2)
-  lpw4_l3 = lvpwell_dn.interacting(res_lpw_cont, 2..2)
-  lpw4_l = lpw4_l1.or(lpw4_l2).or(lpw4_l3)
-  lpw4_l.output('LPW.4', "LPW.4 : If LVPWELL is used as resistor, it must be covered by RES_MK (for LVS
-    purpose). Width of the resistor determined by LVPWELL. Length by COMP-to-
-    COMP space. RES_MK length shall be coinciding with resistor length
-    (Touching COMP each side) and width covering the width of LVPWELL.")
-  lpw4_l1.forget
-  lpw4_l2.forget
-  lpw4_l3.forget
+  # Rule LPW.4 is not a DRC check
+  ## Please refer to https://gf180mcu-pdk.readthedocs.io/en/latest/physical_verification/design_manual/drm_07_04.html
 
   # Rule LPW.5: LVPWELL resistors must be enclosed by DNWELL.
   logger.info('Executing rule LPW.5')
