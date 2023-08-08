@@ -17,7 +17,7 @@ Run GlobalFoundries 180nm MCU DRC.
 
 Usage:
     run_drc.py (--help| -h)
-    run_drc.py (--path=<file_path>) (--variant=<combined_options>) [--verbose] [--table=<table_name>]... [--mp=<num_cores>] [--run_dir=<run_dir_path>] [--topcell=<topcell_name>] [--thr=<thr>] [--run_mode=<run_mode>] [--no_feol] [--no_beol] [--connectivity] [--density] [--density_only] [--antenna] [--antenna_only] [--no_offgrid]
+    run_drc.py (--path=<file_path>) (--variant=<combined_options>) [--verbose] [--table=<table_name>]... [--mp=<num_cores>] [--run_dir=<run_dir_path>] [--topcell=<topcell_name>] [--thr=<thr>] [--run_mode=<run_mode>] [--no_feol] [--no_beol] [--connectivity] [--density] [--density_only] [--antenna] [--antenna_only] [--no_offgrid] [--macro_gen]
 
 Options:
     --help -h                           Print this help message.
@@ -43,6 +43,8 @@ Options:
     --antenna_only                      Turn on Antenna checks only.
     --no_offgrid                        Turn off OFFGRID checking rules.
     --verbose                           Detailed rule execution log for debugging.
+    --macro_gen                         Generating main rule deck for macros usage.
+    
 """
 
 from docopt import docopt
@@ -468,6 +470,12 @@ def run_parallel_run(
         Path to the run location.
     """
 
+    ## Main rule deck creation for macros purpose only
+    macros_option = arguments["--macro_gen"]
+    if macros_option:
+        drc_file = generate_drc_run_template(rule_deck_full_path, drc_run_dir)
+        return 0
+
     list_rule_deck_files = dict()
 
     ## Run Antenna if required.
@@ -543,6 +551,12 @@ def run_single_processor(
     """
 
     list_res_db_files = []
+
+    ## Main rule deck creation for macros purpose only
+    macros_option = arguments["--macro_gen"]
+    if macros_option:
+        drc_file = generate_drc_run_template(rule_deck_full_path, drc_run_dir)
+        return 0
 
     ## Run Antenna if required.
     if arguments["--antenna"] or arguments["--antenna_only"]:
