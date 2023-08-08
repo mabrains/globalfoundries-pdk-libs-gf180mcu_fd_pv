@@ -44,7 +44,7 @@ Options:
     --no_offgrid                        Turn off OFFGRID checking rules.
     --verbose                           Detailed rule execution log for debugging.
     --macro_gen                         Generating main rule deck for macros usage.
-    
+
 """
 
 from docopt import docopt
