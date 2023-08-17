@@ -96,7 +96,7 @@ if BEOL && (METAL_TOP == '30K')
   mt308_l1 = metal_top_intersections.interacting(top_via_not_seal_ring, 1, 3)
   mt308_poss_l2 = metal_top_intersections.interacting(top_via_not_seal_ring, 4..nil)
   mt308_poss_via = top_via_not_seal_ring.interacting(mt308_poss_l2)
-  mt308_poss_via_over_under = mt308_poss_via.sized(0.16, 'square_limit').merged.sized(-0.16, 'square_limit')
+  mt308_poss_via_over_under = mt308_poss_via.sized(0.3, 'square_limit').merged.sized(-0.3, 'square_limit')
   mt308_all = mt308_poss_via_over_under.with_bbox_min(mt308_egde_length..nil)
   mt308_loc_exc = mt308_all.width(mt308_egde_length,
                                   projection_limits(mt308_egde_length..1000 * mt308_egde_length)).polygons
