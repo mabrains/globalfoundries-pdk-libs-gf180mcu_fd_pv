@@ -967,14 +967,14 @@ def conn_separation(layer1, layer2, conn_val, not_conn_val, mode)
 end
 
 def size_overunder_in_layers(large_layer, size_layer, size_value)
-  out_layer = DRC::DRCLayer::new(self, RBA::Region::new)
+  out_layer = DRC::DRCLayer.new(self, RBA::Region.new)
   large_layer.data.each do |ep|
-    curr_large_layer = DRC::DRCLayer::new(self, RBA::Region::new(ep))
+    curr_large_layer = DRC::DRCLayer.new(self, RBA::Region.new(ep))
     curr_large_layer = curr_large_layer.and(size_layer)
     curr_large_layer = curr_large_layer.sized(size_value, 'square_limit').merged.sized(-size_value, 'square_limit')
     out_layer.data.insert(curr_large_layer.data)
   end
-  return out_layer
+  out_layer
 end
 
 # === IMPLICIT EXTRACTION ===
