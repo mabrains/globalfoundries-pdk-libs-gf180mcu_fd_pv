@@ -44,7 +44,7 @@ Options:
     --no_offgrid                        Turn off OFFGRID checking rules.
     --verbose                           Detailed rule execution log for debugging.
     --macro_gen                         Generating main rule deck for macros usage.
-    --slow_via                          Turn on SLOW_VIA option for via rules 
+    --slow_via                          Turn on SLOW_VIA option for via rules
 
 """
 
@@ -322,7 +322,7 @@ def generate_klayout_switches(arguments, layout_path):
         switches["density"] = "true"
     else:
         switches["density"] = "false"
-    
+
     if arguments["--slow_via"]:
         switches["slow_via"] = "true"
     else:
@@ -355,7 +355,9 @@ def check_klayout_version():
         logging.error("Was not able to get klayout version properly.")
         exit(1)
     elif len(klayout_v_list) >= 2 or len(klayout_v_list) <= 3:
-        if klayout_v_list[1] < 28 or (klayout_v_list[1] == 28 and klayout_v_list[2] <= 3):
+        if klayout_v_list[1] < 28 or (
+            klayout_v_list[1] == 28 and klayout_v_list[2] <= 3
+        ):
             logging.error("Prerequisites at a minimum: KLayout 0.28.4")
             logging.error(
                 "Using this klayout version is not supported in this development."
