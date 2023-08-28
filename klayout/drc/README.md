@@ -23,7 +23,7 @@ The `run_drc.py` script takes your input gds file to run DRC rule decks of GF180
 
 ```bash
     run_drc.py (--help| -h)
-    run_drc.py (--path=<file_path>) (--variant=<combined_options>) [--verbose] [--table=<table_name>]... [--mp=<num_cores>] [--run_dir=<run_dir_path>] [--topcell=<topcell_name>] [--thr=<thr>] [--run_mode=<run_mode>] [--no_feol] [--no_beol] [--connectivity] [--density] [--density_only] [--antenna] [--antenna_only] [--no_offgrid]
+    run_drc.py (--path=<file_path>) (--variant=<combined_options>) [--verbose] [--table=<table_name>]... [--mp=<num_cores>] [--run_dir=<run_dir_path>] [--topcell=<topcell_name>] [--thr=<thr>] [--run_mode=<run_mode>] [--no_feol] [--no_beol] [--connectivity] [--density] [--density_only] [--antenna] [--antenna_only] [--no_offgrid] [--macro_gen] [--slow_via]
 ```
 
 Example:
@@ -38,10 +38,12 @@ Example:
 
 - `--path=<file_path>`                  The input GDS file path.
 
-- `--variant=<combined_options>`        Select combined options of metal_top, mim_option, and metal_level. Allowed values (A, B, C).
+- `--variant=<combined_options>`        Select combined options of metal_top, mim_option, and metal_level. Allowed values (A, B, C, D, E).
   - gf180mcu=A: Select  metal_top=30K  mim_option=A  metal_level=3LM
   - gf180mcu=B: Select  metal_top=11K  mim_option=B  metal_level=4LM
   - gf180mcu=C: Select  metal_top=9K   mim_option=B  metal_level=5LM
+  - gf180mcu=D: Select  metal_top=9K   mim_option=B  metal_level=6LM
+  - gf180mcu=E: Select  metal_top=9K   mim_option=A  metal_level=6LM
 
 - `--topcell=<topcell_name>`            Topcell name to use.
 
@@ -73,6 +75,11 @@ Example:
 
 - `--verbose`                           Detailed rule execution log for debugging.
 
+- `--macro_gen`                        Turn off 
+main rule deck generation without simulation
+
+- `--slow_via`                        Turn off 
+enable slow_via implementations  
 
 ## **DRC Outputs**
 

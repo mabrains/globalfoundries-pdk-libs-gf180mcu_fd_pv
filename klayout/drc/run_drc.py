@@ -17,7 +17,7 @@ Run GlobalFoundries 180nm MCU DRC.
 
 Usage:
     run_drc.py (--help| -h)
-    run_drc.py (--path=<file_path>) (--variant=<combined_options>) [--verbose] [--table=<table_name>]... [--mp=<num_cores>] [--run_dir=<run_dir_path>] [--topcell=<topcell_name>] [--thr=<thr>] [--run_mode=<run_mode>] [--no_feol] [--no_beol] [--connectivity] [--density] [--density_only] [--antenna] [--antenna_only] [--no_offgrid] [--macro_gen]
+    run_drc.py (--path=<file_path>) (--variant=<combined_options>) [--verbose] [--table=<table_name>]... [--mp=<num_cores>] [--run_dir=<run_dir_path>] [--topcell=<topcell_name>] [--thr=<thr>] [--run_mode=<run_mode>] [--no_feol] [--no_beol] [--connectivity] [--density] [--density_only] [--antenna] [--antenna_only] [--no_offgrid] [--macro_gen] [--slow_via]
 
 Options:
     --help -h                           Print this help message.
@@ -44,6 +44,7 @@ Options:
     --no_offgrid                        Turn off OFFGRID checking rules.
     --verbose                           Detailed rule execution log for debugging.
     --macro_gen                         Generating main rule deck for macros usage.
+    --slow_via                          Turn on SLOW_VIA option for via rules
 
 """
 
@@ -289,7 +290,7 @@ def generate_klayout_switches(arguments, layout_path):
         switches["mim_option"] = "A"
         switches["metal_level"] = "6LM"
     else:
-        logging.error("variant switch allowed values are (A , B, C, D, E) only")
+        logging.error("variant switch allowed values are (A , B, C, D, E,F) only")
         exit(1)
 
     if arguments["--verbose"]:
@@ -322,6 +323,11 @@ def generate_klayout_switches(arguments, layout_path):
     else:
         switches["density"] = "false"
 
+    if arguments["--slow_via"]:
+        switches["slow_via"] = "true"
+    else:
+        switches["slow_via"] = "false"
+
     switches["topcell"] = get_run_top_cell_name(arguments, layout_path)
     switches["input"] = layout_path
 
@@ -349,7 +355,9 @@ def check_klayout_version():
         logging.error("Was not able to get klayout version properly.")
         exit(1)
     elif len(klayout_v_list) >= 2 or len(klayout_v_list) <= 3:
-        if klayout_v_list[1] < 28 or (klayout_v_list[1] == 28 and klayout_v_list[2] <= 3):
+        if klayout_v_list[1] < 28 or (
+            klayout_v_list[1] == 28 and klayout_v_list[2] <= 3
+        ):
             logging.error("Prerequisites at a minimum: KLayout 0.28.4")
             logging.error(
                 "Using this klayout version is not supported in this development."
