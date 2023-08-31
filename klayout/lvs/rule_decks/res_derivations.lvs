@@ -43,7 +43,7 @@ nplus_cont = ncomp.not(nwell).not_interacting(ngate)
 nplus_u_dw_layer = ncomp.and(lvpwell).and(sab).and(res_mk).and(dnwell).not(nplus_exclude)
 
 ## NPLUS_S
-nplus_s_layer = ncomp.and(lvpwell).and(res_mk).not_interacting(sab).not(dnwell).not(nplus_exclude)
+nplus_s_layer = ncomp.and(res_mk).not_interacting(sab).not(dnwell).not(nplus_exclude)
 
 ## NPLUS_S_DW
 nplus_s_dw_layer = ncomp.and(lvpwell).and(res_mk).and(dnwell).not_interacting(sab).not(nplus_exclude)

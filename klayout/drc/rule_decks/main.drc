@@ -52,7 +52,7 @@ if $report
 else
   layout_dir = Pathname.new(RBA::CellView.active.filename).parent.realpath
   report_path = layout_dir.join('gf180_drc.lyrdb').to_s
-  logger.info('GF180MCU Klayout DRC runset output at default location: %s', report_path)
+  logger.info("GF180MCU Klayout DRC runset output at default location: #{report_path}")
   report('DRC Run Report at', report_path)
 end
 
@@ -153,6 +153,11 @@ logger.info("FEOL enabled: #{FEOL}")
 BEOL = bool_check?($beol)
 
 logger.info("BEOL enabled: #{BEOL}")
+
+## SLOW_VIA
+SLOW_VIA = bool_check?($slow_via)
+
+logger.info("SLOW_VIA enabled: #{SLOW_VIA}")
 
 #================================================
 #------------- LAYERS DEFINITIONS ---------------
@@ -959,6 +964,17 @@ def conn_separation(layer1, layer2, conn_val, not_conn_val, mode)
     unconnected_output = unconnected_errors.polygons(0.001.um)
   end
   [connected_output, unconnected_output]
+end
+
+def size_overunder_in_layers(large_layer, size_layer, size_value)
+  out_layer = DRC::DRCLayer.new(self, RBA::Region.new)
+  large_layer.data.each do |ep|
+    curr_large_layer = DRC::DRCLayer.new(self, RBA::Region.new(ep))
+    curr_large_layer = curr_large_layer.and(size_layer)
+    curr_large_layer = curr_large_layer.sized(size_value, 'square_limit').merged.sized(-size_value, 'square_limit')
+    out_layer.data.insert(curr_large_layer.data)
+  end
+  out_layer
 end
 
 # === IMPLICIT EXTRACTION ===

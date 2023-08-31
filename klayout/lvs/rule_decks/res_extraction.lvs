@@ -191,13 +191,17 @@ end
 logger.info('Extracting RM1 device')
 extract_devices(resistor('rm1', 0.09, NResistor), { 'R' => rm1_res, 'C' => metal1_con })
 
-# RM2
-logger.info('Extracting RM2 device')
-extract_devices(resistor('rm2', 0.09, NResistor), { 'R' => rm2_res, 'C' => metal2_con })
+unless METAL_LEVEL == '2LM'
+  # RM2
+  logger.info('Extracting RM2 device')
+  extract_devices(resistor('rm2', 0.09, NResistor), { 'R' => rm2_res, 'C' => metal2_con })
+end
 
-# RM3
-logger.info('Extracting RM3 device')
-extract_devices(resistor('rm3', 0.09, NResistor), { 'R' => rm3_res, 'C' => metal3_con })
+unless METAL_LEVEL == '3LM'
+  # RM3
+  logger.info('Extracting RM3 device')
+  extract_devices(resistor('rm3', 0.09, NResistor), { 'R' => rm3_res, 'C' => metal3_con })
+end
 
 case METAL_TOP
 when '6K'
