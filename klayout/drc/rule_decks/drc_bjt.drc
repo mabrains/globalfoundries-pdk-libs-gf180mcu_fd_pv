@@ -22,7 +22,11 @@ if FEOL
 
   # Rule BJT.1: Min. DRC_BJT overlap of DNWELL for NPN BJT is 0um.
   logger.info('Executing rule BJT.1')
-  bjt1_l1 = drc_bjt.not_covering(dnwell.interacting(drc_bjt))
+  vnpn_e = ncomp.and(lvs_bjt).and(dnwell).and(drc_bjt)
+  vnpn_b = pcomp.and(lvpwell).and(dnwell).and(drc_bjt)
+  vnpn_c = ncomp.and(dnwell).not(lvs_bjt).and(drc_bjt)
+  drc_bjt_npn = drc_bjt.interacting(vnpn_e).interacting(vnpn_b).interacting(vnpn_c)
+  bjt1_l1 = drc_bjt_npn.not_covering(dnwell)
   bjt1_l1.output('BJT.1', 'BJT.1 : Min. DRC_BJT overlap of DNWELL for NPN BJT: 0um')
   bjt1_l1.forget
 
