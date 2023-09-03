@@ -151,7 +151,7 @@ end
 class MIMCap < RBA::DeviceClassCapacitor
   def initialize
     super
-    enable_parameter('C', true)
+    enable_parameter('C', false)
     enable_parameter('A', true)
     enable_parameter('P', true)
   end
