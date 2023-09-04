@@ -110,7 +110,7 @@ if MIM_OPTION == 'A'
   # Rule MIM.10: (a) There cannot be any Via1 touching MIM bottom plate Metal2.
   ## (b) MIM bottom plate Metal2 can only be connected through the higher Via (Via2).
   logger.info('Executing rule MIM.10')
-  mim10_l1 = via1.and(metal2.interacting(fusetop))
+  mim10_l1 = via1.and(metal2.and(fusetop))
   mim10_l1.output('MIM.10', 'MIM.10 : (a) There cannot be any Via1 touching MIM bottom plate Metal2.
                   (b) MIM bottom plate Metal2 can only be connected through the higher Via (Via2).')
   mim10_l1.forget
