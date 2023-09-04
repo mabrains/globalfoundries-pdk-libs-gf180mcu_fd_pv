@@ -62,6 +62,24 @@ when '6LM'
   connect(via5_n_cap, metaltop_con)
   connect(metaltop_con, metaltop_label)
 end
+
+case METAL_LEVEL
+when '3LM'
+  connect(metal2_con, topmin1_metal)
+  connect(metal3_con, top_metal_cap)
+when '4LM'
+  connect(metal3_con, topmin1_metal)
+  connect(metal4_con, top_metal_cap)
+when '5LM'
+  connect(metal4_con, topmin1_metal)
+  connect(metal5_con, top_metal_cap)
+when '6LM'
+  connect(metal5_con, topmin1_metal)
+  connect(metaltop_con, top_metal_cap)
+else
+  logger.error("Unknown metal stack #{METAL_LEVEL}")
+  raise
+end
 connect(top_via, top_metal_con)
 connect(top_metal, top_metal_label)
 

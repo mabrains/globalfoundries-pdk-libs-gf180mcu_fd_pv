@@ -32,5 +32,6 @@ when 'B'
   # mim_option B
   connect(topmin1_metal, mimtm_virtual)
   connect(fuse_cap, top_via_cap)
+  connect(top_via_cap, top_metal_cap)
 
 end

@@ -110,7 +110,7 @@ if MIM_OPTION == 'B'
   # Rule MIMTM.10: (a) There cannot be any Vian-2 touching MIM bottom plate Metaln-1.
   ## (b) MIM bottom plate Metaln-1 can only be connected through the higher Via (Vian-1).
   logger.info('Executing rule MIMTM.10')
-  mimtm10_l1 = topmin1_via.interacting(topmin1_metal.interacting(fusetop))
+  mimtm10_l1 = topmin1_via.and(topmin1_metal.and(fusetop))
   mimtm10_l1.output('MIMTM.10', "MIMTM.10 : (a) There cannot be any Vian-2 touching MIM bottom plate Metaln-1.
                       (b) MIM bottom plate Metaln-1 can only be connected through the higher Via (Vian-1).")
   mimtm10_l1.forget
