@@ -28,19 +28,16 @@ when 'A'
     # cap_mim1f0 capacitor
     logger.info('Extracting cap_mim1f0 device')
     extract_devices(capacitor('cap_mim_1f0_m2m3_noshield', 1.0e-15, MIMCap), { 'P1' => mim_virtual, 'P2' => fuse_cap })
-    tolerance('cap_mim_1f0_m2m3_noshield', 'C', relative: 0.25)
 
   when '1.5'
     # cap_mim1f5 capacitor
     logger.info('Extracting cap_mim1f5 device')
     extract_devices(capacitor('cap_mim_1f5_m2m3_noshield', 1.5e-15, MIMCap), { 'P1' => mim_virtual, 'P2' => fuse_cap })
-    tolerance('cap_mim_1f5_m2m3_noshield', 'C', relative: 0.25)
 
   when '2'
     # cap_mim2f0 capacitor
     logger.info('Extracting cap_mim2f0 device')
     extract_devices(capacitor('cap_mim_2f0_m2m3_noshield', 2.0e-15, MIMCap), { 'P1' => mim_virtual, 'P2' => fuse_cap })
-    tolerance('cap_mim_2f0_m2m3_noshield', 'C', relative: 0.25)
   end
 
 when 'B'
@@ -54,21 +51,18 @@ when 'B'
       logger.info('Extracting cap_mim1f0 device')
       extract_devices(capacitor('cap_mim_1f0_m5m6_noshield', 1.0e-15, MIMCap),
                       { 'P1' => mimtm_virtual, 'P2' => fuse_cap })
-      tolerance('cap_mim_1f0_m5m6_noshield', 'C', relative: 0.25)
 
     when '1.5'
       # cap_mim1f5 capacitor
       logger.info('Extracting cap_mim1f5 device')
       extract_devices(capacitor('cap_mim_1f5_m5m6_noshield', 1.5e-15, MIMCap),
                       { 'P1' => mimtm_virtual, 'P2' => fuse_cap })
-      tolerance('cap_mim_1f5_m5m6_noshield', 'C', relative: 0.25)
 
     when '2'
       # cap_mim2f0 capacitor
       logger.info('Extracting cap_mim2f0 device')
       extract_devices(capacitor('cap_mim_2f0_m5m6_noshield', 2.0e-15, MIMCap),
                       { 'P1' => mimtm_virtual, 'P2' => fuse_cap })
-      tolerance('cap_mim_2f0_m5m6_noshield', 'C', relative: 0.25)
     end
 
   when '5LM'
@@ -79,21 +73,18 @@ when 'B'
       logger.info('Extracting cap_mim1f0 device')
       extract_devices(capacitor('cap_mim_1f0_m4m5_noshield', 1.0e-15, MIMCap),
                       { 'P1' => mimtm_virtual, 'P2' => fuse_cap })
-      tolerance('cap_mim_1f0_m4m5_noshield', 'C', relative: 0.25)
 
     when '1.5'
       # cap_mim1f5 capacitor
       logger.info('Extracting cap_mim1f5 device')
       extract_devices(capacitor('cap_mim_1f5_m4m5_noshield', 1.5e-15, MIMCap),
                       { 'P1' => mimtm_virtual, 'P2' => fuse_cap })
-      tolerance('cap_mim_1f5_m4m5_noshield', 'C', relative: 0.25)
 
     when '2'
       # cap_mim2f0 capacitor
       logger.info('Extracting cap_mim2f0 device')
       extract_devices(capacitor('cap_mim_2f0_m4m5_noshield', 2.0e-15, MIMCap),
                       { 'P1' => mimtm_virtual, 'P2' => fuse_cap })
-      tolerance('cap_mim_2f0_m4m5_noshield', 'C', relative: 0.25)
     end
 
   when '4LM'
@@ -104,21 +95,18 @@ when 'B'
       logger.info('Extracting cap_mim1f0 device')
       extract_devices(capacitor('cap_mim_1f0_m3m4_noshield', 1.0e-15, MIMCap),
                       { 'P1' => mimtm_virtual, 'P2' => fuse_cap })
-      tolerance('cap_mim_1f0_m3m4_noshield', 'C', relative: 0.25)
 
     when '1.5'
       # cap_mim1f5 capacitor
       logger.info('Extracting cap_mim1f5 device')
       extract_devices(capacitor('cap_mim_1f5_m3m4_noshield', 1.5e-15, MIMCap),
                       { 'P1' => mimtm_virtual, 'P2' => fuse_cap })
-      tolerance('cap_mim_1f5_m3m4_noshield', 'C', relative: 0.25)
 
     when '2'
       # cap_mim2f0 capacitor
       logger.info('Extracting cap_mim2f0 device')
       extract_devices(capacitor('cap_mim_2f0_m3m4_noshield', 2.0e-15, MIMCap),
                       { 'P1' => mimtm_virtual, 'P2' => fuse_cap })
-      tolerance('cap_mim_2f0_m3m4_noshield', 'C', relative: 0.25)
     end
   end
 end
