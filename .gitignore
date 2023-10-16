@@ -3,9 +3,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-klayout/drc/testing/unit_tests_*
-klayout/lvs/testing/unit_tests_*
-
 # C extensions
 *.so
 
@@ -166,5 +163,7 @@ cython_debug/
 *.lyrdb
 *.lvsdb
 *.cir
-
+unit_tests_*
+drc_run_*
+lvs_run_*
 

@@ -706,9 +706,9 @@ else
         logger.info("metaltop_slot has #{count} polygons")
         polygons_count += count
 
-        metalt_blk = get_polygons(53, 5)
-        count = metalt_blk.count
-        logger.info("metalt_blk has #{count} polygons")
+        metaltop_blk = get_polygons(53, 5)
+        count = metaltop_blk.count
+        logger.info("metaltop_blk has #{count} polygons")
         polygons_count += count
 
         top_via       = via5
