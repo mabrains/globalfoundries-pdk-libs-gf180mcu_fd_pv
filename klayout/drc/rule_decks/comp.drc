@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ################################################################################################
 # Copyright 2022 GlobalFoundries PDK Authors
 #
@@ -33,7 +35,7 @@ if FEOL
 
   ncomp_butted = ncomp.interacting(pcomp)
 
-  ntap_dn3p3V = ntap_dn.and(dnwell_3p3v)
+  ntap_dn3p3v = ntap_dn.and(dnwell_3p3v)
   ntap_dn56v = ntap_dn.and(dnwell_56v)
 
   nwell_n_dn3p3v = nwell_n_dn.not_interacting(v5_xtor).not_interacting(dualgate)
@@ -135,7 +137,7 @@ if FEOL
 
   # Rule DF.4a_LV: Min. (LVPWELL Space to NCOMP well tap) inside DNWELL. is 0.12µm
   logger.info('Executing rule DF.4a_LV')
-  df4a_l1 = ntap_dn3p3V.separation(lvpwell_dn3p3v, 0.12.um, euclidian)
+  df4a_l1 = ntap_dn3p3v.separation(lvpwell_dn3p3v, 0.12.um, euclidian)
   df4a_l1.output('DF.4a_LV', 'DF.4a_LV : Min. (LVPWELL Space to NCOMP well tap) inside DNWELL. : 0.12µm')
   df4a_l1.forget
 
@@ -147,10 +149,10 @@ if FEOL
 
   # Rule DF.4b_LV: Min. DNWELL overlap of NCOMP well tap. is 0.62µm
   logger.info('Executing rule DF.4b_LV')
-  df4b_l1 = ntap_dn3p3V.enclosed(dnwell_3p3v, 0.62.um, euclidian)
+  df4b_l1 = ntap_dn3p3v.enclosed(dnwell_3p3v, 0.62.um, euclidian)
   df4b_l1.output('DF.4b_LV', 'DF.4b_LV : Min. DNWELL overlap of NCOMP well tap. : 0.62µm')
   df4b_l1.forget
-  ntap_dn3p3V.forget
+  ntap_dn3p3v.forget
 
   # Rule DF.4b_MV: Min. DNWELL overlap of NCOMP well tap. is 0.66µm
   logger.info('Executing rule DF.4b_MV')
