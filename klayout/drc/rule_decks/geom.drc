@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ################################################################################################
 # Copyright 2023 GlobalFoundries PDK Authors
 #
@@ -422,7 +424,8 @@ if OFFGRID
             .without_angle(-45).output('metal2_blk_angle',
                                        'ACUTE : non 45 degree angle metal2_blk')
 
-  if METAL_LEVEL == '3LM' || METAL_LEVEL == '4LM' || METAL_LEVEL == '5LM' || METAL_LEVEL == '6LM'
+  case METAL_LEVEL
+  when '3LM', '4LM', '5LM', '6LM'
     logger.info('Executing rule via2_OFFGRID')
     via2.ongrid(0.005).output('via2_OFFGRID', 'OFFGRID : OFFGRID vertex on via2')
     via2.edges.without_angle(0).without_angle(45).without_angle(90)
@@ -450,96 +453,96 @@ if OFFGRID
     metal3_blk.edges.without_angle(0).without_angle(45).without_angle(90)
               .without_angle(-45).output('metal3_blk_angle',
                                          'ACUTE : non 45 degree angle metal3_blk')
+  end
 
-    if METAL_LEVEL == '4LM' || METAL_LEVEL == '5LM' || METAL_LEVEL == '6LM'
-      logger.info('Executing rule via3_OFFGRID')
-      via3.ongrid(0.005).output('via3_OFFGRID', 'OFFGRID : OFFGRID vertex on via3')
-      via3.edges.without_angle(0).without_angle(45).without_angle(90)
-          .without_angle(-45).output('via3_angle',
-                                     'ACUTE :  non 45 degree angle via3')
+  case METAL_LEVEL
+  when '4LM', '5LM', '6LM'
+    logger.info('Executing rule via3_OFFGRID')
+    via3.ongrid(0.005).output('via3_OFFGRID', 'OFFGRID : OFFGRID vertex on via3')
+    via3.edges.without_angle(0).without_angle(45).without_angle(90)
+        .without_angle(-45).output('via3_angle',
+                                   'ACUTE :  non 45 degree angle via3')
 
-      logger.info('Executing rule metal4_OFFGRID')
-      metal4.ongrid(0.005).output('metal4_OFFGRID', 'OFFGRID : OFFGRID vertex on metal4')
-      metal4.edges.without_angle(0).without_angle(45).without_angle(90)
-            .without_angle(-45).output('metal4_angle',
-                                       'ACUTE : non 45 degree angle metal4')
+    logger.info('Executing rule metal4_OFFGRID')
+    metal4.ongrid(0.005).output('metal4_OFFGRID', 'OFFGRID : OFFGRID vertex on metal4')
+    metal4.edges.without_angle(0).without_angle(45).without_angle(90)
+          .without_angle(-45).output('metal4_angle',
+                                     'ACUTE : non 45 degree angle metal4')
 
-      logger.info('Executing rule metal4_dummy_OFFGRID')
-      metal4_dummy.ongrid(0.005).output('metal4_dummy_OFFGRID', 'OFFGRID : OFFGRID vertex on metal4_dummy')
-      metal4_dummy.edges.without_angle(0).without_angle(45).without_angle(90)
-                  .without_angle(-45).output('metal4_dummy_angle', 'ACUTE : non 45 degree angle metal4_dummy')
+    logger.info('Executing rule metal4_dummy_OFFGRID')
+    metal4_dummy.ongrid(0.005).output('metal4_dummy_OFFGRID', 'OFFGRID : OFFGRID vertex on metal4_dummy')
+    metal4_dummy.edges.without_angle(0).without_angle(45).without_angle(90)
+                .without_angle(-45).output('metal4_dummy_angle', 'ACUTE : non 45 degree angle metal4_dummy')
 
-      logger.info('Executing rule metal4_label_OFFGRID')
-      metal4_label.ongrid(0.005).output('metal4_label_OFFGRID', 'OFFGRID : OFFGRID vertex on metal4_label')
-      metal4_label.edges.without_angle(0).without_angle(45).without_angle(90)
-                  .without_angle(-45).output('metal4_label_angle', 'ACUTE : non 45 degree angle metal4_label')
+    logger.info('Executing rule metal4_label_OFFGRID')
+    metal4_label.ongrid(0.005).output('metal4_label_OFFGRID', 'OFFGRID : OFFGRID vertex on metal4_label')
+    metal4_label.edges.without_angle(0).without_angle(45).without_angle(90)
+                .without_angle(-45).output('metal4_label_angle', 'ACUTE : non 45 degree angle metal4_label')
 
-      logger.info('Executing rule metal4_blk_OFFGRID')
-      metal4_blk.ongrid(0.005).output('metal4_blk_OFFGRID', 'OFFGRID : OFFGRID vertex on metal4_blk')
-      metal4_blk.edges.without_angle(0).without_angle(45).without_angle(90)
-                .without_angle(-45).output('metal4_blk_angle', 'ACUTE : non 45 degree angle metal4_blk')
+    logger.info('Executing rule metal4_blk_OFFGRID')
+    metal4_blk.ongrid(0.005).output('metal4_blk_OFFGRID', 'OFFGRID : OFFGRID vertex on metal4_blk')
+    metal4_blk.edges.without_angle(0).without_angle(45).without_angle(90)
+              .without_angle(-45).output('metal4_blk_angle', 'ACUTE : non 45 degree angle metal4_blk')
+  end
+  case METAL_LEVEL
+  when '5LM', '6LM'
+    logger.info('Executing rule via4_OFFGRID')
+    via4.ongrid(0.005).output('via4_OFFGRID', 'OFFGRID : OFFGRID vertex on via4')
+    via4.edges.without_angle(0).without_angle(45).without_angle(90)
+        .without_angle(-45).output('via4_angle',
+                                   'ACUTE : non 45 degree angle via4')
 
-      if METAL_LEVEL == '5LM' || METAL_LEVEL == '6LM'
-        logger.info('Executing rule via4_OFFGRID')
-        via4.ongrid(0.005).output('via4_OFFGRID', 'OFFGRID : OFFGRID vertex on via4')
-        via4.edges.without_angle(0).without_angle(45).without_angle(90)
-            .without_angle(-45).output('via4_angle',
-                                       'ACUTE : non 45 degree angle via4')
+    logger.info('Executing rule metal5_OFFGRID')
+    metal5.ongrid(0.005).output('metal5_OFFGRID', 'OFFGRID : OFFGRID vertex on metal5')
+    metal5.edges.without_angle(0).without_angle(45).without_angle(90)
+          .without_angle(-45).output('metal5_angle',
+                                     'ACUTE : non 45 degree angle metal5')
 
-        logger.info('Executing rule metal5_OFFGRID')
-        metal5.ongrid(0.005).output('metal5_OFFGRID', 'OFFGRID : OFFGRID vertex on metal5')
-        metal5.edges.without_angle(0).without_angle(45).without_angle(90)
-              .without_angle(-45).output('metal5_angle',
-                                         'ACUTE : non 45 degree angle metal5')
+    logger.info('Executing rule metal5_dummy_OFFGRID')
+    metal5_dummy.ongrid(0.005).output('metal5_dummy_OFFGRID', 'OFFGRID : OFFGRID vertex on metal5_dummy')
+    metal5_dummy.edges.without_angle(0).without_angle(45).without_angle(90)
+                .without_angle(-45).output('metal5_dummy_angle', 'ACUTE : non 45 degree angle metal5_dummy')
 
-        logger.info('Executing rule metal5_dummy_OFFGRID')
-        metal5_dummy.ongrid(0.005).output('metal5_dummy_OFFGRID', 'OFFGRID : OFFGRID vertex on metal5_dummy')
-        metal5_dummy.edges.without_angle(0).without_angle(45).without_angle(90)
-                    .without_angle(-45).output('metal5_dummy_angle', 'ACUTE : non 45 degree angle metal5_dummy')
+    logger.info('Executing rule metal5_label_OFFGRID')
+    metal5_label.ongrid(0.005).output('metal5_label_OFFGRID', 'OFFGRID : OFFGRID vertex on metal5_label')
+    metal5_label.edges.without_angle(0).without_angle(45).without_angle(90)
+                .without_angle(-45).output('metal5_label_angle', 'ACUTE : non 45 degree angle metal5_label')
 
-        logger.info('Executing rule metal5_label_OFFGRID')
-        metal5_label.ongrid(0.005).output('metal5_label_OFFGRID', 'OFFGRID : OFFGRID vertex on metal5_label')
-        metal5_label.edges.without_angle(0).without_angle(45).without_angle(90)
-                    .without_angle(-45).output('metal5_label_angle', 'ACUTE : non 45 degree angle metal5_label')
+    logger.info('Executing rule metal5_blk_OFFGRID')
+    metal5_blk.ongrid(0.005).output('metal5_blk_OFFGRID', 'OFFGRID : OFFGRID vertex on metal5_blk')
+    metal5_blk.edges.without_angle(0).without_angle(45).without_angle(90)
+              .without_angle(-45).output('metal5_blk_angle', 'ACUTE : non 45 degree angle metal5_blk')
+  end
+  case METAL_LEVEL
+  when '6LM'
+    logger.info('Executing rule via5_OFFGRID')
+    via5.ongrid(0.005).output('via5_OFFGRID', 'OFFGRID : OFFGRID vertex on via5')
+    via5.edges.without_angle(0).without_angle(45).without_angle(90)
+        .without_angle(-45).output('via5_angle',
+                                   'ACUTE : non 45 degree angle via5')
 
-        logger.info('Executing rule metal5_blk_OFFGRID')
-        metal5_blk.ongrid(0.005).output('metal5_blk_OFFGRID', 'OFFGRID : OFFGRID vertex on metal5_blk')
-        metal5_blk.edges.without_angle(0).without_angle(45).without_angle(90)
-                  .without_angle(-45).output('metal5_blk_angle', 'ACUTE : non 45 degree angle metal5_blk')
+    logger.info('Executing rule metaltop_OFFGRID')
+    metaltop.ongrid(0.005).output('metaltop_OFFGRID', 'OFFGRID : OFFGRID vertex on metaltop')
+    metaltop.edges.without_angle(0).without_angle(45).without_angle(90)
+            .without_angle(-45).output('metaltop_angle', 'ACUTE : non 45 degree angle metaltop')
 
-        if METAL_LEVEL == '6LM'
-          logger.info('Executing rule via5_OFFGRID')
-          via5.ongrid(0.005).output('via5_OFFGRID', 'OFFGRID : OFFGRID vertex on via5')
-          via5.edges.without_angle(0).without_angle(45).without_angle(90)
-              .without_angle(-45).output('via5_angle',
-                                         'ACUTE : non 45 degree angle via5')
+    logger.info('Executing rule metaltop_dummy_OFFGRID')
+    metaltop_dummy.ongrid(0.005).output('metaltop_dummy_OFFGRID',
+                                        'OFFGRID : OFFGRID vertex on metaltop_dummy')
+    metaltop_dummy.edges.without_angle(0).without_angle(45).without_angle(90)
+                  .without_angle(-45).output('metaltop_dummy_angle', 'ACUTE : non 45 degree angle metaltop_dummy')
 
-          logger.info('Executing rule metaltop_OFFGRID')
-          metaltop.ongrid(0.005).output('metaltop_OFFGRID', 'OFFGRID : OFFGRID vertex on metaltop')
-          metaltop.edges.without_angle(0).without_angle(45).without_angle(90)
-                  .without_angle(-45).output('metaltop_angle', 'ACUTE : non 45 degree angle metaltop')
+    logger.info('Executing rule metaltop_label_OFFGRID')
+    metaltop_label.ongrid(0.005).output('metaltop_label_OFFGRID',
+                                        'OFFGRID : OFFGRID vertex on metaltop_label')
+    metaltop_label.edges.without_angle(0).without_angle(45).without_angle(90)
+                  .without_angle(-45).output('metaltop_label_angle', 'ACUTE : non 45 degree angle metaltop_label')
 
-          logger.info('Executing rule metaltop_dummy_OFFGRID')
-          metaltop_dummy.ongrid(0.005).output('metaltop_dummy_OFFGRID',
-                                              'OFFGRID : OFFGRID vertex on metaltop_dummy')
-          metaltop_dummy.edges.without_angle(0).without_angle(45).without_angle(90)
-                        .without_angle(-45).output('metaltop_dummy_angle', 'ACUTE : non 45 degree angle metaltop_dummy')
-
-          logger.info('Executing rule metaltop_label_OFFGRID')
-          metaltop_label.ongrid(0.005).output('metaltop_label_OFFGRID',
-                                              'OFFGRID : OFFGRID vertex on metaltop_label')
-          metaltop_label.edges.without_angle(0).without_angle(45).without_angle(90)
-                        .without_angle(-45).output('metaltop_label_angle', 'ACUTE : non 45 degree angle metaltop_label')
-
-          logger.info('Executing rule metaltop_blk_OFFGRID')
-          metaltop_blk.ongrid(0.005).output('metaltop_blk_OFFGRID',
-                                            'OFFGRID : OFFGRID vertex on metaltop_blk')
-          metaltop_blk.edges.without_angle(0).without_angle(45).without_angle(90)
-                      .without_angle(-45).output('metaltop_blk_angle', 'ACUTE : non 45 degree angle metaltop_blk_angle')
-
-        end
-      end
-    end
+    logger.info('Executing rule metaltop_blk_OFFGRID')
+    metaltop_blk.ongrid(0.005).output('metaltop_blk_OFFGRID',
+                                      'OFFGRID : OFFGRID vertex on metaltop_blk')
+    metaltop_blk.edges.without_angle(0).without_angle(45).without_angle(90)
+                .without_angle(-45).output('metaltop_blk_angle', 'ACUTE : non 45 degree angle metaltop_blk_angle')
   end
 
   logger.info('Executing rule pad_OFFGRID')

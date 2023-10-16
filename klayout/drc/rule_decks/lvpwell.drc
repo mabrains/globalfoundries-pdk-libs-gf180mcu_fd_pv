@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ################################################################################################
 # Copyright 2022 GlobalFoundries PDK Authors
 #
@@ -21,7 +23,7 @@ if FEOL
   #================================================
 
   logger.info('Starting LVPWELL derivations')
-  lvpwell_dn_MV = lvpwell_dn.interacting(dualgate)
+  lvpwell_dn_mv = lvpwell_dn.interacting(dualgate)
 
   # Rule LPW.1_LV: Min. LVPWELL Width. is 0.6µm
   logger.info('Executing rule LPW.1_LV')
@@ -31,7 +33,7 @@ if FEOL
 
   # Rule LPW.1_MV: Min. LVPWELL Width. is 0.74µm
   logger.info('Executing rule LPW.1_MV')
-  lpw1_l1 = lvpwell_dn_MV.width(0.74.um, euclidian)
+  lpw1_l1 = lvpwell_dn_mv.width(0.74.um, euclidian)
   lpw1_l1.output('LPW.1_MV', 'LPW.1_MV : Min. LVPWELL Width. : 0.74µm')
   lpw1_l1.forget
 
@@ -79,7 +81,7 @@ if FEOL
 
     # Rule LPW.2a_MV: Min. LVPWELL to LVPWELL Space (Inside DNWELL) [Different potential]. is 1.7µm
     logger.info('Executing rule LPW.2a_MV')
-    lpw2a_l1 = lvpwell_dn_MV.isolated(1.7.um, euclidian)
+    lpw2a_l1 = lvpwell_dn_mv.isolated(1.7.um, euclidian)
     lpw2a_l1.output('LPW.2a_MV',
                     'LPW.2a_MV : Min. LVPWELL to LVPWELL Space (Inside DNWELL) [Different potential]. : 1.7µm')
     lpw2a_l1.forget

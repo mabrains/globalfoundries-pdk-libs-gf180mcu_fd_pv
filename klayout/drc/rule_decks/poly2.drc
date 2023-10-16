@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ################################################################################################
 # Copyright 2022 GlobalFoundries PDK Authors
 #
@@ -62,15 +64,15 @@ if FEOL
 
   # Rule PL.2_MV: Gate Width (Channel Length).
   logger.info('Executing rule PL.2_MV')
-  pl_2_MV_n = ngate_5V.edges.inside_part(comp).width(0.6.um, euclidian).polygons
-  pl_2_MV_p = pgate_5V.edges.inside_part(comp).width(0.5.um, euclidian).polygons
-  pl_2_6v_n = ngate_6V.edges.inside_part(comp).width(0.7.um, euclidian).polygons
-  pl_2_6v_p = pgate_6V.edges.inside_part(comp).width(0.55.um, euclidian).polygons
-  pl2_l1 = pl_2_MV_n.or(pl_2_MV_p).or(pl_2_6v_n.or(pl_2_6v_p))
+  pl_2_mv_n = ngate_5v.edges.inside_part(comp).width(0.6.um, euclidian).polygons
+  pl_2_mv_p = pgate_5v.edges.inside_part(comp).width(0.5.um, euclidian).polygons
+  pl_2_6v_n = ngate_6v.edges.inside_part(comp).width(0.7.um, euclidian).polygons
+  pl_2_6v_p = pgate_6v.edges.inside_part(comp).width(0.55.um, euclidian).polygons
+  pl2_l1 = pl_2_mv_n.or(pl_2_mv_p).or(pl_2_6v_n.or(pl_2_6v_p))
   pl2_l1.output('PL.2_MV', 'PL.2_MV : Gate Width (Channel Length).')
   pl2_l1.forget
-  pl_2_MV_n.forget
-  pl_2_MV_p.forget
+  pl_2_mv_n.forget
+  pl_2_mv_p.forget
   pl_2_6v_n.forget
   pl_2_6v_p.forget
 

@@ -76,11 +76,9 @@ Example:
 
 - `--verbose`                           Detailed rule execution log for debugging.
 
-- `--macro_gen`                        Turn off 
-main rule deck generation without simulation
+- `--macro_gen`                        Turn off main rule deck generation without simulation
 
-- `--slow_via`                        Turn off 
-enable slow_via implementations  
+- `--slow_via`                        Turn off enable slow_via implementations  
 
 ## **DRC Outputs**
 
