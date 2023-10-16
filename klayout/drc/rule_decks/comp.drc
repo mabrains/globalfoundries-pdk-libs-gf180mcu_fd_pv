@@ -298,66 +298,68 @@ if FEOL
                  'DF.12 : COMP not covered by Nplus or Pplus is forbidden (except those COMP under marking).')
   df12_l1.forget
 
+  # Preparations for rule DF.13_LV and DF.13_MV:
+  # Size ntap by 15 and 20um, staying inside nwell always.
+  # Use octagon_limit to approximate a circle.
+  # Use steps of 0.5, which is compatible with min space of nwell (0.6)
+  # hence we do not cross over to other nwell islands.
+  logger.info('Preparations for rule DF.13_LV and DF.13_MV')
+  df13_ntap_sized = ntap
+  sz = 0.0
+  while sz < 15.0
+    df13_ntap_sized = df13_ntap_sized.sized(0.5.um, octagon_limit).and(nwell)
+    sz += 0.5
+  end
+  df13_ntap_sized_by15 = df13_ntap_sized
+  while sz < 20.0
+    df13_ntap_sized = df13_ntap_sized.sized(0.5.um, octagon_limit).and(nwell)
+    sz += 0.5
+  end
+  df13_ntap_sized_by20 = df13_ntap_sized
+
   # Rule DF.13_LV: Max distance of Nwell tap (NCOMP inside Nwell) from (PCOMP inside Nwell) is 20um.
   logger.info('Executing rule DF.13_LV')
   pactive_3p3v = pactive.not_interacting(v5_xtor).not_interacting(dualgate)
-  df13_s_active = pactive_3p3v.sized(20.0.um, diamond_limit).and(nwell)
-  df13_poss_bad_active = pactive_3p3v.interacting(df13_s_active.not_interacting(ntap))
-  df13_poss_good_bad_active = df13_poss_bad_active.separation(ntap, 20.0.um).polygons
-  df13_good_bad_active = df13_poss_good_bad_active.interacting(nwell, 1..1)
-  df13_l1 = df13_poss_bad_active.not_interacting(df13_good_bad_active)
+  df13_l1 = pactive_3p3v.not_interacting(df13_ntap_sized_by20)
   df13_l1.output('DF.13_LV',
                  'DF.13_LV : Max distance of Nwell tap (NCOMP inside Nwell) from (PCOMP inside Nwell): 20um')
   df13_l1.forget
-  df13_s_active.forget
-  df13_poss_bad_active.forget
-  df13_poss_good_bad_active.forget
-  df13_good_bad_active.forget
+  pactive_3p3v.forget
+  df13_ntap_sized_by20.forget
 
   # Rule DF.13_MV: Max distance of Nwell tap (NCOMP inside Nwell) from (PCOMP inside Nwell) is 15um.
   logger.info('Executing rule DF.13_MV')
   pactive_56v = pactive.overlapping(dualgate)
-  df13_s_active = pactive_56v.sized(15.0.um, diamond_limit).and(nwell)
-  df13_poss_bad_active = pactive_56v.interacting(df13_s_active.not_interacting(ntap))
-  df13_poss_good_bad_active = df13_poss_bad_active.separation(ntap, 15.0.um).polygons
-  df13_good_bad_active = df13_poss_good_bad_active.interacting(nwell, 1..1)
-  df13_l1 = df13_poss_bad_active.not_interacting(df13_good_bad_active)
+  df13_l1 = pactive_56v.not_interacting(df13_ntap_sized_by15)
   df13_l1.output('DF.13_MV',
-                 'DF.13_MV : Max distance of Nwell tap (NCOMP inside Nwell) from (PCOMP inside Nwell): 20um')
+                 'DF.13_MV : Max distance of Nwell tap (NCOMP inside Nwell) from (PCOMP inside Nwell): 15um')
   df13_l1.forget
   pactive_56v.forget
-  df13_s_active.forget
-  df13_poss_bad_active.forget
-  df13_poss_good_bad_active.forget
-  df13_good_bad_active.forget
+  df13_ntap_sized_by15.forget
 
   # Rule DF.14_LV: Max distance of substrate tap (PCOMP outside Nwell) from (NCOMP outside Nwell) is 20um.
   logger.info('Executing rule DF.14_LV')
   nactive_3p3v = nactive.not_interacting(v5_xtor).not_interacting(dualgate)
-  df14_s_active = nactive_3p3v.sized(20.0.um, diamond_limit).not(nwell)
-  df14_poss_bad_active = nactive.interacting(df14_s_active.not_interacting(ptap))
+  df14_poss_bad_active = nactive_3p3v.not_interacting(ptap.sized(20.0.um, diamond_limit))
   df14_good_active = df14_poss_bad_active.sep(ptap, 20.0.um).polygons
   df14_l1 = df14_poss_bad_active.not_interacting(df14_good_active)
   df14_l1.output('DF.14_LV',
                  'DF.14_LV : Max distance of substrate tap (PCOMP outside Nwell) from (NCOMP outside Nwell): 20um')
   df14_l1.forget
   nactive_3p3v.forget
-  df14_s_active.forget
   df14_poss_bad_active.forget
   df14_good_active.forget
 
   # Rule DF.14_MV: Max distance of substrate tap (PCOMP outside Nwell) from (NCOMP outside Nwell) is 15um.
   logger.info('Executing rule DF.14_MV')
   nactive_56v = nactive.overlapping(dualgate)
-  df14_s_active = nactive_56v.sized(15.0.um, diamond_limit).not(nwell)
-  df14_poss_bad_active = nactive.interacting(df14_s_active.not_interacting(ptap))
+  df14_poss_bad_active = nactive_56v.not_interacting(ptap.sized(15.0.um, diamond_limit))
   df14_good_active = df14_poss_bad_active.sep(ptap, 15.0.um).polygons
   df14_l1 = df14_poss_bad_active.not_interacting(df14_good_active)
   df14_l1.output('DF.14_MV',
-                 'DF.14_MV : Max distance of substrate tap (PCOMP outside Nwell) from (NCOMP outside Nwell): 20um')
+                 'DF.14_MV : Max distance of substrate tap (PCOMP outside Nwell) from (NCOMP outside Nwell): 15um')
   df14_l1.forget
   nactive_56v.forget
-  df14_s_active.forget
   df14_poss_bad_active.forget
   df14_good_active.forget
 
