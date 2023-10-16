@@ -38,12 +38,13 @@ Example:
 
 - `--path=<file_path>`                  The input GDS file path.
 
-- `--variant=<combined_options>`        Select combined options of metal_top, mim_option, and metal_level. Allowed values (A, B, C, D, E).
-  - gf180mcu=A: Select  metal_top=30K  mim_option=A  metal_level=3LM
-  - gf180mcu=B: Select  metal_top=11K  mim_option=B  metal_level=4LM
-  - gf180mcu=C: Select  metal_top=9K   mim_option=B  metal_level=5LM
-  - gf180mcu=D: Select  metal_top=9K   mim_option=B  metal_level=6LM
-  - gf180mcu=E: Select  metal_top=9K   mim_option=A  metal_level=6LM
+- `--variant=<combined_options>`        Select combined options of metal_top, mim_option, and metal_level. Allowed values (A, B, C, D, E, F).
+                                        variant=A: Select  metal_top=30K  mim_option=A  metal_level=3LM
+                                        variant=B: Select  metal_top=11K  mim_option=B  metal_level=4LM
+                                        variant=C: Select  metal_top=9K   mim_option=B  metal_level=5LM
+                                        variant=D: Select  metal_top=11K  mim_option=B  metal_level=5LM
+                                        variant=E: Select  metal_top=9K   mim_option=B  metal_level=6LM
+                                        variant=F: Select  metal_top=9K   mim_option=A  metal_level=6LM
 
 - `--topcell=<topcell_name>`            Topcell name to use.
 

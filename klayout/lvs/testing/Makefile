@@ -48,3 +48,4 @@ test-LVS-switch:
 	@python3 ../run_lvs.py --layout=testcases/extraction_checking/sample_nfet_03v3.gds --netlist=testcases/extraction_checking/sample_nfet_03v3.spice --variant=A 
 	@python3 ../run_lvs.py --layout=testcases/extraction_checking/sample_nfet_03v3.gds --netlist=testcases/extraction_checking/sample_nfet_03v3.spice --variant=B
 	@python3 ../run_lvs.py --layout=testcases/extraction_checking/sample_nfet_03v3.gds --netlist=testcases/extraction_checking/sample_nfet_03v3.spice --variant=C
+	@python3 ../run_lvs.py --layout=testcases/extraction_checking/sample_nfet_03v3.gds --netlist=testcases/extraction_checking/sample_nfet_03v3.spice --variant=D
