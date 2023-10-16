@@ -293,7 +293,7 @@ def generate_klayout_switches(arguments, layout_path):
     elif arguments["--variant"] == "F":
         switches["metal_top"] = "9K"
         switches["mim_option"] = "A"
-        switches["metal_level"] = "6LM"      
+        switches["metal_level"] = "6LM"
     else:
         logging.error("variant switch allowed values are (A , B, C, D, E, F) only")
         exit(1)
