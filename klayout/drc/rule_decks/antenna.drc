@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright 2022 GlobalFoundries PDK Authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -179,6 +181,21 @@ polygons_count += count
 
 metal1         = metal1_drawn + metal1_dummy
 
+metal1_label = get_polygons(34, 10)
+count = metal1_label.count
+logger.info("metal1_label has #{count} polygons")
+polygons_count += count
+
+metal1_slot = get_polygons(34, 3)
+count = metal1_slot.count
+logger.info("metal1_slot has #{count} polygons")
+polygons_count += count
+
+metal1_blk = get_polygons(34, 5)
+count = metal1_blk.count
+logger.info("metal1_blk has #{count} polygons")
+polygons_count += count
+
 via1 = get_polygons(35, 0)
 count = via1.count
 logger.info("via1 has #{count} polygons")
@@ -196,15 +213,23 @@ polygons_count += count
 
 metal2 = metal2_drawn + metal2_dummy
 
-if METAL_LEVEL == '2LM'
+metal2_label = get_polygons(36, 10)
+count = metal2_label.count
+logger.info("metal2_label has #{count} polygons")
+polygons_count += count
 
-  top_via       = via1
-  topmin1_via   = contact
-  top_metal     = metal2
-  topmin1_metal = metal1
+metal2_slot = get_polygons(36, 3)
+count = metal2_slot.count
+logger.info("metal2_slot has #{count} polygons")
+polygons_count += count
 
-else
+metal2_blk = get_polygons(36, 5)
+count = metal2_blk.count
+logger.info("metal2_blk has #{count} polygons")
+polygons_count += count
 
+case METAL_LEVEL
+when '3LM', '4LM', '5LM', '6LM'
   via2 = get_polygons(38, 0)
   count = via2.count
   logger.info("via2 has #{count} polygons")
@@ -222,102 +247,156 @@ else
 
   metal3 = metal3_drawn + metal3_dummy
 
-  if METAL_LEVEL == '3LM'
+  metal3_label = get_polygons(42, 10)
+  count = metal3_label.count
+  logger.info("metal3_label has #{count} polygons")
+  polygons_count += count
 
-    top_via       = via2
-    topmin1_via   = via1
-    top_metal     = metal3
-    topmin1_metal = metal2
-  else
+  metal3_slot = get_polygons(42, 3)
+  count = metal3_slot.count
+  logger.info("metal3_slot has #{count} polygons")
+  polygons_count += count
 
-    via3 = get_polygons(40, 0)
-    count = via3.count
-    logger.info("via3 has #{count} polygons")
-    polygons_count += count
+  metal3_blk = get_polygons(42, 5)
+  count = metal3_blk.count
+  logger.info("metal3_blk has #{count} polygons")
+  polygons_count += count
+end
 
-    metal4_drawn = get_polygons(46, 0)
-    count = metal4_drawn.count
-    logger.info("metal4_drawn has #{count} polygons")
-    polygons_count += count
+case METAL_LEVEL
+when '4LM', '5LM', '6LM'
+  via3 = get_polygons(40, 0)
+  count = via3.count
+  logger.info("via3 has #{count} polygons")
+  polygons_count += count
 
-    metal4_dummy = get_polygons(46, 4)
-    count = metal4_dummy.count
-    logger.info("metal4_dummy has #{count} polygons")
-    polygons_count += count
+  metal4_drawn = get_polygons(46, 0)
+  count = metal4_drawn.count
+  logger.info("metal4_drawn has #{count} polygons")
+  polygons_count += count
 
-    metal4 = metal4_drawn + metal4_dummy
+  metal4_dummy = get_polygons(46, 4)
+  count = metal4_dummy.count
+  logger.info("metal4_dummy has #{count} polygons")
+  polygons_count += count
 
-    if METAL_LEVEL == '4LM'
+  metal4 = metal4_drawn + metal4_dummy
 
-      top_via       = via3
-      topmin1_via   = via2
-      top_metal     = metal4
-      topmin1_metal = metal3
-    else
+  metal4_label = get_polygons(46, 10)
+  count = metal4_label.count
+  logger.info("metal4_label has #{count} polygons")
+  polygons_count += count
 
-      via4 = get_polygons(41, 0)
-      count = via4.count
-      logger.info("via4 has #{count} polygons")
-      polygons_count += count
+  metal4_slot = get_polygons(46, 3)
+  count = metal4_slot.count
+  logger.info("metal4_slot has #{count} polygons")
+  polygons_count += count
 
-      case METAL_LEVEL
-      when '5LM'
-        metal5_drawn = get_polygons(81, 0)
-        count = metal5_drawn.count
-        logger.info("metal5_drawn has #{count} polygons")
-        polygons_count += count
+  metal4_blk = get_polygons(46, 5)
+  count = metal4_blk.count
+  logger.info("metal4_blk has #{count} polygons")
+  polygons_count += count
+end
 
-        metal5_dummy = get_polygons(81, 4)
-        count = metal5_dummy.count
-        logger.info("metal5_dummy has #{count} polygons")
-        polygons_count += count
+case METAL_LEVEL
+when '5LM', '6LM'
+  via4 = get_polygons(41, 0)
+  count = via4.count
+  logger.info("via4 has #{count} polygons")
+  polygons_count += count
 
-        metal5 = metal5_drawn + metal5_dummy
+  metal5_drawn = get_polygons(81, 0)
+  count = metal5_drawn.count
+  logger.info("metal5_drawn has #{count} polygons")
+  polygons_count += count
 
-        top_via       = via4
-        topmin1_via   = via3
-        top_metal     = metal5
-        topmin1_metal = metal4
-      when '6LM'
-        metal5_drawn = get_polygons(81, 0)
-        count = metal5_drawn.count
-        logger.info("metal5_drawn has #{count} polygons")
-        polygons_count += count
+  metal5_dummy = get_polygons(81, 4)
+  count = metal5_dummy.count
+  logger.info("metal5_dummy has #{count} polygons")
+  polygons_count += count
 
-        metal5_dummy = get_polygons(81, 4)
-        count = metal5_dummy.count
-        logger.info("metal5_dummy has #{count} polygons")
-        polygons_count += count
+  metal5 = metal5_drawn + metal5_dummy
 
-        metal5         = metal5_drawn + metal5_dummy
+  metal5_label = get_polygons(81, 10)
+  count = metal5_label.count
+  logger.info("metal5_label has #{count} polygons")
+  polygons_count += count
 
-        via5 = get_polygons(82, 0)
-        count = via5.count
-        logger.info("via5 has #{count} polygons")
-        polygons_count += count
+  metal5_slot = get_polygons(81, 3)
+  count = metal5_slot.count
+  logger.info("metal5_slot has #{count} polygons")
+  polygons_count += count
 
-        metaltop_drawn = get_polygons(53, 0)
-        count = metaltop_drawn.count
-        logger.info("metaltop_drawn has #{count} polygons")
-        polygons_count += count
+  metal5_blk = get_polygons(81, 5)
+  count = metal5_blk.count
+  logger.info("metal5_blk has #{count} polygons")
+  polygons_count += count
+end
 
-        metaltop_dummy = get_polygons(53, 4)
-        count = metaltop_dummy.count
-        logger.info("metaltop_dummy has #{count} polygons")
-        polygons_count += count
+case METAL_LEVEL
+when '6LM'
+  via5 = get_polygons(82, 0)
+  count = via5.count
+  logger.info("via5 has #{count} polygons")
+  polygons_count += count
 
-        metaltop       = metaltop_drawn + metaltop_dummy
+  metaltop_drawn = get_polygons(53, 0)
+  count = metaltop_drawn.count
+  logger.info("metaltop_drawn has #{count} polygons")
+  polygons_count += count
 
-        top_via       = via5
-        topmin1_via   = via4
-        top_metal     = metaltop
-        topmin1_metal = metal5
-      else
-        logger.error("Unknown metal stack #{METAL_LEVEL}")
-        raise
-      end
-    end
-  end
+  metaltop_dummy = get_polygons(53, 4)
+  count = metaltop_dummy.count
+  logger.info("metaltop_dummy has #{count} polygons")
+  polygons_count += count
+
+  metaltop       = metaltop_drawn + metaltop_dummy
+
+  metaltop_label = get_polygons(53, 10)
+  count = metaltop_label.count
+  logger.info("metaltop_label has #{count} polygons")
+  polygons_count += count
+
+  metaltop_slot = get_polygons(53, 3)
+  count = metaltop_slot.count
+  logger.info("metaltop_slot has #{count} polygons")
+  polygons_count += count
+
+  metalt_blk = get_polygons(53, 5)
+  count = metalt_blk.count
+  logger.info("metalt_blk has #{count} polygons")
+  polygons_count += count
+end
+
+case METAL_LEVEL
+when '2LM'
+  top_via       = via1
+  topmin1_via   = contact
+  top_metal     = metal2
+  topmin1_metal = metal1
+when '3LM'
+  top_via       = via2
+  topmin1_via   = via1
+  top_metal     = metal3
+  topmin1_metal = metal2
+when '4LM'
+  top_via       = via3
+  topmin1_via   = via2
+  top_metal     = metal4
+  topmin1_metal = metal3
+when '5LM'
+  top_via       = via4
+  topmin1_via   = via3
+  top_metal     = metal5
+  topmin1_metal = metal4
+when '6LM'
+  top_via       = via5
+  topmin1_via   = via4
+  top_metal     = metaltop
+  topmin1_metal = metal5
+else
+  logger.error("Unknown metal stack #{METAL_LEVEL}")
+  raise
 end
 
 res_mk = get_polygons(110, 5)
