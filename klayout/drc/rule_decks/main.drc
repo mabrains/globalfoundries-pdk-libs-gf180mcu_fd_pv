@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ################################################################################################
-# Copyright 2022 GlobalFoundries PDK Authors
+# Copyright 2023 GlobalFoundries PDK Authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -607,7 +607,7 @@ when '5LM', '6LM'
   logger.info("metal5_dummy has #{count} polygons")
   polygons_count += count
 
-  metal5 = metal5_drawn + metal5_dummy
+  metal5 = metal5_drawn + metal5_dummy - pmndmy
 
   metal5_label = get_polygons(81, 10)
   count = metal5_label.count
@@ -946,6 +946,17 @@ def conn_separation(layer1, layer2, conn_val, not_conn_val, mode)
     unconnected_output = unconnected_errors.polygons(0.001.um)
   end
   [connected_output, unconnected_output]
+end
+
+def size_overunder_in_layers(large_layer, size_layer, size_value)
+  out_layer = DRC::DRCLayer.new(self, RBA::Region.new)
+  large_layer.data.each do |ep|
+    curr_large_layer = DRC::DRCLayer.new(self, RBA::Region.new(ep))
+    curr_large_layer = curr_large_layer.and(size_layer)
+    curr_large_layer = curr_large_layer.sized(size_value, 'square_limit').merged.sized(-size_value, 'square_limit')
+    out_layer.data.insert(curr_large_layer.data)
+  end
+  out_layer
 end
 
 # === IMPLICIT EXTRACTION ===

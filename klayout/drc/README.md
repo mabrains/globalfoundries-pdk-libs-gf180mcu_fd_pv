@@ -62,7 +62,7 @@ Example:
 
 - `--no_beol`                           Turn off BEOL rules from running.
 
-- `--connectivity`                      Turn on connectivity rules.
+- `--no_connectivity`                   Turn off connectivity rules.
 
 - `--density`                           Turn on Density rules.
 
