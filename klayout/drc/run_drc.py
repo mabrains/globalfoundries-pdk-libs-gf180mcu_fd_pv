@@ -511,7 +511,7 @@ def run_parallel_run(
 
     ## Run All DRC files.
     list_res_db_files = []
-    with concurrent.futures.ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=workers_count) as executor:
         future_to_run_name = dict()
         for n in list_rule_deck_files:
             future_to_run_name[
@@ -646,7 +646,7 @@ def main(drc_run_dir: str, arguments: dict):
     switches = generate_klayout_switches(arguments, layout_path)
 
     if (
-        int(arguments["--mp"]) == 1
+        workers_count == 1
         or arguments["--antenna_only"]
         or arguments["--density_only"]
     ):
@@ -691,6 +691,8 @@ if __name__ == "__main__":
         format="%(asctime)s | %(levelname)-7s | %(message)s",
         datefmt="%d-%b-%Y %H:%M:%S",
     )
+
+    workers_count = int(arguments["--mp"]) if arguments["--mp"] else os.cpu_count()
 
     # Calling main function
     main(drc_run_dir, arguments)
