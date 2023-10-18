@@ -22,10 +22,10 @@ if BEOL && (METAL_LEVEL == '3LM' || METAL_LEVEL == '4LM' || METAL_LEVEL == '5LM'
   #----------------------via2----------------------
   #================================================
 
-  # Rule V2.1: Min/max Via1 size . is 0.26µm
+  # Rule V2.1: Min/max Via2 size . is 0.26µm
   logger.info('Executing rule V2.1')
   v21_l1 = via2.edges.without_length(0.26.um)
-  v21_l1.output('V2.1', 'V2.1 : Min/max Via1 size . : 0.26µm')
+  v21_l1.output('V2.1', 'V2.1 : Min/max Via2 size . : 0.26µm')
   v21_l1.forget
 
   # Rule V2.2a: min. via2 spacing is 0.26µm

@@ -144,6 +144,7 @@ def generate_drc_run_template(drc_dir: str, run_dir: str, run_tables_list: list 
             if "antenna" not in f
             and "density" not in f
             and "main" not in f
+            and "layers_def" not in f
             and "tail" not in f
         ]
         deck_name = "main"
@@ -161,6 +162,11 @@ def generate_drc_run_template(drc_dir: str, run_dir: str, run_tables_list: list 
 
     all_tables.insert(0, "main.drc")
     all_tables.append("tail.drc")
+
+    # Adding layers_def to run  dir to used in main rule deck
+    lyrs_def_path = os.path.join(drc_dir, "rule_decks", "layers_def.drc")
+    lyrs_def_loc = os.path.join(run_dir, "layers_def.drc")
+    shutil.copyfile(lyrs_def_path, lyrs_def_loc)
 
     gen_rule_deck_path = os.path.join(run_dir, "{}.drc".format(deck_name))
     with open(gen_rule_deck_path, "wb") as wfd:
@@ -204,7 +210,7 @@ def get_list_of_tables(drc_dir: str):
     return [
         os.path.basename(f).replace(".drc", "")
         for f in glob.glob(os.path.join(drc_dir, "rule_decks", "*.drc"))
-        if all(t not in f for t in ("antenna", "density", "main", "tail"))
+        if all(t not in f for t in ("antenna", "density", "main", "layers_def", "tail"))
     ]
 
 
@@ -412,7 +418,7 @@ def build_switches_string(sws: dict):
     return " ".join(f"-rd {k}={v}" for k, v in sws.items())
 
 
-def run_check(drc_file: str, drc_name: str, path: str, run_dir: str, sws: dict):
+def run_check(drc_file: str, drc_table: str, path: str, run_dir: str, sws: dict):
     """
     run_antenna_check run DRC check based on DRC file provided.
 
@@ -420,6 +426,8 @@ def run_check(drc_file: str, drc_name: str, path: str, run_dir: str, sws: dict):
     ----------
     drc_file : str
         String that has the file full path to run.
+    drc_table : str
+        str that holds the name of drc table to be run.
     path : str
         String that holds the full path of the layout.
     run_dir : str
@@ -437,19 +445,19 @@ def run_check(drc_file: str, drc_name: str, path: str, run_dir: str, sws: dict):
     ## Using print because of the multiprocessing
     logging.info(
         "Running Global Foundries 180nm MCU {} checks on design {} on cell {}:".format(
-            path, drc_name, sws["topcell"]
+            path, drc_table, sws["topcell"]
         )
     )
 
     layout_base_name = os.path.basename(path).split(".")[0]
     new_sws = sws.copy()
     report_path = os.path.join(
-        run_dir, "{}_{}.lyrdb".format(layout_base_name, drc_name)
+        run_dir, "{}_{}.lyrdb".format(layout_base_name, drc_table)
     )
 
     new_sws["report"] = report_path
     sws_str = build_switches_string(new_sws)
-    sws_str += f" -rd table_name={drc_name}"
+    sws_str += f" -rd table_name={drc_table}"
 
     run_str = f"klayout -b -r {drc_file} {sws_str}"
     check_call(run_str, shell=True)
@@ -465,7 +473,7 @@ def run_parallel_run(
     drc_run_dir: str,
 ):
     """
-    run_single_processor run the drc checks as in a multi-processing.
+    run_parallel_run run the drc checks as in a multi-processing.
 
     Parameters
     ----------
@@ -600,8 +608,9 @@ def run_single_processor(
         )
 
     ## Run Main DRC
+    table_name = arguments["--table"] if arguments["--table"] else ["main"]
     list_res_db_files.append(
-        run_check(drc_file, "main", layout_path, drc_run_dir, switches)
+        run_check(drc_file, table_name[0], layout_path, drc_run_dir, switches)
     )
 
     ## Check run
