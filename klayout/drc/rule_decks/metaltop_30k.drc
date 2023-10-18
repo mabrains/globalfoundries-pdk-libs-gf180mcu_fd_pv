@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ################################################################################################
-# Copyright 2022 GlobalFoundries PDK Authors
+# Copyright 2023 GlobalFoundries PDK Authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -99,7 +99,6 @@ if BEOL && (METAL_TOP == '30K')
   if SLOW_VIA
     # Rule MT30.8: There shall be minimum 2X2 array of vias
     ## (top vias) at one location connecting to 3um thick top metal.
-    poss_via_centers = mt308_poss_via.middle.sized(0.005.um - 1.dbu)
     mt308_poss_via_over_under = size_overunder_in_layers(metal_top_intersections, mt308_poss_via, 1.0)
     mt308_all = mt308_poss_via_over_under.with_bbox_min(mt308_egde_length..nil)
     mt308_loc_exc = mt308_all.width(mt308_egde_length,

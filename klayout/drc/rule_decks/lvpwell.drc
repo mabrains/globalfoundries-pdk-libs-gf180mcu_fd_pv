@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ################################################################################################
-# Copyright 2022 GlobalFoundries PDK Authors
+# Copyright 2023 GlobalFoundries PDK Authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -103,9 +103,13 @@ if FEOL
 
   # Rule LPW.5: LVPWELL resistors must be enclosed by DNWELL.
   logger.info('Executing rule LPW.5')
-  lpw5_l1 = lvpwell.and(res_mk).not(dnwell)
+  well_exclude = poly2.join(dualgate).join(resistor).join(sab)
+  pwell_res = lvpwell.interacting(pcomp).and(res_mk).not(well_exclude)
+  lpw5_l1 = pwell_res.not(dnwell)
   lpw5_l1.output('LPW.5', 'LPW.5 : LVPWELL resistors must be enclosed by DNWELL.')
   lpw5_l1.forget
+  well_exclude.forget
+  pwell_res.forget
 
   # Rule LPW.11: Min. (LVPWELL outside DNWELL) space to DNWELL. is 1.5µm
   logger.info('Executing rule LPW.11')

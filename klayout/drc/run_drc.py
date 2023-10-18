@@ -17,7 +17,7 @@ Run GlobalFoundries 180nm MCU DRC.
 
 Usage:
     run_drc.py (--help| -h)
-    run_drc.py (--path=<file_path>) (--variant=<combined_options>) [--verbose] [--table=<table_name>]... [--mp=<num_cores>] [--run_dir=<run_dir_path>] [--topcell=<topcell_name>] [--thr=<thr>] [--run_mode=<run_mode>] [--no_feol] [--no_beol] [--connectivity] [--density] [--density_only] [--antenna] [--antenna_only] [--no_offgrid] [--macro_gen] [--slow_via]
+    run_drc.py (--path=<file_path>) (--variant=<combined_options>) [--verbose] [--table=<table_name>]... [--mp=<num_cores>] [--run_dir=<run_dir_path>] [--topcell=<topcell_name>] [--thr=<thr>] [--run_mode=<run_mode>] [--no_feol] [--no_beol] [--no_connectivity] [--density] [--density_only] [--antenna] [--antenna_only] [--no_offgrid] [--macro_gen] [--slow_via]
 
 Options:
     --help -h                           Print this help message.
@@ -37,7 +37,7 @@ Options:
     --run_mode=<run_mode>               Select klayout mode Allowed modes (flat , deep, tiling). [default: flat]
     --no_feol                           Turn off FEOL rules from running.
     --no_beol                           Turn off BEOL rules from running.
-    --connectivity                      Turn on connectivity rules.
+    --no_connectivity                   Turn off connectivity rules.
     --density                           Turn on Density rules.
     --density_only                      Turn on Density rules only.
     --antenna                           Turn on Antenna checks.
@@ -318,10 +318,10 @@ def generate_klayout_switches(arguments, layout_path):
     else:
         switches["offgrid"] = "true"
 
-    if arguments["--connectivity"]:
-        switches["conn_drc"] = "true"
-    else:
+    if arguments["--no_connectivity"]:
         switches["conn_drc"] = "false"
+    else:
+        switches["conn_drc"] = "true"
 
     if arguments["--density"]:
         switches["density"] = "true"
@@ -511,7 +511,7 @@ def run_parallel_run(
 
     ## Run All DRC files.
     list_res_db_files = []
-    with concurrent.futures.ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=workers_count) as executor:
         future_to_run_name = dict()
         for n in list_rule_deck_files:
             future_to_run_name[
@@ -646,7 +646,7 @@ def main(drc_run_dir: str, arguments: dict):
     switches = generate_klayout_switches(arguments, layout_path)
 
     if (
-        int(arguments["--mp"]) == 1
+        workers_count == 1
         or arguments["--antenna_only"]
         or arguments["--density_only"]
     ):
@@ -691,6 +691,8 @@ if __name__ == "__main__":
         format="%(asctime)s | %(levelname)-7s | %(message)s",
         datefmt="%d-%b-%Y %H:%M:%S",
     )
+
+    workers_count = int(arguments["--mp"]) if arguments["--mp"] else os.cpu_count()
 
     # Calling main function
     main(drc_run_dir, arguments)

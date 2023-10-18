@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ################################################################################################
-# Copyright 2022 GlobalFoundries PDK Authors
+# Copyright 2023 GlobalFoundries PDK Authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ if BEOL && (METAL_LEVEL == '5LM' || METAL_LEVEL == '6LM')
                                         projection_limits(via4_egde_length..1000 * via4_egde_length)).polygons
   via4_4x4_loc = via4_4x4_all.not_interacting(via4_4x4_loc_exc)
   selected_via4 = via4.interacting(via4_4x4_loc)
-  via4b_l1 = selected_via4.space(0.36.um, euclidian)
+  via4b_l1 = selected_via4.space(0.36.um, projecting >= 0.26.um)
   via4b_l1.output('V4.2b', 'V4.2b : via4 Space in 4x4 or larger via4 array : 0.36µm')
   via4b_l1.forget
   poss_4_4_via4.forget
