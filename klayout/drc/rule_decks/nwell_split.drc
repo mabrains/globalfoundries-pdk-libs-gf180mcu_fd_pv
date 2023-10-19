@@ -20,12 +20,13 @@
 #---------------------NWELL----------------------
 #================================================
 if FEOL && SPLIT_DEEP
+
+  logger.info('Starting NWELL derivations')
+
+  nw_lv = nwell.not_interacting(v5_xtor).not_interacting(dualgate)
+  nw_mv = nwell.overlapping(dualgate)
+
   if CONNECTIVITY_RULES
-
-    logger.info('Starting NWELL derivations')
-
-    nw_lv = nwell.not_interacting(v5_xtor).not_interacting(dualgate)
-    nw_mv = nwell.overlapping(dualgate)
 
     logger.info('CONNECTIVITY_RULES section')
 

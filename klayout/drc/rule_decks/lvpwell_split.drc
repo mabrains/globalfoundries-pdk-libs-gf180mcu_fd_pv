@@ -20,10 +20,11 @@
 #--------------------LVPWELL---------------------
 #================================================
 if FEOL && SPLIT_DEEP
-  if CONNECTIVITY_RULES
 
-    logger.info('Starting LVPWELL derivations')
-    lvpwell_dn_mv = lvpwell_dn.interacting(dualgate)
+  logger.info('Starting LVPWELL derivations')
+  lvpwell_dn_mv = lvpwell_dn.interacting(dualgate)
+
+  if CONNECTIVITY_RULES
 
     logger.info('CONNECTIVITY_RULES section')
 
