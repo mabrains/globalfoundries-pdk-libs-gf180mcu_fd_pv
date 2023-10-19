@@ -319,7 +319,7 @@ logger.info("mdiode has #{count} polygons")
 polygons_count += count
 
 # == CONTACT LAYER ==
-contact_tables = %w[contact efuse geom dnwell nwell lvpwell nat
+contact_tables = %w[contact contact_split efuse geom dnwell nwell lvpwell nat
                     hres ldnmos ldpmos lres otp_mk pres sab sram_3p3 sram_5p0 main]
 
 if contact_tables.include?(TABLE_NAME)
@@ -357,7 +357,7 @@ logger.info("metal1_blk has #{count} polygons")
 polygons_count += count
 
 # == VIA1 LAYER ==
-via1_tables = %w[geom mim_a mim_b metaltop_30k via1
+via1_tables = %w[geom mim_a mim_b metaltop_30k via1 via1_split
                  dnwell nwell lvpwell nat main]
 
 if via1_tables.include?(TABLE_NAME)
@@ -395,8 +395,8 @@ logger.info("metal2_blk has #{count} polygons")
 polygons_count += count
 
 # == VIA2 LAYER ==
-via2_tables = %w[geom mim_a mim_b metaltop_30k
-                 dnwell nwell lvpwell nat via2 main]
+via2_tables = %w[geom mim_a mim_b metaltop_30k dnwell
+                 nwell lvpwell nat via2 via2_split main]
 
 case METAL_LEVEL
 when '3LM', '4LM', '5LM', '6LM'

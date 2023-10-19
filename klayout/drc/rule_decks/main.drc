@@ -72,11 +72,11 @@ TABLE_NAME = $table_name || 'main'
 logger.info("table_name selected  #{TABLE_NAME}")
 
 # connectivity rules
-CONNECTIVITY_RULES = bool_check?($conn_drc)
+CONNECTIVITY_EN = bool_check?($conn_drc)
 
 conn_tables = %w[dnwell nwell lvpwell nat ldnmos ldpmos main]
 
-CONNECTIVITY_RULES = if conn_tables.include?(TABLE_NAME) && CONNECTIVITY_RULES
+CONNECTIVITY_RULES = if conn_tables.include?(TABLE_NAME) && CONNECTIVITY_EN
                        true
                      else
                        false
