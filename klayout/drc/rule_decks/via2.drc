@@ -74,7 +74,7 @@ if BEOL && (METAL_LEVEL == '3LM' || METAL_LEVEL == '4LM' || METAL_LEVEL == '5LM'
     v2p3c_cond_edge1 = v2p3c_cond.first_edges
     v2p3c_cond_edge2 = v2p3c_cond.second_edges
     v2p3c_eol = v2p3c_eol_allowed.interacting(v2p3c_cond_edge1).interacting(v2p3c_cond_edge2)
-                                .not(v2p3c_cond_edge1).not(v2p3c_cond_edge2)
+                                 .not(v2p3c_cond_edge1).not(v2p3c_cond_edge2)
     v2p3c_l1 = via2.edges.enclosed(v2p3c_eol, 0.06.um, projection)
     v2p3c_l1.output('V2.3c', 'V2.3c : metal2 (< 0.34um) end-of-line overlap.(Applies to all < 0.34µm wide Metal lines,
                     excluding Metal branches shorter than 0.28µm.) : 0.06µm')
@@ -95,7 +95,7 @@ if BEOL && (METAL_LEVEL == '3LM' || METAL_LEVEL == '4LM' || METAL_LEVEL == '5LM'
     via2_3d_l2 = via2.interacting(via2_cond_corner)
     via2_3d_l = via2_3d_l1.or(via2_3d_l2)
     via2_3d_l.output('V2.3d',
-                    'V2.3d : If metal2 overlap via2 by < 0.04um on one side, adjacent metal2 edges overlap. : 0.06µm')
+                     'V2.3d : If metal2 overlap via2 by < 0.04um on one side, adjacent metal2 edges overlap. : 0.06µm')
     via2_3d_l.forget
     via2_3d_l2.forget
     via2_3d_l1.forget
@@ -122,7 +122,7 @@ if BEOL && (METAL_LEVEL == '3LM' || METAL_LEVEL == '4LM' || METAL_LEVEL == '5LM'
     v2p4b_cond = metal3.width(0.34.um + 1.dbu).with_length(0.28.um, nil, both)
     v2p4b_eol_allowed = metal3.edges.with_length(nil, 0.34.um)
     v2p4b_eol = v2p4b_eol_allowed.interacting(v2p4b_cond.first_edges).interacting(v2p4b_cond.second_edges)
-                                .not(v2p4b_cond.first_edges).not(v2p4b_cond.second_edges)
+                                 .not(v2p4b_cond.first_edges).not(v2p4b_cond.second_edges)
     v2p4b_l1 = via2.edges.enclosed(v2p4b_eol, 0.06.um, projection)
     v2p4b_l1.output('V2.4b', 'V2.4p : metal3 (< 0.34um) end-of-line overlap. : 0.06µm')
     v2p4b_l1.forget
@@ -140,7 +140,7 @@ if BEOL && (METAL_LEVEL == '3LM' || METAL_LEVEL == '4LM' || METAL_LEVEL == '5LM'
     via2_4c_l2 = via2.interacting(via2_4c_cond_corner)
     via2_4c_l = via2_4c_l1.or(via2_4c_l2)
     via2_4c_l.output('V2.4c',
-                    'V2.4c : If metal3 overlap via2 by < 0.04um on one side, adjacent metal3 edges overlap. : 0.06µm')
+                     'V2.4c : If metal3 overlap via2 by < 0.04um on one side, adjacent metal3 edges overlap. : 0.06µm')
     via2_4c_l.forget
     via2_4c_l2.forget
     via2_4c_l1.forget
