@@ -383,8 +383,14 @@ end
 
 # === IMPLICIT EXTRACTION ===
 if CONNECTIVITY_RULES
+  if SPLIT_DEEP
+    deep
+  end
   logger.info('Connectivity rules enabled, Netlist object will be generated.')
   netlist
+  if SPLIT_DEEP
+    flat
+  end
 end
 
 # === LAYOUT EXTENT ===
