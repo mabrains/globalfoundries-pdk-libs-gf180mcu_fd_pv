@@ -20,8 +20,6 @@
 #----------------------via1----------------------
 #================================================
 if BEOL && SPLIT_DEEP
-  logger.info('Enable deep mode for some rules for via1')
-  deep
   # Rule V1.3c: metal1 (< 0.34um) end-of-line overlap. (Applies to all < 0.34µm wide Metal lines,
   ## excluding Metal branches shorter than 0.28µm.) is 0.06µm
   logger.info('Executing rule V1.3c')
@@ -105,6 +103,4 @@ if BEOL && SPLIT_DEEP
   via1_4c_check_corner.forget
   via1_4c_cond_corner.forget
   via1_4c_check.forget
-  logger.info('Disable deep mode after executing some rules for via1')
-  flat
 end

@@ -20,8 +20,6 @@
 #--------------------CONTACT---------------------
 #================================================
 if FEOL && SPLIT_DEEP
-  logger.info('Enable deep mode for some rules for contact')
-  deep
   logger.info('Starting CONTACT derivations')
   contact_edges = contact.edges
   main_contact = contact.not(sramcore)
@@ -79,6 +77,4 @@ if FEOL && SPLIT_DEEP
   cont_6b_cond_edges.forget
   metal1_edges.forget
   main_contact_edges.forget
-  logger.info('Disable deep mode after executing some rules for contact')
-  flat
 end

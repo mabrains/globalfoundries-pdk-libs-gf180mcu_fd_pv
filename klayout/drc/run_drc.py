@@ -1,5 +1,5 @@
 ################################################################################################
-# Copyright 2022 GlobalFoundries PDK Authors
+# Copyright 2023 GlobalFoundries PDK Authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -338,6 +338,7 @@ def generate_klayout_switches(arguments, layout_path):
         switches["density"] = "false"
 
     if arguments["--split_deep"] and arguments["--run_mode"] != "deep":
+        switches["run_mode"] = "deep"
         switches["split_deep"] = "true"
     else:
         switches["split_deep"] = "false"

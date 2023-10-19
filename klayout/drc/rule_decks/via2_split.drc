@@ -21,8 +21,6 @@
 #----------------------via2----------------------
 #================================================
 if BEOL && (METAL_LEVEL == '3LM' || METAL_LEVEL == '4LM' || METAL_LEVEL == '5LM' || METAL_LEVEL == '6LM') && SPLIT_DEEP
-  logger.info('Enable deep mode for some rules for via2')
-  deep
   # Rule V2.3b: metal2 overlap of via2.
   logger.info('Executing rule V2.3b')
   v23b_l1 = via2.not(metal2)
@@ -115,6 +113,4 @@ if BEOL && (METAL_LEVEL == '3LM' || METAL_LEVEL == '4LM' || METAL_LEVEL == '5LM'
   via2_4c_check_corner.forget
   via2_4c_cond_corner.forget
   via2_4c_check.forget
-  logger.info('Disable deep mode after executing some rules for via2')
-  flat
 end
