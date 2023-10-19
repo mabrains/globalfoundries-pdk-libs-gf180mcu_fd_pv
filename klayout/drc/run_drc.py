@@ -273,9 +273,7 @@ def generate_klayout_switches(arguments, layout_path):
     thrCount = 2 if arguments["--thr"] is None else int(arguments["--thr"])
     switches["thr"] = str(int(thrCount))
 
-    if arguments["--run_mode"] in ["flat", "deep"]:
-        switches["run_mode"] = arguments["--run_mode"]
-    else:
+    if arguments["--run_mode"] not in ["flat", "deep"]:
         logging.error("Allowed klayout modes are (flat , deep) only")
         exit()
 
@@ -338,7 +336,6 @@ def generate_klayout_switches(arguments, layout_path):
         switches["density"] = "false"
 
     if arguments["--split_deep"] and arguments["--run_mode"] != "deep":
-        switches["run_mode"] = "deep"
         switches["split_deep"] = "true"
     else:
         switches["split_deep"] = "false"
@@ -465,6 +462,13 @@ def run_check(drc_file: str, drc_table: str, path: str, run_dir: str, sws: dict)
     )
 
     new_sws["report"] = report_path
+
+    # Forcing deep mode for long run rules
+    if "split" in drc_table:
+        new_sws["run_mode"] = "deep"
+    else:
+        new_sws["run_mode"] = arguments["--run_mode"]
+
     sws_str = build_switches_string(new_sws)
     sws_str += f" -rd table_name={drc_table}"
 
