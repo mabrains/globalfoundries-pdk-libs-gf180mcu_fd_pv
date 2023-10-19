@@ -139,11 +139,11 @@ when 'tiling'
 when 'deep'
   #=== HIER MODE ===
   deep
-  logger.info('deep  mode is enabled.')
+  logger.info("deep  mode is enabled for #{TABLE_NAME} table")
 else
   #=== FLAT MODE ===
   flat
-  logger.info('flat  mode is enabled.')
+  logger.info("flat  mode is enabled for #{TABLE_NAME} table")
 end
 
 # METAL_TOP
@@ -244,7 +244,6 @@ nwell_n_dn = nwell.not_interacting(dnwell)
 #================================================
 
 if CONNECTIVITY_RULES
-  deep if SPLIT_DEEP
   logger.info('Construct connectivity for the design.')
 
   connect(dnwell, ncomp)
@@ -288,7 +287,6 @@ if CONNECTIVITY_RULES
     connect(metal5,  via5)
     connect(via5,    metaltop)
   end
-  flat if SPLIT_DEEP
 end
 
 #================================================
@@ -392,10 +390,8 @@ end
 
 # === IMPLICIT EXTRACTION ===
 if CONNECTIVITY_RULES
-  deep if SPLIT_DEEP
   logger.info('Connectivity rules enabled, Netlist object will be generated.')
   netlist
-  flat if SPLIT_DEEP
 end
 
 # === LAYOUT EXTENT ===
