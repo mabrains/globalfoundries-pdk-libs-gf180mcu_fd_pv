@@ -74,6 +74,14 @@ logger.info("table_name selected  #{TABLE_NAME}")
 # connectivity rules
 CONNECTIVITY_RULES = bool_check?($conn_drc)
 
+conn_tables = %w[dnwell nwell lvpwell nat ldnmos ldpmos main]
+
+CONNECTIVITY_RULES = if conn_tables.include?(TABLE_NAME) && CONNECTIVITY_RULES
+                       true
+                     else
+                       false
+                     end
+
 logger.info("CONNECTIVITY_RULES enabled: #{CONNECTIVITY_RULES}")
 
 # split deep rules
@@ -236,9 +244,7 @@ nwell_n_dn = nwell.not_interacting(dnwell)
 #================================================
 
 if CONNECTIVITY_RULES
-  if SPLIT_DEEP
-    deep
-  end
+  deep if SPLIT_DEEP
   logger.info('Construct connectivity for the design.')
 
   connect(dnwell, ncomp)
@@ -282,9 +288,7 @@ if CONNECTIVITY_RULES
     connect(metal5,  via5)
     connect(via5,    metaltop)
   end
-  if SPLIT_DEEP
-    flat
-  end  
+  flat if SPLIT_DEEP
 end
 
 #================================================
@@ -388,14 +392,10 @@ end
 
 # === IMPLICIT EXTRACTION ===
 if CONNECTIVITY_RULES
-  if SPLIT_DEEP
-    deep
-  end
+  deep if SPLIT_DEEP
   logger.info('Connectivity rules enabled, Netlist object will be generated.')
   netlist
-  if SPLIT_DEEP
-    flat
-  end
+  flat if SPLIT_DEEP
 end
 
 # === LAYOUT EXTENT ===
