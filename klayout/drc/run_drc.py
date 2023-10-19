@@ -1,23 +1,25 @@
-# Copyright 2023 GlobalFoundries PDK Authors
+################################################################################################
+# Copyright 2022 GlobalFoundries PDK Authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#      http://www.apache.org/licenses/LICENSE-2.0
+#     https://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+################################################################################################
 
 """
 Run GlobalFoundries 180nm MCU DRC.
 
 Usage:
     run_drc.py (--help| -h)
-    run_drc.py (--path=<file_path>) (--variant=<combined_options>) [--verbose] [--table=<table_name>]... [--mp=<num_cores>] [--run_dir=<run_dir_path>] [--topcell=<topcell_name>] [--thr=<thr>] [--run_mode=<run_mode>] [--no_feol] [--no_beol] [--no_connectivity] [--density] [--density_only] [--antenna] [--antenna_only] [--no_offgrid] [--macro_gen] [--slow_via]
+    run_drc.py (--path=<file_path>) (--variant=<combined_options>) [--verbose] [--table=<table_name>]... [--mp=<num_cores>] [--run_dir=<run_dir_path>] [--topcell=<topcell_name>] [--thr=<thr>] [--run_mode=<run_mode>] [--no_feol] [--no_beol] [--no_connectivity] [--density] [--density_only] [--antenna] [--antenna_only] [--no_offgrid] [--split_deep] [--macro_gen] [--slow_via]
 
 Options:
     --help -h                           Print this help message.
@@ -34,7 +36,7 @@ Options:
     --mp=<num_cores>                    Run the rule deck in parts in parallel to speed up the run. [default: 1]
     --run_dir=<run_dir_path>            Run directory to save all the results [default: pwd]
     --thr=<thr>                         The number of threads used in run.
-    --run_mode=<run_mode>               Select klayout mode Allowed modes (flat , deep, tiling). [default: flat]
+    --run_mode=<run_mode>               Select klayout mode Allowed modes (flat , deep). [default: flat]
     --no_feol                           Turn off FEOL rules from running.
     --no_beol                           Turn off BEOL rules from running.
     --no_connectivity                   Turn off connectivity rules.
@@ -42,12 +44,13 @@ Options:
     --density_only                      Turn on Density rules only.
     --antenna                           Turn on Antenna checks.
     --antenna_only                      Turn on Antenna checks only.
+    --split_deep                        Spliting some long run rules to be run in deep mode permanently.
     --no_offgrid                        Turn off OFFGRID checking rules.
     --verbose                           Detailed rule execution log for debugging.
-    --macro_gen                         Generating main rule deck for macros usage.
-    --slow_via                          Turn on SLOW_VIA option for via rules
-
+    --macro_gen                         Generating the full rule deck without run.
+    --slow_via                          Turn on SLOW_VIA option for MT30.8 rule.
 """
+
 
 from docopt import docopt
 import os
@@ -270,10 +273,10 @@ def generate_klayout_switches(arguments, layout_path):
     thrCount = 2 if arguments["--thr"] is None else int(arguments["--thr"])
     switches["thr"] = str(int(thrCount))
 
-    if arguments["--run_mode"] in ["flat", "deep", "tiling"]:
+    if arguments["--run_mode"] in ["flat", "deep"]:
         switches["run_mode"] = arguments["--run_mode"]
     else:
-        logging.error("Allowed klayout modes are (flat , deep , tiling) only")
+        logging.error("Allowed klayout modes are (flat , deep) only")
         exit()
 
     if arguments["--variant"] == "A":
@@ -333,6 +336,11 @@ def generate_klayout_switches(arguments, layout_path):
         switches["density"] = "true"
     else:
         switches["density"] = "false"
+
+    if arguments["--split_deep"] and arguments["--run_mode"] != "deep":
+        switches["split_deep"] = "true"
+    else:
+        switches["split_deep"] = "false"
 
     if arguments["--slow_via"]:
         switches["slow_via"] = "true"

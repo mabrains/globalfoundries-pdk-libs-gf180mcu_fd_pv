@@ -72,13 +72,16 @@ Example:
 
 - `--antenna_only`                      Turn on Antenna checks only.
 
+- `--split_deep`                        Spliting some long run rules to be run in deep mode permanently.
+
 - `--no_offgrid`                        Turn off OFFGRID checking rules.
 
 - `--verbose`                           Detailed rule execution log for debugging.
 
-- `--macro_gen`                        Turn off main rule deck generation without simulation
+- `--macro_gen`                         Generating the full rule deck without run.
 
-- `--slow_via`                        Turn off enable slow_via implementations  
+- `--slow_via`                          Turn on SLOW_VIA option for MT30.8 rule.
+
 
 ## **DRC Outputs**
 

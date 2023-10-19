@@ -76,6 +76,9 @@ CONNECTIVITY_RULES = bool_check?($conn_drc)
 
 logger.info("CONNECTIVITY_RULES enabled: #{CONNECTIVITY_RULES}")
 
+# split deep rules
+SPLIT_DEEP = bool_check?($split_deep)
+
 # WEDGE
 WEDGE = bool_check?($wedge)
 
@@ -119,6 +122,7 @@ logger.info("Verbose mode: #{$verbose}")
 
 # === TILING MODE ===
 case $run_mode
+## Tiling mode is for testing purpose only [Not used in run_drc.py]
 when 'tiling'
   tiles(500.um)
   tile_borders(10.um)
