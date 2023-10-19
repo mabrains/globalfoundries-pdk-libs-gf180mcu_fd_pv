@@ -236,7 +236,9 @@ nwell_n_dn = nwell.not_interacting(dnwell)
 #================================================
 
 if CONNECTIVITY_RULES
-
+  if SPLIT_DEEP
+    deep
+  end
   logger.info('Construct connectivity for the design.')
 
   connect(dnwell, ncomp)
@@ -280,6 +282,9 @@ if CONNECTIVITY_RULES
     connect(metal5,  via5)
     connect(via5,    metaltop)
   end
+  if SPLIT_DEEP
+    flat
+  end  
 end
 
 #================================================
