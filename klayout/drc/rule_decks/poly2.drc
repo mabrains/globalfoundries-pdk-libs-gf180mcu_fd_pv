@@ -183,8 +183,9 @@ if FEOL
 
   # Rule PL.12: V5_Xtor enclose 5V Comp.
   logger.info('Executing rule PL.12')
-  pl12_l1 = comp.interacting(v5_xtor).not(v5_xtor)
+  pl12_comp = comp.interacting(poly2)
+  pl12_l1 = pl12_comp.interacting(v5_xtor).not(v5_xtor)
   pl12_l1.output('PL.12', 'PL.12 : V5_Xtor enclose 5V Comp.')
   pl12_l1.forget
-
+  pl12_comp.forget
 end

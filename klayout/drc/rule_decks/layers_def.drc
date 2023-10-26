@@ -28,10 +28,22 @@ def get_polygons(layer, data_type)
   $run_mode == 'deep' ? ps : ps.merged
 end
 
-comp = get_polygons(22, 0)
-count = comp.count
+ndmy = get_polygons(111, 5)
+count = ndmy.count
+logger.info("ndmy has #{count} polygons")
+polygons_count += count
+
+pmndmy = get_polygons(152, 5)
+count = pmndmy.count
+logger.info("pmndmy has #{count} polygons")
+polygons_count += count
+
+comp_drawn = get_polygons(22, 0)
+count = comp_drawn.count
 logger.info("comp has #{count} polygons")
 polygons_count += count
+
+comp = comp_drawn - ndmy
 
 dnwell = get_polygons(12, 0)
 count = dnwell.count
@@ -53,10 +65,12 @@ count = dualgate.count
 logger.info("dualgate has #{count} polygons")
 polygons_count += count
 
-poly2 = get_polygons(30, 0)
-count = poly2.count
+poly2_drawn = get_polygons(30, 0)
+count = poly2_drawn.count
 logger.info("poly2 has #{count} polygons")
 polygons_count += count
+
+poly2 = poly2_drawn - pmndmy
 
 nplus = get_polygons(32, 0)
 count = nplus.count
@@ -146,16 +160,6 @@ polygons_count += count
 opc_drc = get_polygons(124, 5)
 count = opc_drc.count
 logger.info("opc_drc has #{count} polygons")
-polygons_count += count
-
-ndmy = get_polygons(111, 5)
-count = ndmy.count
-logger.info("ndmy has #{count} polygons")
-polygons_count += count
-
-pmndmy = get_polygons(152, 5)
-count = pmndmy.count
-logger.info("pmndmy has #{count} polygons")
 polygons_count += count
 
 v5_xtor = get_polygons(112, 1)

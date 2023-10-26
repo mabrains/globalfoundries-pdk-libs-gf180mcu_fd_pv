@@ -229,13 +229,13 @@ if FEOL
   df6_exclude = otp_mk.or(ymtp_mk).or(sramcore).or(mvsd).or(mvpsd)
   df6_comp = comp.interacting(tgate).not(df6_exclude)
   df6_poly = poly2.not(df6_exclude)
-  df6_l1 = df6_poly.enclosed(comp_3p3v.and(df6_comp), 0.24.um, euclidian)
+  df6_l1 = comp_3p3v.and(df6_comp).enclosing(df6_poly, 0.24.um, euclidian)
   df6_l1.output('DF.6_LV', 'DF.6_LV : Min. COMP extend beyond gate (it also means source/drain overhang). : 0.24µm')
   df6_l1.forget
 
   # Rule DF.6_MV: Min. COMP extend beyond gate (it also means source/drain overhang). is 0.4µm
   logger.info('Executing rule DF.6_MV')
-  df6_l1 = df6_poly.enclosed(comp_56v.and(df6_comp), 0.4.um, euclidian)
+  df6_l1 = comp_56v.and(df6_comp).enclosing(df6_poly, 0.4.um, euclidian)
   df6_l1.output('DF.6_MV', 'DF.6_MV : Min. COMP extend beyond gate (it also means source/drain overhang). : 0.4µm')
   df6_l1.forget
   df6_exclude.forget
