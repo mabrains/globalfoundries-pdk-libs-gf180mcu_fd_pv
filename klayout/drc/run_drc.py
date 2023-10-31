@@ -210,11 +210,17 @@ def get_list_of_tables(drc_dir: str):
     drc_dir : str
         Path to the DRC folder to get the list of tables from.
     """
-    return [
-        os.path.basename(f).replace(".drc", "")
-        for f in glob.glob(os.path.join(drc_dir, "rule_decks", "*.drc"))
-        if all(t not in f for t in ("antenna", "density", "main", "layers_def", "tail"))
-    ]
+
+    if arguments["--run_mode"] == 'flat':
+        return [
+            os.path.basename(f).replace(".drc", "")
+            for f in glob.glob(os.path.join(drc_dir, "rule_decks", "*.drc"))
+            if all(t not in f for t in ("antenna", "density", "main", "layers_def", "tail"))]
+    else:
+        return [
+            os.path.basename(f).replace(".drc", "")
+            for f in glob.glob(os.path.join(drc_dir, "rule_decks", "*.drc"))
+            if all(t not in f for t in ("antenna", "density", "main", "layers_def", "split", "tail"))]
 
 
 def get_run_top_cell_name(arguments, layout_path):
@@ -275,7 +281,7 @@ def generate_klayout_switches(arguments, layout_path):
 
     if arguments["--run_mode"] not in ["flat", "deep"]:
         logging.error("Allowed klayout modes are (flat , deep) only")
-        exit()
+        exit(1)
 
     if arguments["--variant"] == "A":
         switches["metal_top"] = "30K"
@@ -365,8 +371,6 @@ def check_klayout_version():
         exit(1)
     else:
         klayout_v_list = [int(v) for v in klayout_v_.split(" ")[-1].split(".")]
-
-    logging.info(f"Your Klayout version is: {klayout_v_}")
 
     if len(klayout_v_list) < 1 or len(klayout_v_list) > 3:
         logging.error("Was not able to get klayout version properly.")
@@ -599,7 +603,7 @@ def run_single_processor(
 
         if arguments["--antenna_only"]:
             logging.info("## Completed running Antenna checks only.")
-            exit()
+            exit(1)
 
     ## Run Density if required.
     if arguments["--density"] or arguments["--density_only"]:
@@ -610,7 +614,7 @@ def run_single_processor(
 
         if arguments["--density_only"]:
             logging.info("## Completed running density checks only.")
-            exit()
+            exit(1)
 
     ## Generate run rule deck from template.
     if not arguments["--table"]:
