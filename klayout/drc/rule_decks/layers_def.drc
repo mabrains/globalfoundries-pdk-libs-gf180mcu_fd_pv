@@ -28,7 +28,6 @@ def get_polygons(layer, data_type)
   $run_mode == 'deep' ? ps : ps.merged
 end
 
-
 comp = get_polygons(22, 0)
 count = comp.count
 logger.info("comp has #{count} polygons")

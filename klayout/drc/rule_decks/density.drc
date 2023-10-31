@@ -119,7 +119,6 @@ def get_polygons(layer, data_type)
   $run_mode == 'deep' ? ps : ps.merged
 end
 
-
 dualgate = get_polygons(55, 0)
 count = dualgate.count
 logger.info("dualgate has #{count} polygons")
