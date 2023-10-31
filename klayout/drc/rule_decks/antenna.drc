@@ -139,34 +139,20 @@ def get_polygons(layer, data_type)
   $run_mode == 'deep' ? ps : ps.merged
 end
 
-ndmy = get_polygons(111, 5)
-count = ndmy.count
-logger.info("ndmy has #{count} polygons")
-polygons_count += count
-
-pmndmy = get_polygons(152, 5)
-count = pmndmy.count
-logger.info("pmndmy has #{count} polygons")
-polygons_count += count
-
-comp_drawn = get_polygons(22, 0)
-count = comp_drawn.count
+comp = get_polygons(22, 0)
+count = comp.count
 logger.info("comp has #{count} polygons")
 polygons_count += count
-
-comp = comp_drawn - ndmy
 
 dualgate = get_polygons(55, 0)
 count = dualgate.count
 logger.info("dualgate has #{count} polygons")
 polygons_count += count
 
-poly2_drawn = get_polygons(30, 0)
-count = poly2_drawn.count
+poly2 = get_polygons(30, 0)
+count = poly2.count
 logger.info("poly2 has #{count} polygons")
 polygons_count += count
-
-poly2 = poly2_drawn - pmndmy
 
 nplus = get_polygons(32, 0)
 count = nplus.count
@@ -329,7 +315,7 @@ when '5LM', '6LM'
   logger.info("metal5_dummy has #{count} polygons")
   polygons_count += count
 
-  metal5 = metal5_drawn + metal5_dummy - pmndmy
+  metal5 = metal5_drawn + metal5_dummy
 
   metal5_label = get_polygons(81, 10)
   count = metal5_label.count
