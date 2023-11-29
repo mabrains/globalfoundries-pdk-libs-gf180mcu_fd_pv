@@ -56,10 +56,11 @@ class SubcircuitModelsReader < RBA::NetlistSpiceReaderDelegate
         device.connect_terminal(t, nets[index])
       end
 
+      # Convert Cap L & W & M parameters to --> A & P
       # parameters in the model are given in micrometer units, so
       # we need to translate the parameter values from SI to um values:
-      device.set_parameter('A', ((params['W'] || 0.0) * (params['L'] || 0.0)) * 1e12)
-      device.set_parameter('P', ((params['W'] || 0.0) + (params['L'] || 0.0)) * 2e6)
+      device.set_parameter('A', ((params['W'] || 0.0) * (params['L'] || 0.0)  * (params['M'] || 1.0)) * 1e12)
+      device.set_parameter('P', ((params['W'] || 0.0) + (params['L'] || 0.0)) * (params['M'] || 1.0)  * 2e6)
       device.set_parameter('C', (params['C'] || 0.0))
 
     when 'R'
