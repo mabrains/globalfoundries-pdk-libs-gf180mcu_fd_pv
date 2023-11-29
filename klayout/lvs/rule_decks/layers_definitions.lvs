@@ -409,7 +409,7 @@ when '3LM', '4LM', '5LM', '6LM'
 
   metal3 = metal3_drawn + metal3_dummy
 
-  metal3_label = get_polygons(42, 10)
+  metal3_label = labels(42, 10)
   count = metal3_label.count
   logger.info("metal3_label has #{count} polygons")
   polygons_count += count
@@ -449,7 +449,7 @@ when '4LM', '5LM', '6LM'
 
   metal4 = metal4_drawn + metal4_dummy
 
-  metal4_label = get_polygons(46, 10)
+  metal4_label = labels(46, 10)
   count = metal4_label.count
   logger.info("metal4_label has #{count} polygons")
   polygons_count += count
@@ -489,7 +489,7 @@ when '5LM', '6LM'
 
   metal5 = metal5_drawn + metal5_dummy
 
-  metal5_label = get_polygons(81, 10)
+  metal5_label = labels(81, 10)
   count = metal5_label.count
   logger.info("metal5_label has #{count} polygons")
   polygons_count += count
@@ -529,7 +529,7 @@ when '6LM'
 
   metaltop       = metaltop_drawn + metaltop_dummy
 
-  metaltop_label = get_polygons(53, 10)
+  metaltop_label = labels(53, 10)
   count = metaltop_label.count
   logger.info("metaltop_label has #{count} polygons")
   polygons_count += count
