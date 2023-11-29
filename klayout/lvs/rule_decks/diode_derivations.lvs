@@ -36,7 +36,7 @@ lvpwell_lv = lvpwell.not(v5_xtor).not(dualgate)
 lvpwell_mv = lvpwell.and(dualgate)
 
 nwell_lv = nwell.not(v5_xtor).not(dualgate)
-nwell_mv = nwell.and(dualgate)
+nwell_mv = nwell.overlapping(dualgate)
 
 # diode_nd2ps_03v3 diode
 diode_nd2ps_exclude = nwell.join(diode_exclude)
