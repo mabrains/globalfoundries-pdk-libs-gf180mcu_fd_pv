@@ -36,7 +36,7 @@ Options:
     --mp=<num_cores>                    Run the rule deck in parts in parallel to speed up the run. [default: 1]
     --run_dir=<run_dir_path>            Run directory to save all the results [default: pwd]
     --thr=<thr>                         The number of threads used in run.
-    --run_mode=<run_mode>               Select klayout mode Allowed modes (flat , deep). [default: flat]
+    --run_mode=<run_mode>               Select klayout mode Allowed modes (flat , deep or tiling). [default: flat]
     --no_feol                           Turn off FEOL rules from running.
     --no_beol                           Turn off BEOL rules from running.
     --no_connectivity                   Turn off connectivity rules.
@@ -279,8 +279,8 @@ def generate_klayout_switches(arguments, layout_path):
     thrCount = 2 if arguments["--thr"] is None else int(arguments["--thr"])
     switches["thr"] = str(int(thrCount))
 
-    if arguments["--run_mode"] not in ["flat", "deep"]:
-        logging.error("Allowed klayout modes are (flat , deep) only")
+    if arguments["--run_mode"] not in ["flat", "deep", "tiling"]:
+        logging.error("Allowed klayout modes are (flat , deep or tiling) only")
         exit(1)
 
     if arguments["--variant"] == "A":

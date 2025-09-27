@@ -134,7 +134,7 @@ case $run_mode
 ## Tiling mode is for testing purpose only [Not used in run_drc.py]
 when 'tiling'
   tiles(500.um)
-  tile_borders(10.um)
+  tile_borders(50.um)
   logger.info('Tiling  mode is enabled.')
 
 when 'deep'
