@@ -149,6 +149,7 @@ def generate_drc_run_template(drc_dir: str, run_dir: str, run_tables_list: list 
             and "main" not in f
             and "layers_def" not in f
             and "tail" not in f
+            and "split" not in f
         ]
         deck_name = "main"
     elif len(run_tables_list) == 1:
