@@ -46,4 +46,9 @@ if BEOL && (METAL_LEVEL == '3LM' || METAL_LEVEL == '4LM' || METAL_LEVEL == '5LM'
   m23_l1 = metal2.with_area(nil, 0.1444.um)
   m23_l1.output('M2.3', 'M2.3 : Minimum metal2 area : 0.1444µm²')
   m23_l1.forget
+
+  # Rule M2.label_on_metal: No label shape should be allowed outside of metal.
+  logger.info('Execting rule M2.label_on_metal')
+  metal2_label.not(metal2).output("M2.label_on_metal", "M2.label_on_metal : label layer must be fully inside metal layer.")
+
 end

@@ -48,4 +48,9 @@ if BEOL
   m13_l1 = metal1.with_area(nil, 0.1444.um)
   m13_l1.output('M1.3', 'M1.3 : Minimum Metal1 area : 0.1444µm²')
   m13_l1.forget
+
+  # Rule M1.label_on_metal: No label shape should be allowed outside of metal.
+  logger.info('Execting rule M1.label_on_metal')
+  metal1_label.not(metal1).output("M1.label_on_metal", "M1.label_on_metal : label layer must be fully inside metal layer.")
+
 end
