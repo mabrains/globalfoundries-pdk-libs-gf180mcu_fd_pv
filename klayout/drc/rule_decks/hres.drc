@@ -112,9 +112,11 @@ if FEOL
 
   # Rule HRES.10: Minimum & maximum Pplus overlap of SAB is 0.1.um
   logger.info('Executing rule HRES.10')
-  pplus1_hres10 = pplus.and(sab).drc(width != 0.1.um)
-  pplus2_hres10 = pplus.not_overlapping(sab).edges
-  hres10_l1 = pplus1_hres10.join(pplus2_hres10).extended(0, 0, 0.001.um, 0.001.um).interacting(hres_poly)
+  res_sab = sab.interacting(resistor)
+  pplus_overlap_area = pplus.and(res_sab)
+  pplus1_hres10 = pplus_overlap_area.size(-0.05.um).size(0.05.um)
+  pplus2_hres10 = pplus_overlap_area.width(0.1.um).polygons(0.001)
+  hres10_l1 = pplus1_hres10.join(pplus2_hres10)
   hres10_l1.output('HRES.10', 'HRES.10 : Minimum & maximum Pplus overlap of SAB: 0.1.um')
   hres10_l1.forget
   pplus1_hres10.forget
