@@ -25,7 +25,10 @@ if FEOL
   logger.info('Executing rule DV.1')
   dv1_l1 = dualgate.enclosing(dnwell, 0.5.um, euclidian).polygons(0.001.um)
   dv1_l2 = dnwell.not_outside(dualgate).not(dualgate)
-  dv1_l  = dv1_l1.or(dv1_l2)
+  
+  # TODO : Need to report this issue to Klayout as this should has been captured in dv1_l1
+  dv1_l3 = dnwell.interacting(dualgate).size(0.5.um).not(dualgate)
+  dv1_l  = dv1_l1.join(dv1_l2).join(dv1_l3)
   dv1_l.output('DV.1', 'DV.1 : Min. Dualgate enclose DNWELL. : 0.5µm')
   dv1_l1.forget
   dv1_l2.forget
@@ -57,7 +60,7 @@ if FEOL
   logger.info('Executing rule DV.6')
   dv6_l1 = dualgate.enclosing(comp_dv, 0.24.um, euclidian).polygons(0.001.um)
   dv6_l2 = comp_dv.not_outside(dualgate).not(dualgate)
-  dv6_l  = dv6_l1.or(dv6_l2)
+  dv6_l  = dv6_l1.join(dv6_l2)
   dv6_l.output('DV.6', 'DV.6 : Min. Dualgate enclose COMP (except substrate tap). : 0.24µm')
   dv6_l1.forget
   dv6_l2.forget
