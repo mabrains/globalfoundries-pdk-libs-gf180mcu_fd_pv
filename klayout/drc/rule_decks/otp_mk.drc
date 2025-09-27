@@ -86,7 +86,7 @@ if FEOL
 
   # Rule O.SB.4: Min. space from salicide block to contact.
   logger.info('Executing rule O.SB.4')
-  osb4_l1 = sab_otp.separation(contact, 0.03.um, euclidian).polygons(0.001.um).or(sab_otp.and(contact))
+  osb4_l1 = sab_otp.separation(contact, 0.03.um, euclidian).polygons(0.001.um).join(sab_otp.and(contact))
   osb4_l1.output('O.SB.4', 'O.SB.4 : Min. space from salicide block to contact.')
   osb4_l1.forget
 

@@ -59,7 +59,7 @@ if BEOL && (METAL_LEVEL == '6LM')
   logger.info('Executing rule V5.3b')
   v53b_l1 = via5.not(metal5)
   v53b_l2 = via5.enclosed(metal5, 0.01.um, euclidian).polygons(0.001.um)
-  v53b_l = v53b_l1.or(v53b_l2)
+  v53b_l = v53b_l1.join(v53b_l2)
   v53b_l.output('V5.3b', 'V5.3b : metal5 overlap of via5 >= 0.01')
   v53b_l1.forget
   v53b_l2.forget
@@ -88,7 +88,7 @@ if BEOL && (METAL_LEVEL == '6LM')
   via5_cond_corner = via5_3d_cond_edges.width(0.002.um, angle_limit(135)).polygons
   via5_3d_l1 = via5_3d_check.enclosed(metal5.edges, 0.06.um, projection).polygons
   via5_3d_l2 = via5.interacting(via5_cond_corner)
-  via5_3d_l = via5_3d_l1.or(via5_3d_l2)
+  via5_3d_l = via5_3d_l1.join(via5_3d_l2)
   via5_3d_l.output('V5.3d',
                    'V5.3d : If metal5 overlap via5 by < 0.04um on one side, adjacent metal5 edges overlap. : 0.06µm')
   via5_3d_l.forget
@@ -106,7 +106,7 @@ if BEOL && (METAL_LEVEL == '6LM')
   logger.info('Executing rule V5.4a')
   via5_4a_l1 = via5.enclosed(metaltop, 0.01.um, euclidian).polygons(0.001.um)
   via5_4a_l2 = via5.not(metaltop)
-  via5_4a_l = via5_4a_l1.or(via5_4a_l2)
+  via5_4a_l = via5_4a_l1.join(via5_4a_l2)
   via5_4a_l.output('V5.4a', 'V5.4a : metaltop overlap of via5 >= 0.01 um')
   via5_4a_l1.forget
   via5_4a_l2.forget
@@ -140,7 +140,7 @@ if BEOL && (METAL_LEVEL == '6LM')
   via5_4c_cond_corner = via5_4c_cond_edges.width(0.002.um, angle_limit(135)).polygons
   via5_4c_l1 = via5_4c_check.enclosed(metaltop.edges, 0.06.um, projection).polygons
   via5_4c_l2 = via5.interacting(via5_4c_cond_corner)
-  via5_4c_l = via5_4c_l1.or(via5_4c_l2)
+  via5_4c_l = via5_4c_l1.join(via5_4c_l2)
   via5_4c_l.output('V5.4c', 'V5.4c : If metaltop overlap via5 by < 0.04um on one side,
                     adjacent metaltop edges overlap. : 0.06µm')
   via5_4c_l.forget

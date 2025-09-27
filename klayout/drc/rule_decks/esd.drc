@@ -91,7 +91,7 @@ if FEOL
 
   # Rule ESD.8: Minimum space to Nplus/Pplus. is 0.3µm
   logger.info('Executing rule ESD.8')
-  esd8_l1 = esd.separation(nplus.or(pplus), 0.3.um).polygons
+  esd8_l1 = esd.separation(nplus.join(pplus), 0.3.um).polygons
   esd8_l1.output('ESD.8', 'ESD.8 : Minimum space to Nplus/Pplus. : 0.3µm')
   esd8_l1.forget
 

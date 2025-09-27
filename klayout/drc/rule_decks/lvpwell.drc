@@ -93,7 +93,7 @@ if FEOL
   logger.info('Executing rule LPW.3_LV')
   lpw3_l1 = dnwell.enclosing(lvpwell_dn, 2.5.um, euclidian).polygons(0.001.um)
   lpw3_l2 = lvpwell_dn.not(dnwell)
-  lpw3_l = lpw3_l1.or(lpw3_l2)
+  lpw3_l = lpw3_l1.join(lpw3_l2)
   lpw3_l.output('LPW.3', 'LPW.3 : Min. DNWELL enclose LVPWELL. : 2.5µm')
   lpw3_l1.forget
   lpw3_l2.forget

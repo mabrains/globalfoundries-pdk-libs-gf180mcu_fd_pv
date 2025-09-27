@@ -25,7 +25,7 @@ if BEOL && (METAL_LEVEL == '5LM' || METAL_LEVEL == '6LM') && SPLIT_DEEP
   logger.info('Executing rule V4.3b')
   v43b_l1 = via4.not(metal4)
   v43b_l2 = via4.enclosed(metal4, 0.01.um, euclidian).polygons(0.001.um)
-  v43b_l = v43b_l1.or(v43b_l2)
+  v43b_l = v43b_l1.join(v43b_l2)
   v43b_l.output('V4.3b', 'V4.3b : metal4 overlap of via4 >= 0.01')
   v43b_l1.forget
   v43b_l2.forget
@@ -58,7 +58,7 @@ if BEOL && (METAL_LEVEL == '5LM' || METAL_LEVEL == '6LM') && SPLIT_DEEP
   via4_cond_corner = via4_3d_cond_edges.width(0.002.um, angle_limit(135)).polygons
   via4_3d_l1 = via4_3d_check.enclosed(metal4.edges, 0.06.um, projection).polygons
   via4_3d_l2 = via4.interacting(via4_cond_corner)
-  via4_3d_l = via4_3d_l1.or(via4_3d_l2)
+  via4_3d_l = via4_3d_l1.join(via4_3d_l2)
   via4_3d_l.output('V4.3d',
                    'V4.3d : If metal4 overlap via4 by < 0.04um on one side, adjacent metal4 edges overlap. : 0.06µm')
   via4_3d_l.forget
@@ -76,7 +76,7 @@ if BEOL && (METAL_LEVEL == '5LM' || METAL_LEVEL == '6LM') && SPLIT_DEEP
   logger.info('Executing rule V4.4a')
   via4_4a_l1 = via4.enclosed(metal5, 0.01.um, euclidian).polygons(0.001.um)
   via4_4a_l2 = via4.not(metal5)
-  via4_4a_l = via4_4a_l1.or(via4_4a_l2)
+  via4_4a_l = via4_4a_l1.join(via4_4a_l2)
   via4_4a_l.output('V4.4a', 'V4.4a : metal5 overlap of via4 >= 0.01 um')
   via4_4a_l1.forget
   via4_4a_l2.forget
@@ -105,7 +105,7 @@ if BEOL && (METAL_LEVEL == '5LM' || METAL_LEVEL == '6LM') && SPLIT_DEEP
   via4_4c_cond_corner = via4_4c_cond_edges.width(0.002.um, angle_limit(135)).polygons
   via4_4c_l1 = via4_4c_check.enclosed(metal5.edges, 0.06.um, projection).polygons
   via4_4c_l2 = via4.interacting(via4_4c_cond_corner)
-  via4_4c_l = via4_4c_l1.or(via4_4c_l2)
+  via4_4c_l = via4_4c_l1.join(via4_4c_l2)
   via4_4c_l.output('V4.4c',
                    'V4.4c : If metal5 overlap via4 by < 0.04um on one side, adjacent metal5 edges overlap. : 0.06µm')
   via4_4c_l.forget

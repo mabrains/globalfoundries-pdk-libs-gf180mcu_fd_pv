@@ -68,7 +68,7 @@ if FEOL
   pl_2_mv_p = pgate_5v.edges.inside_part(comp).width(0.5.um, euclidian).polygons
   pl_2_6v_n = ngate_6v.edges.inside_part(comp).width(0.7.um, euclidian).polygons
   pl_2_6v_p = pgate_6v.edges.inside_part(comp).width(0.55.um, euclidian).polygons
-  pl2_l1 = pl_2_mv_n.or(pl_2_mv_p).or(pl_2_6v_n.or(pl_2_6v_p))
+  pl2_l1 = pl_2_mv_n.join(pl_2_mv_p).join(pl_2_6v_n.join(pl_2_6v_p))
   pl2_l1.output('PL.2_MV', 'PL.2_MV : Gate Width (Channel Length).')
   pl2_l1.forget
   pl_2_mv_n.forget
@@ -78,7 +78,7 @@ if FEOL
 
   # Rule PL.3a: Space on COMP/Field is 0.24µm.
   logger.info('Executing rule PL.3a')
-  pl3a_l1 = tgate.or(poly2.not(comp)).not(otp_mk).space(0.24.um, euclidian)
+  pl3a_l1 = tgate.join(poly2.not(comp)).not(otp_mk).space(0.24.um, euclidian)
   pl3a_l1.output('PL.3a', 'PL.3a : Space on COMP/Field: 0.24µm')
   pl3a_l1.forget
 
@@ -132,7 +132,7 @@ if FEOL
 
   # Rule PL.6: 90 degree bends on the COMP are not allowed.
   logger.info('Executing rule PL.6')
-  pl6_l1 = poly2.corners(90.0).sized(0.1).or(poly2.corners(-90.0).sized(0.1)).not(ymtp_mk).inside(comp.not(ymtp_mk))
+  pl6_l1 = poly2.corners(90.0).sized(0.1).join(poly2.corners(-90.0).sized(0.1)).not(ymtp_mk).inside(comp.not(ymtp_mk))
   pl6_l1.output('PL.6', 'PL.6 : 90 degree bends on the COMP are not allowed.')
   pl6_l1.forget
 
@@ -140,7 +140,7 @@ if FEOL
   logger.info('Executing rule PL.7_LV')
   nom_e1 = nom_gate.edges.inside_part(comp).with_angle(25, 65)
   nom_e2 = nom_gate.edges.inside_part(comp).with_angle(-65, -25)
-  pl7_edges_nom = nom_e1.or(nom_e2)
+  pl7_edges_nom = nom_e1.join(nom_e2)
   pl7_l1 = pl7_edges_nom.width(0.3.um, euclidian)
   pl7_l1.output('PL.7_LV', 'PL.7_LV : 45 degree bent gate width : 0.3µm')
   pl7_l1.forget
@@ -152,7 +152,7 @@ if FEOL
   logger.info('Executing rule PL.7_MV')
   thick_e1 = thick_gate.edges.inside_part(comp).with_angle(25, 65)
   thick_e2 = thick_gate.edges.inside_part(comp).with_angle(-65, -25)
-  pl7_edges_thick = thick_e1.or(thick_e2)
+  pl7_edges_thick = thick_e1.join(thick_e2)
   pl7_l2 = pl7_edges_thick.width(0.7.um, euclidian)
   pl7_l2.output('PL.7_MV', 'PL.7_MV : 45 degree bent gate width: 0.7µm')
   pl7_l2.forget
@@ -174,7 +174,7 @@ if FEOL
 
   # Rule PL.11: V5_Xtor must enclose 5V device.
   logger.info('Executing rule PL.11')
-  pl11_l1 = v5_xtor.not_interacting(dualgate.or(otp_mk))
+  pl11_l1 = v5_xtor.not_interacting(dualgate.join(otp_mk))
   pl11_l1.output('PL.11', 'PL.11 : V5_Xtor must enclose 5V device.')
   pl11_l1.forget
 

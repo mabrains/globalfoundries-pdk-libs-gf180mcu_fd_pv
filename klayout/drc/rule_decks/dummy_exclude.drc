@@ -25,7 +25,7 @@
 
 # Rule DE.2: Minimum NDMY or PMNDMY size (x or y dimension in um) is 0.8µm.
 logger.info('Executing rule DE.2')
-de2_l1 = ndmy.or(pmndmy).width(0.8.um, euclidian)
+de2_l1 = ndmy.join(pmndmy).width(0.8.um, euclidian)
 de2_l1.output('DE.2', 'DE.2 : Minimum NDMY or PMNDMY size (x or y dimension in um) : 0.8µm')
 de2_l1.forget
 

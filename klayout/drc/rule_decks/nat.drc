@@ -118,7 +118,7 @@ if FEOL
   # Rule NAT.12: Poly2 not intersecting with COMP is not allowed inside NAT
   ## (Poly2 resistor is not allowed inside NAT).
   logger.info('Executing rule NAT.12')
-  nat12_l1 = poly_nat.not_interacting(comp).or(poly_nat.and(res_mk))
+  nat12_l1 = poly_nat.not_interacting(comp).join(poly_nat.and(res_mk))
   nat12_l1.output('NAT.12', "NAT.12 : Poly2 not intersecting with COMP is not allowed inside NAT
                      (Poly2 resistor is not allowed inside NAT).")
   nat12_l1.forget

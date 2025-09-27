@@ -127,7 +127,7 @@ if FEOL
   logger.info('Executing rule PP.5a')
   pp5a_l1 = pplus.enclosing(pgate, 0.23.um, euclidian).polygons(0.001.um)
   pp5a_l2 = pgate.not_outside(pplus).not(pplus)
-  pp5a_l  = pp5a_l1.or(pp5a_l2)
+  pp5a_l  = pp5a_l1.join(pp5a_l2)
   pp5a_l.output('PP.5a', 'PP.5a : Overlap of P-channel gate. : 0.23µm')
   pp5a_l1.forget
   pp5a_l2.forget
@@ -226,7 +226,7 @@ if FEOL
   logger.info('Executing rule PP.9')
   pp9_l1 = pplus.enclosing(poly2.not_interacting(resistor).and(sab), 0.18.um, euclidian).polygons(0.001.um)
   pp9_l2 = poly2.not_interacting(resistor).and(sab).not_outside(pplus).not(pplus)
-  pp9_l  = pp9_l1.or(pp9_l2)
+  pp9_l  = pp9_l1.join(pp9_l2)
   pp9_l.output('PP.9', 'PP.9 : Overlap of unsalicided Poly2. : 0.18µm')
   pp9_l1.forget
   pp9_l2.forget

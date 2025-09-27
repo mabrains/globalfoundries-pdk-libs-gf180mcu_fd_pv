@@ -36,7 +36,7 @@ if FEOL
   pcomp_out_dn_sram = pcomp.outside(dnwell).and(sram_mv)
   sdf4c_l1 = pcomp_out_dn_sram.enclosed(nw_n_dn_sram, 0.45.um, euclidian).polygons(0.001.um)
   sdf4c_l2 = pcomp_out_dn_sram.not_outside(nw_n_dn_sram).not(nw_n_dn_sram)
-  sdf4c_l  = sdf4c_l1.or(sdf4c_l2)
+  sdf4c_l  = sdf4c_l1.join(sdf4c_l2)
   sdf4c_l.output('S.DF.4c_MV', 'S.DF.4c_MV : Min. (Nwell overlap of PCOMP) outside DNWELL: 0.45µm')
   sdf4c_l1.forget
   sdf4c_l2.forget
@@ -60,7 +60,7 @@ if FEOL
   logger.info('Executing rule S.DF.8_MV')
   sdf8_l1 = ncomp_dn_sram.enclosed(lvpwell_dn_sram, 0.45.um, euclidian).polygons(0.001.um)
   sdf8_l2 = ncomp_dn_sram.not_outside(lvpwell_dn_sram).not(lvpwell_dn_sram)
-  sdf8_l  = sdf8_l1.or(sdf8_l2)
+  sdf8_l  = sdf8_l1.join(sdf8_l2)
   sdf8_l.output('S.DF.8_MV', 'S.DF.8_MV : Min. (LVPWELL overlap of NCOMP) Inside DNWELL: 0.45µm')
   sdf8_l1.forget
   sdf8_l2.forget
@@ -96,7 +96,7 @@ if FEOL
   logger.info('Executing rule S.CO.4_MV')
   sco4_l1 = contact_sram.enclosed(comp_sram, 0.04.um, euclidian).polygons(0.001.um)
   sco4_l2 = contact_sram.not_outside(comp_sram).not(comp_sram)
-  sco4_l  = sco4_l1.or(sco4_l2)
+  sco4_l  = sco4_l1.join(sco4_l2)
   sco4_l.output('S.CO.4_MV', 'S.CO.4_MV : COMP overlap of contact: 0.04µm')
   sco4_l1.forget
   sco4_l2.forget

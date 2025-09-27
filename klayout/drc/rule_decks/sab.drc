@@ -51,7 +51,7 @@ if FEOL
 
   # Rule SB.4: Space from salicide block to contact is 0.15 um.
   logger.info('Executing rule SB.4')
-  sb4_l1 = sab_out_otp.separation(contact, 0.15.um, euclidian).polygons(0.001.um).or(sab_out_otp.and(contact))
+  sb4_l1 = sab_out_otp.separation(contact, 0.15.um, euclidian).polygons(0.001.um).join(sab_out_otp.and(contact))
   sb4_l1.output('SB.4', 'SB.4 : Space from salicide block to contact: 0.15 um')
   sb4_l1.forget
 
@@ -144,7 +144,7 @@ if FEOL
 
   # Rule SB.15a: Space from unsalicided Poly2 to unrelated Nplus/Pplus. is 0.18µm
   logger.info('Executing rule SB.15a')
-  sb15a_np = nplus.or(pplus).not_overlapping(sab_poly)
+  sb15a_np = nplus.join(pplus).not_overlapping(sab_poly)
   sb15a_l1 = sab_poly.separation(sb15a_np, 0.18.um, euclidian)
   sb15a_l1.output('SB.15a', 'SB.15a : Space from unsalicided Poly2 to unrelated Nplus/Pplus. : 0.18µm')
   sb15a_l1.forget
@@ -153,7 +153,7 @@ if FEOL
 
   # Rule SB.15b: Space from unsalicided Poly2 to unrelated Nplus/Pplus along Poly2 line is 0.32 um
   logger.info('Executing rule SB.15b')
-  sb15b_np = nplus.or(pplus).interacting(poly2.interacting(sab_out_otp))
+  sb15b_np = nplus.join(pplus).interacting(poly2.interacting(sab_out_otp))
   sb15b_poly = poly2.overlapping(sb15b_np).and(sab_out_otp)
   sb15b_l1 = sb15b_poly.separation(sb15b_np, 0.32.um, euclidian)
   sb15b_l1.output('SB.15b', 'SB.15b : Space from unsalicided Poly2 to unrelated Nplus/Pplus. : 0.32µm')
@@ -165,7 +165,7 @@ if FEOL
   ## Poly and COMP area of the core circuit (Excluding the transistors used for ESD purpose).
   ## It can only exist on CMOS transistors marked by LVS_IO, OTP_MK, ESD_MK layers.
   logger.info('Executing rule SB.16')
-  sb16_exclude = sab_out_otp.outside(lvs_io.or(esd_mk))
+  sb16_exclude = sab_out_otp.outside(lvs_io.join(esd_mk))
   sb16_l1 = sb16_exclude.interacting(tgate)
   sb16_l1.output('SB.16', "SB.16 : SAB layer cannot exist on 3.3V and 5V/6V CMOS transistors'
                     Poly and COMP area of the core circuit (Excluding the transistors used for ESD purpose).

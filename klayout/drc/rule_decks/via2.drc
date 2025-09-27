@@ -60,7 +60,7 @@ if BEOL && (METAL_LEVEL == '3LM' || METAL_LEVEL == '4LM' || METAL_LEVEL == '5LM'
     logger.info('Executing rule V2.3b')
     v23b_l1 = via2.not(metal2)
     v23b_l2 = via2.enclosed(metal2, 0.01.um, euclidian).polygons(0.001.um)
-    v23b_l = v23b_l1.or(v23b_l2)
+    v23b_l = v23b_l1.join(v23b_l2)
     v23b_l.output('V2.3b', 'V2.3b : metal2 overlap of via2 >= 0.01')
     v23b_l1.forget
     v23b_l2.forget
@@ -93,7 +93,7 @@ if BEOL && (METAL_LEVEL == '3LM' || METAL_LEVEL == '4LM' || METAL_LEVEL == '5LM'
     via2_cond_corner = via2_3d_cond_edges.width(0.002.um, angle_limit(135)).polygons
     via2_3d_l1 = via2_3d_check.enclosed(metal2.edges, 0.06.um, projection).polygons
     via2_3d_l2 = via2.interacting(via2_cond_corner)
-    via2_3d_l = via2_3d_l1.or(via2_3d_l2)
+    via2_3d_l = via2_3d_l1.join(via2_3d_l2)
     via2_3d_l.output('V2.3d',
                      'V2.3d : If metal2 overlap via2 by < 0.04um on one side, adjacent metal2 edges overlap. : 0.06µm')
     via2_3d_l.forget
@@ -111,7 +111,7 @@ if BEOL && (METAL_LEVEL == '3LM' || METAL_LEVEL == '4LM' || METAL_LEVEL == '5LM'
     logger.info('Executing rule V2.4a')
     via2_4a_l1 = via2.enclosed(metal3, 0.01.um, euclidian).polygons(0.001.um)
     via2_4a_l2 = via2.not(metal3)
-    via2_4a_l = via2_4a_l1.or(via2_4a_l2)
+    via2_4a_l = via2_4a_l1.join(via2_4a_l2)
     via2_4a_l.output('V2.4a', 'V2.4a : metal3 overlap of via2 >= 0.01 um')
     via2_4a_l1.forget
     via2_4a_l2.forget
@@ -138,7 +138,7 @@ if BEOL && (METAL_LEVEL == '3LM' || METAL_LEVEL == '4LM' || METAL_LEVEL == '5LM'
     via2_4c_cond_corner = via2_4c_cond_edges.width(0.002.um, angle_limit(135)).polygons
     via2_4c_l1 = via2_4c_check.enclosed(metal3.edges, 0.06.um, projection).polygons
     via2_4c_l2 = via2.interacting(via2_4c_cond_corner)
-    via2_4c_l = via2_4c_l1.or(via2_4c_l2)
+    via2_4c_l = via2_4c_l1.join(via2_4c_l2)
     via2_4c_l.output('V2.4c',
                      'V2.4c : If metal3 overlap via2 by < 0.04um on one side, adjacent metal3 edges overlap. : 0.06µm')
     via2_4c_l.forget

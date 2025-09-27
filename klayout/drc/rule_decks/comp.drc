@@ -52,7 +52,7 @@ if FEOL
 
   # Rule DF.1a_MV: Min. COMP Width. is 0.3µm
   logger.info('Executing rule DF.1a_MV')
-  df1a_l1 = comp_56v.not(mvsd.or(mvpsd)).width(0.3.um, euclidian)
+  df1a_l1 = comp_56v.not(mvsd.join(mvpsd)).width(0.3.um, euclidian)
   df1a_l1.output('DF.1a_MV', 'DF.1a_MV : Min. COMP Width. : 0.3µm')
   df1a_l1.forget
 
@@ -114,9 +114,9 @@ if FEOL
   # Rule DF.3b: Min./Max. NCOMP Space to PCOMP in the same well for butted COMP.
   ## (MOSCAP butting is not allowed). is 0 um
   logger.info('Executing rule DF.3b')
-  df_3b_same_well = ntap.not_outside(pactive).or(ptap.not_outside(nactive))
+  df_3b_same_well = ntap.not_outside(pactive).join(ptap.not_outside(nactive))
   df_3b_moscap = ncomp_butted.and(mos_cap_mk)
-  df3b_l1 = comp.and(df_3b_same_well.or(df_3b_moscap))
+  df3b_l1 = comp.and(df_3b_same_well.join(df_3b_moscap))
   df3b_l1.output('DF.3b',
                  'DF.3b : Min./Max. NCOMP Space to PCOMP in the same well for butted COMP
                   (MOSCAP butting is not allowed): 0 um')
@@ -226,7 +226,7 @@ if FEOL
 
   # Rule DF.6_LV: Min. COMP extend beyond gate (it also means source/drain overhang). is 0.24µm
   logger.info('Executing rule DF.6_LV')
-  df6_exclude = otp_mk.or(ymtp_mk).or(sramcore).or(mvsd).or(mvpsd)
+  df6_exclude = otp_mk.join(ymtp_mk).join(sramcore).join(mvsd).join(mvpsd)
   df6_comp = comp.interacting(tgate).not(df6_exclude)
   df6_poly = poly2.not(df6_exclude)
   df6_l1 = comp_3p3v.and(df6_comp).enclosing(df6_poly, 0.24.um, euclidian)
@@ -377,7 +377,7 @@ if FEOL
 
   # Rule DF.16_LV: Min. space from (Nwell outside DNWELL) to (NCOMP outside Nwell and DNWELL). is 0.43µm
   logger.info('Executing rule DF.16_LV')
-  df16_l1 = ncomp_out_nw_dn.interacting(ncomp_3p3v).not(ymtp_mk.or(sramcore)).separation(
+  df16_l1 = ncomp_out_nw_dn.interacting(ncomp_3p3v).not(ymtp_mk.join(sramcore)).separation(
     nwell_n_dn3p3v.not(ymtp_mk), 0.43.um, euclidian
   )
   df16_l1.output('DF.16_LV',
@@ -386,7 +386,7 @@ if FEOL
 
   # Rule DF.16_MV: Min. space from (Nwell outside DNWELL) to (NCOMP outside Nwell and DNWELL). is 0.6µm
   logger.info('Executing rule DF.16_MV')
-  df16_l1 = ncomp_out_nw_dn.interacting(ncomp_56v).not_inside(ymtp_mk.or(sramcore)).separation(
+  df16_l1 = ncomp_out_nw_dn.interacting(ncomp_56v).not_inside(ymtp_mk.join(sramcore)).separation(
     nwell_n_dn56v.not(ymtp_mk), 0.6.um, euclidian
   )
   df16_l1.output('DF.16_MV',

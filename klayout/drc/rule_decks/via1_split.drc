@@ -46,7 +46,7 @@ if BEOL && SPLIT_DEEP
   via1_cond_corner = via1_3d_cond_edges.width(0.002.um, angle_limit(135)).polygons
   via1_3d_l1 = via1_3d_check.enclosed(metal1.edges, 0.06.um, projection).polygons
   via1_3d_l2 = via1.interacting(via1_cond_corner)
-  via1_3d_l = via1_3d_l1.or(via1_3d_l2)
+  via1_3d_l = via1_3d_l1.join(via1_3d_l2)
   via1_3d_l.output('V1.3d',
                    'V1.3d : If metal1 overlap via1 by < 0.04um on one side, adjacent metal1 edges overlap. : 0.06µm')
   via1_3d_l.forget
@@ -64,7 +64,7 @@ if BEOL && SPLIT_DEEP
   logger.info('Executing rule V1.4a')
   via1_4a_l1 = via1.enclosed(metal2, 0.01.um, euclidian).polygons(0.001.um)
   via1_4a_l2 = via1.not(metal2)
-  via1_4a_l = via1_4a_l1.or(via1_4a_l2)
+  via1_4a_l = via1_4a_l1.join(via1_4a_l2)
   via1_4a_l.output('V1.4a', 'V1.4a : metal2 overlap of via1 >= 0.01 um')
   via1_4a_l1.forget
   via1_4a_l2.forget
@@ -93,7 +93,7 @@ if BEOL && SPLIT_DEEP
   via1_4c_cond_corner = via1_4c_cond_edges.width(0.002.um, angle_limit(135)).polygons
   via1_4c_l1 = via1_4c_check.enclosed(metal2.edges, 0.06.um, projection).polygons
   via1_4c_l2 = via1.interacting(via1_4c_cond_corner)
-  via1_4c_l = via1_4c_l1.or(via1_4c_l2)
+  via1_4c_l = via1_4c_l1.join(via1_4c_l2)
   via1_4c_l.output('V1.4c',
                    'V1.4c : If metal2 overlap via1 by < 0.04um on one side, adjacent metal2 edges overlap. : 0.06µm')
   via1_4c_l.forget
