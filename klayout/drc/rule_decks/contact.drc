@@ -120,7 +120,7 @@ if FEOL
 
     logger.info('Executing rule CO.6a metal1 pre selection')
     sel_metal_edges = metal1.edges.not_outside(sel_metal1_6a.edges)
-    cont_6a_cond = sel_metal_edges.width(0.34.um + 1.dbu, projection).with_length(0.24.um, nil, both)
+    cont_6a_cond = sel_metal_edges.width(0.34.um, projection).with_length(0.24.um, nil, both)
 
     logger.info('Executing rule CO.6a metal1 selection')
     cont_6a_cond_edge1 = cont_6a_cond.first_edges
