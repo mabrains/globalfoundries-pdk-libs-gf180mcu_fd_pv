@@ -70,7 +70,6 @@ if FEOL
   hres6_l.forget
   hres6_l1.forget
   hres6_l2.forget
-  hres1_poly.forget
   hres_resistor.forget
 
   # Rule HRES.7: Minimum Pplus overlap of contact on Poly2 resistor is 0.2µm.
@@ -113,14 +112,16 @@ if FEOL
   # Rule HRES.10: Minimum & maximum Pplus overlap of SAB is 0.1.um
   logger.info('Executing rule HRES.10')
   res_sab = sab.interacting(resistor)
-  pplus_overlap_area = pplus.and(res_sab)
-  pplus1_hres10 = pplus_overlap_area.size(-0.05.um).size(0.05.um)
-  pplus2_hres10 = pplus_overlap_area.width(0.1.um).polygons(0.001)
-  hres10_l1 = pplus1_hres10.join(pplus2_hres10)
-  hres10_l1.output('HRES.10', 'HRES.10 : Minimum & maximum Pplus overlap of SAB: 0.1.um')
-  hres10_l1.forget
+  pplus_hres = pplus.and(hres1_poly)
+  pplus_overlap_area = pplus_hres.and(res_sab)
+  pplus1_hres10 = pplus_overlap_area.without_bbox_min(0.1.um)
+  pplus2_hres10 = pplus_hres.interacting(res_sab).outside(res_sab)
+  hres10_l = pplus1_hres10.join(pplus2_hres10)
+  hres10_l.output('HRES.10', 'HRES.10 : Minimum & maximum Pplus overlap of SAB: 0.1.um')
+  hres10_l.forget
   pplus1_hres10.forget
   pplus2_hres10.forget
+  hres1_poly.forget
 
   # Rule HRES.11 is not a DRC check
   ## Please refer to https://gf180mcu-pdk.readthedocs.io/en/latest/physical_verification/design_manual/drm_10_03.html#hres-poly-resistor-phres-optional-with-one-additional-mask

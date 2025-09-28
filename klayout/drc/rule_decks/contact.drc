@@ -127,13 +127,12 @@ if FEOL
     cont_6a_cond_edge2 = cont_6a_cond.second_edges
     cont_6a_eol = sel_metal_edges.with_length(nil, 0.34.um + 1.dbu).interacting(cont_6a_cond_edge1).interacting(cont_6a_cond_edge2)
                               .not(cont_6a_cond_edge1).not(cont_6a_cond_edge2)
-    logger.info('Executing rule CO.6a metal1 EOL selection')
 
+    logger.info('Executing rule CO.6a metal1 EOL selection')
     cont_6a_l1 = sel_cont_6a.edges.enclosed(cont_6a_eol, 0.06.um, projection)
     cont_6a_l1.output('CO.6a', 'CO.6a : (i) Metal1 (< 0.34um) end-of-line overlap contact
                       (Applies to all < 0.34µm wide metal lines,
                       excluding metal branches shorter than 0.24µm) : 0.06µm')
-    
     cont_6a_l1.forget
     cont_6a_eol.forget
     cont_6a_cond.forget
@@ -145,22 +144,26 @@ if FEOL
     # Rule CO.6b: (ii) If Metal1 overlaps contact by < 0.04um on one side,
     ## adjacent metal1 edges overlap is 0.06µm
     logger.info('Executing rule CO.6b')
+    logger.info('Executing rule CO.6b selection')
     sel_cont_6b = main_contact.not_inside(metal1.sized(-0.04.um))
     sel_metal_6b = metal1.interacting(sel_cont_6b)
-    logger.info('Executing rule CO.6b selection')
-    cont_6b_cond_edges = sel_cont_6b.edges.not_outside(sel_cont_6b.enclosed(sel_metal_6b.size(0.001.um), 0.041.um, projection).edges)
+    
     logger.info('Executing rule CO.6b --> enclose')
-    cont_6b_check_corner = cont_6b_cond_edges.extended_in(0.002.um)
+    cont_6b_cond_edges = sel_cont_6b.edges.not_outside(sel_cont_6b.enclosed(sel_metal_6b.sized(0.001.um), 0.041.um, projection).edges)
+    
     logger.info('Executing rule CO.6b --> corner')
-    cont_6b_check = sel_cont_6b.edges.interacting(cont_6b_check_corner).not(cont_6b_cond_edges)
+    cont_6b_check_corner = cont_6b_cond_edges.extended_in(0.002.um)
+    
     logger.info('Executing rule CO.6b --> check')
+    cont_6b_check = sel_cont_6b.edges.interacting(cont_6b_check_corner).not(cont_6b_cond_edges)
+    
 
-    cont_6b_l1 = sel_cont_6b.interacting(cont_6b_check.extended_out(0.06.um).not_inside(sel_metal_6b))
     logger.info('Executing rule CO.6b --> result_1')
+    cont_6b_l1 = sel_cont_6b.interacting(cont_6b_check.extended_out(0.06.um).not_inside(sel_metal_6b))
 
-    cont_6b_l2 = sel_cont_6b.interacting(cont_6b_cond_edges.width(0.005.um, angle_limit(135)).polygons)
     logger.info('Executing rule CO.6b --> result_2')
-
+    cont_6b_l2 = sel_cont_6b.interacting(cont_6b_cond_edges.width(0.005.um, angle_limit(135)).polygons)
+    
     cont_6b_l = cont_6b_l1.join(cont_6b_l2)
     cont_6b_l.output('CO.6b', 'CO.6b : (ii) If Metal1 overlaps contact by < 0.04um on one side,
                         adjacent metal1 edges overlap : 0.06µm')

@@ -68,29 +68,57 @@ if BEOL && (METAL_LEVEL == '6LM')
   # Rule V5.3c: metal5 (< 0.34um) end-of-line overlap. (Applies to all < 0.34µm wide Metal lines,
   ## excluding Metal branches shorter than 0.28µm.) is 0.06µm
   logger.info('Executing rule V5.3c')
-  v5p3c_cond = metal5.width(0.34.um + 1.dbu).with_length(0.28.um, nil, both)
+  sel_metal5_3c = metal5.not(metal5.sized(-0.17.um).size(0.17.um))
+  sel_via5_3c = via5.interacting(sel_metal5_3c)
+
+  logger.info('Executing rule V5.3c metal5 pre selection')
+  sel_metal_edges = metal5.edges.not_outside(sel_metal5_3c.edges)
+  v5p3c_cond = sel_metal_edges.width(0.34.um, projection).with_length(0.28.um, nil, both)
+
+  logger.info('Executing rule V5.3c metal5 selection')
   v5p3c_eol_allowed = metal5.edges.with_length(nil, 0.34.um)
-  v5p3c_eol = v5p3c_eol_allowed.interacting(v5p3c_cond.first_edges).interacting(v5p3c_cond.second_edges)
-                               .not(v5p3c_cond.first_edges).not(v5p3c_cond.second_edges)
+  v5p3c_cond_edge1 = v5p3c_cond.first_edges
+  v5p3c_cond_edge2 = v5p3c_cond.second_edges
+
+  logger.info('Executing rule V5.3c metal5 EOL selection')
+  v5p3c_eol = v5p3c_eol_allowed.interacting(v5p3c_cond_edge1).interacting(v5p3c_cond_edge2)
+                                .not(v5p3c_cond_edge1).not(v5p3c_cond_edge2)
   v5p3c_l1 = via5.edges.enclosed(v5p3c_eol, 0.06.um, projection)
   v5p3c_l1.output('V5.3c', 'V5.3c : metal5 (< 0.34um) end-of-line overlap. (Applies to all < 0.34µm wide Metal lines,
-                   excluding Metal branches shorter than 0.28µm.) : 0.06µm')
+                  excluding Metal branches shorter than 0.28µm.) : 0.06µm')
   v5p3c_l1.forget
   v5p3c_cond.forget
   v5p3c_eol.forget
+  v5p3c_cond_edge1.forget
+  v5p3c_cond_edge2.forget
+  sel_metal5_3c.forget
+  sel_via5_3c.forget
+  sel_metal_edges.forget
   v5p3c_eol_allowed.forget
 
   # Rule V5.3d: If metal5 overlap via5 by < 0.04um on one side, adjacent metal5 edges overlap. : 0.06µm
   logger.info('Executing rule V5.3d')
-  via5_3d_cond_edges = via5.edges.not_outside(via5.enclosed(metal5, 0.04.um, projection).edges)
+  sel_via5_3c = via5.not_inside(metal5.sized(-0.04.um))
+  sel_metal_3c = metal5.interacting(sel_via5_3c)
+
+  logger.info('Executing rule V5.3d selection')
+  via5_3d_cond_edges = sel_via5_3c.edges.not_outside(sel_via5_3c.enclosed(sel_metal_3c.sized(0.001.um), 0.04.um, projection).edges)
+
+  logger.info('Executing rule V5.3d --> enclose')
   via5_3d_check_corner = via5_3d_cond_edges.extended_in(0.002.um)
-  via5_3d_check = via5.edges.interacting(via5_3d_check_corner).not(via5_3d_cond_edges)
+
+  logger.info('Executing rule V5.3d --> corner')
+  via5_3d_check = sel_via5_3c.edges.interacting(via5_3d_check_corner).not(via5_3d_cond_edges)
   via5_cond_corner = via5_3d_cond_edges.width(0.002.um, angle_limit(135)).polygons
+
+  logger.info('Executing rule V5.3d --> result_1')
   via5_3d_l1 = via5_3d_check.enclosed(metal5.edges, 0.06.um, projection).polygons
+
+  logger.info('Executing rule V5.3d --> result_2')
   via5_3d_l2 = via5.interacting(via5_cond_corner)
   via5_3d_l = via5_3d_l1.join(via5_3d_l2)
   via5_3d_l.output('V5.3d',
-                   'V5.3d : If metal5 overlap via5 by < 0.04um on one side, adjacent metal5 edges overlap. : 0.06µm')
+                    'V5.3d : If metal5 overlap via5 by < 0.04um on one side, adjacent metal3 edges overlap. : 0.06µm')
   via5_3d_l.forget
   via5_3d_l2.forget
   via5_3d_l1.forget
@@ -98,6 +126,8 @@ if BEOL && (METAL_LEVEL == '6LM')
   via5_3d_check_corner.forget
   via5_cond_corner.forget
   via5_3d_check.forget
+  sel_via5_3c.forget
+  sel_metal_3c.forget
 
   # Rule V5.3e is not a DRC check
   ## Please refer to https://gf180mcu-pdk.readthedocs.io/en/latest/physical_verification/design_manual/drm_07_15.html

@@ -51,6 +51,5 @@ if BEOL
 
   # Rule M1.label_on_metal: No label shape should be allowed outside of metal.
   logger.info('Execting rule M1.label_on_metal')
-  metal1_label.not(metal1).output("M1.label_on_metal", "M1.label_on_metal : label layer must be fully inside metal layer.")
-
+  metal1_label.not(metal1).extents.output('M1.label_on_metal', 'M1.label_on_metal : label layer must be fully inside metal layer.')
 end
