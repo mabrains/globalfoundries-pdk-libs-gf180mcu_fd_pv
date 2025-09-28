@@ -27,7 +27,7 @@ if FEOL
 
   # Rule LPW.1_LV: Min. LVPWELL Width. is 0.6µm
   logger.info('Executing rule LPW.1_LV')
-  lpw1_l1 = lvpwell.width(0.6.um, euclidian)
+  lpw1_l1 = lvpwell_dn.width(0.6.um, euclidian)
   lpw1_l1.output('LPW.1_LV', 'LPW.1_LV : Min. LVPWELL Width. : 0.6µm')
   lpw1_l1.forget
 
