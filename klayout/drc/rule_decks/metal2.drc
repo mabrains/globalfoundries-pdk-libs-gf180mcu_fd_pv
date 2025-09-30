@@ -49,5 +49,5 @@ if BEOL && (METAL_LEVEL == '3LM' || METAL_LEVEL == '4LM' || METAL_LEVEL == '5LM'
 
   # Rule M2.label_on_metal: No label shape should be allowed outside of metal.
   logger.info('Execting rule M2.label_on_metal')
-  metal2_label.not(metal2).extents.output('M2.label_on_metal', 'M2.label_on_metal : label layer must be fully inside metal layer.')
+  metal2_label.not(metal2).output('M2.label_on_metal', 'M2.label_on_metal : label layer must be fully inside metal layer.')
 end

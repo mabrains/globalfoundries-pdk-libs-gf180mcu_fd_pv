@@ -293,12 +293,12 @@ count = dev_wf_mk.count
 logger.info("dev_wf_mk has #{count} polygons")
 polygons_count += count
 
-comp_label = labels(22, 10)
+comp_label = get_polygons(22, 10)
 count = comp_label.count
 logger.info("comp_label has #{count} polygons")
 polygons_count += count
 
-poly2_label = labels(30, 10)
+poly2_label = get_polygons(30, 10)
 count = poly2_label.count
 logger.info("poly2_label has #{count} polygons")
 polygons_count += count
@@ -341,7 +341,7 @@ polygons_count += count
 
 metal1         = metal1_drawn + metal1_dummy
 
-metal1_label = labels(34, 10)
+metal1_label = get_polygons(34, 10)
 count = metal1_label.count
 logger.info("metal1_label has #{count} polygons")
 polygons_count += count
@@ -379,7 +379,7 @@ polygons_count += count
 
 metal2 = metal2_drawn + metal2_dummy
 
-metal2_label = labels(36, 10)
+metal2_label = get_polygons(36, 10)
 count = metal2_label.count
 logger.info("metal2_label has #{count} polygons")
 polygons_count += count
@@ -420,7 +420,7 @@ when '3LM', '4LM', '5LM', '6LM'
 
   metal3 = metal3_drawn + metal3_dummy
 
-  metal3_label = labels(42, 10)
+  metal3_label = get_polygons(42, 10)
   count = metal3_label.count
   logger.info("metal3_label has #{count} polygons")
   polygons_count += count
@@ -455,7 +455,7 @@ when '4LM', '5LM', '6LM'
 
   metal4 = metal4_drawn + metal4_dummy
 
-  metal4_label = labels(46, 10)
+  metal4_label = get_polygons(46, 10)
   count = metal4_label.count
   logger.info("metal4_label has #{count} polygons")
   polygons_count += count
@@ -490,7 +490,7 @@ when '5LM', '6LM'
 
   metal5 = metal5_drawn + metal5_dummy
 
-  metal5_label = labels(81, 10)
+  metal5_label = get_polygons(81, 10)
   count = metal5_label.count
   logger.info("metal5_label has #{count} polygons")
   polygons_count += count
@@ -525,7 +525,7 @@ when '6LM'
 
   metaltop       = metaltop_drawn + metaltop_dummy
 
-  metaltop_label = labels(53, 10)
+  metaltop_label = get_polygons(53, 10)
   count = metaltop_label.count
   logger.info("metaltop_label has #{count} polygons")
   polygons_count += count
