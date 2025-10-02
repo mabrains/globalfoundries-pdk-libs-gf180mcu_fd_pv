@@ -124,6 +124,18 @@ count = dualgate.count
 logger.info("dualgate has #{count} polygons")
 polygons_count += count
 
+comp_drawn = get_polygons(22, 0)
+count = comp_drawn.count
+logger.info("comp_drawn has #{count} polygons")
+polygons_count += count
+
+comp_dummy = get_polygons(22, 4)
+count = comp_dummy.count
+logger.info("comp_dummy has #{count} polygons")
+polygons_count += count
+
+comp         = comp_drawn + comp_dummy
+
 poly2_drawn = get_polygons(30, 0)
 count = poly2_drawn.count
 logger.info("poly2_drawn has #{count} polygons")
@@ -385,6 +397,16 @@ CHIP = extent.sized(0.0)
 #=====================================================================================================================
 
 logger.info('Starting GF180MCU DENSITY DRC rules.')
+
+# Rule DCF.1b: COMP coverage over the entire die shall be 25%.
+## Dummy COMP lines must be added to meet the minimum comp density requirement.
+logger.info('Executing rule DCF.1b')
+if (comp.area / CHIP.area) * 100 < 25
+  comp.output('DCF.1b',
+              'DCF.1b : COMP coverage over the entire die shall be 25%.
+              Dummy COMP lines must be added to meet the minimum COMP density
+              requirement. : 25%')
+end
 
 # Rule PL.8: Poly2 coverage over the entire die shall be 14%.
 ## Dummy poly2 lines must be added to meet the minimum poly2 density requirement.
