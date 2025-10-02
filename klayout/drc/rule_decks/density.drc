@@ -124,10 +124,17 @@ count = dualgate.count
 logger.info("dualgate has #{count} polygons")
 polygons_count += count
 
-poly2 = get_polygons(30, 0)
-count = poly2.count
-logger.info("poly2 has #{count} polygons")
+poly2_drawn = get_polygons(30, 0)
+count = poly2_drawn.count
+logger.info("poly2_drawn has #{count} polygons")
 polygons_count += count
+
+poly2_dummy = get_polygons(30, 4)
+count = poly2_dummy.count
+logger.info("poly2_dummy has #{count} polygons")
+polygons_count += count
+
+poly2         = poly2_drawn + poly2_dummy
 
 contact = get_polygons(33, 0)
 count = contact.count
